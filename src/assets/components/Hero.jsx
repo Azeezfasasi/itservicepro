@@ -12,7 +12,7 @@ const Hero = () => {
           <img
             src={heroone}
             alt="Technician at door"
-            className="rounded-tl-2xl rounded-bl-2xl h-full object-fill"
+            className="rounded-tl-2xl rounded-bl-2xl h-full object-cover"
           />
         </div>
 
@@ -48,7 +48,7 @@ const Hero = () => {
           <img
             src={herotwo}
             alt="Technician fixing toilet"
-            className="rounded-tr-2xl rounded-br-2xl h-full object-fill"
+            className="rounded-tr-2xl rounded-br-2xl h-full object-cover"
           />
         </div>
       </div>

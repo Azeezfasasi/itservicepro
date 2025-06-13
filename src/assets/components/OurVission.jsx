@@ -8,7 +8,7 @@ function OurVission() {
       <div className="max-w-7xl mx-auto grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
         {/* Left Section: Vision Statement and Description */}
         <div className="flex flex-col justify-center text-center lg:text-left">
-          <p className="text-gray-600 uppercase tracking-wide text-[14px] mb-4">Our Vision</p>
+          <p className="text-gray-600 uppercase tracking-wide text-[18px] mb-4 font-semibold">Our Vision</p>
           <h1 className="text-[25px] sm:text-[40px] lg:text-[50px] font-bold text-gray-800 leading-tight mb-6">
             At HomePro, our vision is to revolutionize the smart home repair and service industry
           </h1>

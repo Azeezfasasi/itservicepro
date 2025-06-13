@@ -5,7 +5,7 @@ function MeetExpert() {
       id: 1,
       name: 'Victor Obialor',
       title: 'Manager, IT Operations',
-      image: 'https://placehold.co/300x350/d0e2ff/ffffff?text=Expert+2',
+      image: 'https://placehold.co/300x350/d0e2ff/ffffff?text=Expert+1',
     },
     {
       id: 2,

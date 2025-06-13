@@ -1,50 +1,49 @@
 import React from 'react';
 import {
   Wrench,
-  Hammer,
-  ShieldCheck,
-  Trees,
-  Fan,
-  Bath,
+  Laptop,
+  Globe,
+  Smartphone,
+  Server,
+  Speaker,
   KeyRound,
-  Home,
 } from 'lucide-react';
 
 const services = [
   {
-    icon: <Hammer className="w-6 h-6 text-white" />,
+    icon: <Wrench className="w-6 h-6 text-white" />,
     title: 'Laptop Repair & Maintenance',
     desc: 'From hardware issues to software glitches, our expert technicians provide fast and efficient laptop repairs to get you back on track. We also offer routine maintenance to extend the life of your device and keep it running smoothly.',
   },
   {
-    icon: <Home className="w-6 h-6 text-white" />,
+    icon: <Laptop className="w-6 h-6 text-white" />,
     title: 'Laptop Sales & Purchases',
     desc: 'Need a new system or looking to upgrade? We buy and sell quality laptops — new and fairly used — at competitive prices. Get expert advice to ensure you choose the right machine for your needs.',
   },
   {
-    icon: <ShieldCheck className="w-6 h-6 text-white" />,
+    icon: <Globe className="w-6 h-6 text-white" />,
     title: 'Website Development',
     desc: 'Stand out online with a professionally crafted website. We build responsive, fast, and SEO-optimized websites tailored to your brand, business, or project — from simple landing pages to complex web applications.',
   },
   {
-    icon: <Trees className="w-6 h-6 text-white" />,
+    icon: <Smartphone className="w-6 h-6 text-white" />,
     title: 'Mobile App Development',
     desc: 'Bring your idea to life with custom-built mobile applications for Android and iOS. We design and develop user-friendly apps that are functional, secure, and scalable.',
   },
   {
-    icon: <Fan className="w-6 h-6 text-white" />,
+    icon: <Server className="w-6 h-6 text-white" />,
     title: 'Office Computer & Server Setup',
     desc: 'Setting up a new workspace or upgrading your current tech infrastructure? We handle office computer installations, network configurations, and server setups, ensuring your team works efficiently and securely.',
   },
   {
-    icon: <Bath className="w-6 h-6 text-white" />,
+    icon: <Speaker className="w-6 h-6 text-white" />,
     title: 'Sound Equipment Rentals',
     desc: 'Planning an event? We provide high-quality sound system rentals for conferences, weddings, parties, and more. From speakers to microphones, we’ve got your audio needs covered.',
   },
   {
     icon: <KeyRound className="w-6 h-6 text-white" />,
-    title: 'Locksmith',
-    desc: 'Lock Installation and Repair, Duplication, Lock Rekeying',
+    title: 'Data Cleanup & Security Services',
+    desc: 'Keep your systems secure and organized with our professional Data Cleanup and Lock Services, designed to enhance both digital and physical security.',
   },
 ];
 

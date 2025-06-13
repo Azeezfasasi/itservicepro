@@ -27,13 +27,13 @@ function MainHeader() {
         <div className="hidden lg:flex space-x-6 font-medium text-[#0A1F44]">
           <Link to="/">Home</Link>
           <Link to="/aboutus">About Us</Link>
-          <Link to="/">Our Service</Link>
-          <Link to="/">Testimonials</Link>
-          <Link to="/">Contact</Link>
+          <Link to="/ourservices">Our Service</Link>
+          <Link to="">Testimonials</Link>
+          <Link to="/contactus">Contact Us</Link>
         </div>
 
         {/* CTA Button */}
-        <Link to="" className="hidden lg:inline-block bg-[#00B9F1] text-white font-semibold px-4 py-2 rounded-full hover:bg-[#00A1D1] transition">
+        <Link to="/quoterequest" className="hidden lg:inline-block bg-[#00B9F1] text-white font-semibold px-4 py-2 rounded-full hover:bg-[#00A1D1] transition">
           Get Free Quote →
         </Link>
 
@@ -41,11 +41,11 @@ function MainHeader() {
         {menuOpen && (
           <div className="absolute top-full left-0 w-full bg-gray-300 shadow-md flex flex-col items-center py-4 z-50 lg:hidden animate-fade-in">
             <Link to="/" className="py-2 w-full text-center text-[#0A1F44] font-medium hover:bg-gray-200" onClick={() => setMenuOpen(false)}>Home</Link>
-            <Link to="/" className="py-2 w-full text-center text-[#0A1F44] font-medium hover:bg-gray-200" onClick={() => setMenuOpen(false)}>Service</Link>
-            <Link to="/" className="py-2 w-full text-center text-[#0A1F44] font-medium hover:bg-gray-200" onClick={() => setMenuOpen(false)}>Testimonials</Link>
-            <Link to="/" className="py-2 w-full text-center text-[#0A1F44] font-medium hover:bg-gray-200" onClick={() => setMenuOpen(false)}>About Us</Link>
-            <Link to="/" className="py-2 w-full text-center text-[#0A1F44] font-medium hover:bg-gray-200" onClick={() => setMenuOpen(false)}>Contact</Link>
-            <Link to="" className="mt-4 bg-[#00B9F1] text-white font-semibold px-4 py-2 rounded-full hover:bg-[#00A1D1] transition" onClick={() => setMenuOpen(false)}>
+            <Link to="/aboutus" className="py-2 w-full text-center text-[#0A1F44] font-medium hover:bg-gray-200" onClick={() => setMenuOpen(false)}>About Us</Link>
+            <Link to="/ourservices" className="py-2 w-full text-center text-[#0A1F44] font-medium hover:bg-gray-200" onClick={() => setMenuOpen(false)}>Our Service</Link>
+            <Link to="" className="py-2 w-full text-center text-[#0A1F44] font-medium hover:bg-gray-200" onClick={() => setMenuOpen(false)}>Testimonials</Link>
+            <Link to="/contactus" className="py-2 w-full text-center text-[#0A1F44] font-medium hover:bg-gray-200" onClick={() => setMenuOpen(false)}>Contact Us</Link>
+            <Link to="/quoterequest" className="mt-4 bg-[#00B9F1] text-white font-semibold px-4 py-2 rounded-full hover:bg-[#00A1D1] transition" onClick={() => setMenuOpen(false)}>
               Get Free Quote →
             </Link>
           </div>
