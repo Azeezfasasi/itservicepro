@@ -4,10 +4,12 @@ import AboutUs from './AboutUs';
 import OurServices from './OurServices';
 import QuoteRequest from './QuoteRequest';
 import ContactUs from './ContactUs';
+import ScrollToTop from './assets/components/ScrollToTop';
 
 function App() {
   return (
     <>
+    <ScrollToTop />
     <Routes>
       <Route path="/" element={<Home />} />
       <Route path="/aboutus" element={<AboutUs />} />
