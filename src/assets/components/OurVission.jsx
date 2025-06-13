@@ -9,7 +9,7 @@ function OurVission() {
         {/* Left Section: Vision Statement and Description */}
         <div className="flex flex-col justify-center text-center lg:text-left">
           <p className="text-gray-600 uppercase tracking-wide text-[18px] mb-4 font-semibold">Our Vision</p>
-          <h1 className="text-[25px] sm:text-[40px] lg:text-[50px] font-bold text-gray-800 leading-tight mb-6">
+          <h1 className="text-[25px] sm:text-[40px] lg:text-[40px] font-bold text-gray-800 leading-tight mb-6">
             At IT Service Pro, our vision is to redefine the standard of IT support and digital services by delivering innovative, customer-focused solutions that keep pace with an ever-evolving tech landscape.
           </h1>
           <p className="text-base sm:text-lg text-gray-600 leading-relaxed">
