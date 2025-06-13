@@ -10,7 +10,7 @@ function OurMission() {
         <div className="mb-12 flex flex-col justify-start items-center mx-auto">
           <p className="text-gray-600 uppercase tracking-wide text-[14px] lg:text-[20px] font-semibold mb-4 text-center lg:text-center">Our Mission</p>
           <h1 className="text-[25px] md:text-[40px] lg:text-[50px] font-bold text-gray-800 leading-tight text-center lg:text-center max-w-4xl mx-auto lg:mx-0">
-            Our mission is simple: to enhance the functionality and convenience of your smart home through exceptional repair and service.
+            At IT Service Pro, our mission is simple: To empower individuals and businesses through reliable, efficient, and expert-driven IT solutions.
           </h1>
         </div>
 
@@ -31,11 +31,9 @@ function OurMission() {
           {/* Right Side: Detailed Description */}
           <div className="flex flex-col justify-center text-center lg:text-left">
             <p className="text-gray-600 leading-relaxed text-base sm:text-lg">
-              Our mission is simple: to enhance the functionality and convenience of your smart home through
-              exceptional repair and service. We understand that your smart home is more than just a collection
-              of devices – it's a reflection of your lifestyle and a cornerstone of your daily routines. Our goal is to
-              ensure that your smart home operates seamlessly, allowing you to enjoy the benefits of automation
-              and connectivity without any interruptions.
+              We believe technology should enhance your productivity, simplify your life, and support your goals — not complicate them. Whether it's repairing laptops, setting up office systems, or building custom websites and apps, we’re committed to keeping your digital world running smoothly.
+              <br />
+              Your tech is more than just equipment — it's a vital part of how you live and work. Our goal is to make sure it performs at its best, so you can focus on what matters most.
             </p>
           </div>
         </div>
