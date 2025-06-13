@@ -63,7 +63,7 @@ function MeetExpert() {
         </div>
 
         {/* Bottom Section: Expert Cards */}
-        <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 lg:flex-row justify-center items-end gap-6">
+        <div className="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-4 lg:flex-row justify-center items-end gap-6">
           {experts.map((expert) => (
             <div
               key={expert.id}
