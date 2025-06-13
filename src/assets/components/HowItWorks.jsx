@@ -39,8 +39,7 @@ function HowItWorks() {
             <div>
               <h3 className="text-2xl font-semibold text-gray-800 mb-2">Call us anytime 24/7</h3>
               <p className="text-gray-600">
-                You can contact us directly, we will quickly put you in touch with our home care professionals
-                who are ready anytime
+                Need help? Just give us a call. Our friendly support team is available 24/7 to connect you with the right IT specialist — whether for repairs, setup, web development or rentals.
               </p>
             </div>
           </div>
@@ -51,10 +50,9 @@ function HowItWorks() {
               <span className="text-5xl font-bold text-blue-500">2.</span>
             </div>
             <div>
-              <h3 className="text-2xl font-semibold text-gray-800 mb-2">Schedule Service</h3>
+              <h3 className="text-2xl font-semibold text-gray-800 mb-2">Schedule Your Service</h3>
               <p className="text-gray-600">
-                After connecting your call, our home care experts will answer your questions and provide flexible
-                appointment times
+                We will answer all your questions and help you book a flexible appointment that fits your schedule. We work around you — not the other way around.
               </p>
             </div>
           </div>
@@ -65,10 +63,9 @@ function HowItWorks() {
               <span className="text-5xl font-bold text-blue-500">3.</span>
             </div>
             <div>
-              <h3 className="text-2xl font-semibold text-gray-800 mb-2">Your request is completed</h3>
+              <h3 className="text-2xl font-semibold text-gray-800 mb-2">Problem Solved</h3>
               <p className="text-gray-600">
-                Once your technician arrives, he will diagnose the problem and provide an estimate. If you decide
-                to continue, the technician will get to work
+                Our technician will respond on time, diagnose the issue, and provide a clear estimate. Once approved, we will get straight to work delivering fast, reliable results — every time.
               </p>
             </div>
           </div>

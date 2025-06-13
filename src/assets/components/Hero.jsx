@@ -18,9 +18,9 @@ const Hero = () => {
 
         {/* Center Content */}
         <div className="w-full lg:w-[60%] text-center space-y-4 px-4 md:px-8">
-          <p className="text-gray-400">Maintenances • Repairs • Improvements</p>
+          <p className="text-gray-400">Maintenances • Repairs • Developmemnt</p>
           <h1 className="text-3xl md:text-4xl font-bold leading-tight">
-            Need improvement <br /> or repair your home? <br />
+            Looking for expert laptop services, office IT setup, or professional website development? <br />
             <span className="text-blue-300">we can help!</span>
           </h1>
 
@@ -32,7 +32,7 @@ const Hero = () => {
             </div>
             <div className="flex items-center gap-1">
               <CheckCircle className="w-4 h-4 text-blue-400" />
-              <span>100% Commitment-Free</span>
+              <span>100% Commitment</span>
             </div>
           </div>
 
@@ -65,7 +65,7 @@ const Hero = () => {
         </div>
         <div className="flex flex-col items-center gap-1">
           <MapPin className="text-blue-400" />
-          <span>Local US Professional</span>
+          <span>IT Professional</span>
         </div>
         <div className="flex flex-col items-center gap-1">
           <Calendar className="text-blue-400" />

@@ -6,7 +6,7 @@ function MainHeader() {
 
   return (
     <>
-      <div className="bg-gray-300 py-4 px-6 flex justify-between items-center relative">
+      <div className="bg-gray-300 py-4 px-6 flex justify-between items-center sticky top-0 z-50">
         {/* Logo */}
         <div className="flex items-center space-x-2">
           <h1 className="text-xl font-bold text-[#0A1F44]">IT Service Pro</h1>
@@ -26,9 +26,9 @@ function MainHeader() {
         {/* Navigation */}
         <div className="hidden lg:flex space-x-6 font-medium text-[#0A1F44]">
           <Link to="/">Home</Link>
-          <Link to="/">Service</Link>
+          <Link to="/aboutus">About Us</Link>
+          <Link to="/">Our Service</Link>
           <Link to="/">Testimonials</Link>
-          <Link to="/">About Us</Link>
           <Link to="/">Contact</Link>
         </div>
 

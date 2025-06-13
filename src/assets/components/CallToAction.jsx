@@ -10,13 +10,12 @@ function CallToAction() {
         {/* Left Section: Text Content */}
         <div className="flex flex-col justify-center text-center lg:text-left">
           <h1 className="text-[30px] lg::text-6xl font-bold text-gray-800 leading-tight mb-6">
-            Our Home Services <br /> Transforming Your Home <br /> with Expert Care
+            Powering Your Devices, Spaces & Digital Presence
           </h1>
           <p className="text-base sm:text-lg text-gray-600 leading-relaxed mb-8">
-            With a focus on quality craftsmanship and attention to detail, we strive for
-            excellence in every aspect of our work. From diagnosing and fixing issues
-            to enhancing the aesthetics and functionality of your home, we take pride
-            in providing reliable and efficient services.
+            At IT Service Pro, we deliver reliable, expert-driven solutions designed to keep your technology running smoothly and your business moving forward. From diagnosing and repairing laptops to setting up office networks and building powerful websites and apps, we bring precision, efficiency, and attention to detail to every service we offer.
+            <br />
+            Let us handle the tech — so you can stay focused on what matters most.
           </p>
           <div className="flex justify-center lg:justify-start">
             <button className="flex items-center space-x-3 bg-blue-500 hover:bg-blue-600 text-white font-semibold py-3 px-6 rounded-full shadow-lg transition duration-300 ease-in-out transform hover:-translate-y-1">

@@ -13,33 +13,33 @@ import {
 const services = [
   {
     icon: <Hammer className="w-6 h-6 text-white" />,
-    title: 'Plumbing services',
-    desc: 'Drain pipe leaking, pipe clogged, replace the pipe line',
+    title: 'Laptop Repair & Maintenance',
+    desc: 'From hardware issues to software glitches, our expert technicians provide fast and efficient laptop repairs to get you back on track. We also offer routine maintenance to extend the life of your device and keep it running smoothly.',
   },
   {
     icon: <Home className="w-6 h-6 text-white" />,
-    title: 'Roofing repair',
-    desc: 'Roof leaks, tile replacement, roof cleaning and maintenance',
+    title: 'Laptop Sales & Purchases',
+    desc: 'Need a new system or looking to upgrade? We buy and sell quality laptops — new and fairly used — at competitive prices. Get expert advice to ensure you choose the right machine for your needs.',
   },
   {
     icon: <ShieldCheck className="w-6 h-6 text-white" />,
-    title: 'Mold Removal',
-    desc: 'Removing and cleaning mildew, Restoration and Prevention',
+    title: 'Website Development',
+    desc: 'Stand out online with a professionally crafted website. We build responsive, fast, and SEO-optimized websites tailored to your brand, business, or project — from simple landing pages to complex web applications.',
   },
   {
     icon: <Trees className="w-6 h-6 text-white" />,
-    title: 'Tree Trimming',
-    desc: 'Trimming and cleaning, Deadwood removal, Tree shaping',
+    title: 'Mobile App Development',
+    desc: 'Bring your idea to life with custom-built mobile applications for Android and iOS. We design and develop user-friendly apps that are functional, secure, and scalable.',
   },
   {
     icon: <Fan className="w-6 h-6 text-white" />,
-    title: 'Appliance Repair',
-    desc: 'repair of washing machines, refrigerators, Air conditioner, etc',
+    title: 'Office Computer & Server Setup',
+    desc: 'Setting up a new workspace or upgrading your current tech infrastructure? We handle office computer installations, network configurations, and server setups, ensuring your team works efficiently and securely.',
   },
   {
     icon: <Bath className="w-6 h-6 text-white" />,
-    title: 'Bathroom Remodeling',
-    desc: 'Design and Consulting, installation, Repairing, tile repair',
+    title: 'Sound Equipment Rentals',
+    desc: 'Planning an event? We provide high-quality sound system rentals for conferences, weddings, parties, and more. From speakers to microphones, we’ve got your audio needs covered.',
   },
   {
     icon: <KeyRound className="w-6 h-6 text-white" />,
@@ -56,14 +56,14 @@ const ServicesSection = () => {
         <div className="text-center mb-12">
           <h2 className="text-3xl md:text-4xl font-bold text-gray-800">Our Services</h2>
           <p className="mt-2 text-gray-500 max-w-2xl mx-auto">
-            You have problems with leaking pipes, broken tiles, lost keys or want to tidy up the trees around you, of course you need our help!
+            At IT Service Pro, we’re your trusted tech partner, delivering reliable solutions that keep you connected, productive, and ahead of the curve. Whether you're an individual, a small business, or a large organization, we offer a wide range of services to meet your digital and hardware needs:
           </p>
         </div>
 
         {/* Services Grid */}
         <div className="grid md:grid-cols-3 lg:grid-cols-4 sm:grid-cols-2 grid-cols-1 gap-6">
           {services.map((service, index) => (
-            <div key={index} className="flex flex-col gap-4 items-center md:items-start justify-center mx-auto h-[200px] px-2 border border-solid border-gray-300 shadow-lg rounded-md">
+            <div key={index} className="flex flex-col gap-4 items-center md:items-start justify-start mx-auto h-[220px] md:h-[300px] lg:h-[250px] pt-5 px-2 border border-solid border-gray-300 shadow-lg rounded-md">
               <div className="bg-[#0A1F44] p-3 rounded-lg">
                 {service.icon}
               </div>
