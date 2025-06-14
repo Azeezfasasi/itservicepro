@@ -18,6 +18,7 @@ function DashMenu() {
     '/app/profile': '4',
     '/app/allusers': '5-1',
     '/app/addnewuser': '5-2',
+    '/app/changeuserpassword': '5-3',
     '/app/mysettings': '6',
   };
   const activeKey = menuKeyByPath[location.pathname];
@@ -53,6 +54,7 @@ function DashMenu() {
                     <Nav.Menu eventKey="5" title="Users" icon={<MagicIcon />}>
                         <Nav.Item eventKey="5-1" as={Link} to="/app/allusers">All Users</Nav.Item>
                         <Nav.Item eventKey="5-2" as={Link} to="/app/addnewuser">Add New User</Nav.Item>
+                        <Nav.Item eventKey="5-2" as={Link} to="/app/changeuserpassword">Change User Password</Nav.Item>
                     </Nav.Menu>
                     )}
                     {(isSuperAdmin || isAdmin || isUser || isCustomer) && (

@@ -1,7 +1,7 @@
 import React from 'react';
 import { PhoneCall, Clock, CheckCircle, MapPin, Calendar } from 'lucide-react';
 import heroone from '../images/heroone.jpg'
-import herotwo from '../images/herotwo.jpeg'
+import explore from '../images/explore.jpg'
 
 const Hero = () => {
   return (
@@ -46,9 +46,9 @@ const Hero = () => {
         {/* Right Image */}
         <div className="hidden lg:block w-[25%] h-[400px]">
           <img
-            src={herotwo}
+            src={explore}
             alt="Technician fixing toilet"
-            className="rounded-tr-2xl rounded-br-2xl h-full object-cover"
+            className="rounded-tr-2xl rounded-br-2xl h-full object-fil"
           />
         </div>
       </div>

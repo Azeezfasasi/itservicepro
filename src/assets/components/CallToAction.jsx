@@ -1,5 +1,4 @@
-import heroone from '../images/heroone.jpg';
-// import herotwo from '../images/herotwo.jpeg';
+import visible2 from '../images/visible2.jpg';
 
 function CallToAction() {
   return (
@@ -33,7 +32,7 @@ function CallToAction() {
         <div className="relative w-full h-96 sm:h-[500px] lg:h-[600px] flex justify-center items-center">
           {/* Main image with rounded corners and shadow */}
           <img
-            src={heroone}
+            src={visible2}
             alt="Home Services"
             className="absolute rounded-3xl shadow-xl object-cover w-full h-full transform rotate-3 scale-105"
           />

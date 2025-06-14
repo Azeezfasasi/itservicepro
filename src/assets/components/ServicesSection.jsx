@@ -35,11 +35,11 @@ const services = [
     title: 'Office Computer & Server Setup',
     desc: 'Setting up a new workspace or upgrading your current tech infrastructure? We handle office computer installations, network configurations, and server setups, ensuring your team works efficiently and securely.',
   },
-  {
-    icon: <Speaker className="w-6 h-6 text-white" />,
-    title: 'Sound Equipment Rentals',
-    desc: 'Planning an event? We provide high-quality sound system rentals for conferences, weddings, parties, and more. From speakers to microphones, we’ve got your audio needs covered.',
-  },
+  // {
+  //   icon: <Speaker className="w-6 h-6 text-white" />,
+  //   title: 'Sound Equipment Rentals',
+  //   desc: 'Planning an event? We provide high-quality sound system rentals for conferences, weddings, parties, and more. From speakers to microphones, we’ve got your audio needs covered.',
+  // },
   {
     icon: <KeyRound className="w-6 h-6 text-white" />,
     title: 'Data Cleanup & Security Services',

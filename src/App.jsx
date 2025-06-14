@@ -25,6 +25,7 @@ import AllUsers from './app/AllUsers';
 import AddNewUser from './app/AddNewUser';
 import { Settings } from 'lucide-react';
 import MySettings from './app/MySettings';
+import ChangeUserPassword from './app/ChangeUserPassword';
 
 function App() {
   return (
@@ -57,6 +58,7 @@ function App() {
                 <Route path="/app/allusers" element={<AllUsers />} />
                 <Route path="/app/addnewuser" element={<AddNewUser />} />
                 <Route path="/app/mysettings" element={<MySettings />} />
+                <Route path="/app/changeuserpassword" element={<ChangeUserPassword />} />
               </Route>
             </Routes>
           </BlogProvider>

@@ -1,4 +1,4 @@
-import heroone from '../images/heroone.jpg'
+import globe from '../images/globe.png'
 
 function TrackRecords() {
     const stats = [
@@ -15,7 +15,7 @@ function TrackRecords() {
         <div className='flex flex-col lg:flex-row justify-center'>
             <div className='hidden lg:block lg:w-[50%]'>
                 <img
-                src={heroone}
+                src={globe}
                 alt="Modern Home with Pool"
                 className="w-full h-full object-fill rounded-bl-3xl rounded-br-3xl"
                 />     

@@ -1,4 +1,5 @@
-import heroone from '../images/heroone.jpg'
+// import heroone from '../images/heroone.jpg'
+import computer from '../images/computer.jpg'
 
 function HowItWorks() {
   return (
@@ -10,9 +11,9 @@ function HowItWorks() {
         <div className="relative w-full h-96 sm:h-[500px] lg:h-[600px] flex justify-center items-center">
           {/* Main image with rounded corners and shadow */}
           <img
-            src={heroone}
+            src={computer}
             alt="Professional Worker"
-            className="absolute rounded-3xl shadow-xl object-cover w-full h-full"
+            className="absolute rounded-3xl shadow-xl object-fill w-full h-full"
           />
 
           {/* Blue checkmark badge */}

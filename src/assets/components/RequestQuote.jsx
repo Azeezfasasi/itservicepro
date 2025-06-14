@@ -37,7 +37,7 @@ function RequestQuote() {
             </h1>
             <p className='font-semibold text-[18px]'>Get in Touch Today!</p>
             <p className="text-base sm:text-lg text-gray-600 leading-relaxed mb-8">
-              Whether you need a laptop repair, a website/app built, a complete office IT setup, or Sound Equipments, our team is here to help. <br /> Have a question, need a quote, or ready to schedule a service? We’re just a call or message away.
+              Whether you need a laptop repair, a website/app built, a complete office IT setup, or any other tech service, our team is here to help. <br /> Have a question, need a quote, or ready to schedule a service? We’re just a call or message away.
               <br />
               Reach out using the contact details below or fill out our quick form and we will respond promptly.
               We look forward to delivering reliable, professional tech solutions that keep you moving forward.
@@ -101,8 +101,17 @@ function RequestQuote() {
                   <option value="Laptop Repair">Laptop Repair</option>
                   <option value="Website Development">Website Development</option>
                   <option value="Mobile App Development">Mobile App Development</option>
-                  <option value="Sounds Equipment Rentals">Sounds Equipment Rentals</option>
                   <option value="Office Computer & Server Setup">Office Computer & Server Setup</option>
+                  <option value="IT Solutions">IT Solutions</option>                  
+                  <option value="Networking">Networking</option>
+                  <option value="Data Recovery">Data Recovery</option>
+                  <option value="Software Installation">Software Installation</option>
+                  <option value="Hardware Upgrade">Hardware Upgrade</option>
+                  <option value="Virus Removal">Virus Removal</option>
+                  <option value="Technical Support">Technical Support</option>
+                  <option value="Consultation">Consultation</option>
+                  <option value="Maintenance">Maintenance</option>
+                  <option value="Other">Other Tech Services</option>
                 </select>
               </div>
               <div>
