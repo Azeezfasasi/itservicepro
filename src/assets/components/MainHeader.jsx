@@ -1,5 +1,6 @@
-import React, { useState } from 'react'
+import { useState } from 'react'
 import { Link } from 'react-router-dom'
+import accountprofile from '../images/accountprofile.svg'
 
 function MainHeader() {
   const [menuOpen, setMenuOpen] = useState(false)
@@ -13,29 +14,40 @@ function MainHeader() {
         </Link>
 
         {/* Hamburger Icon (Mobile) */}
-        <button
+        <div className='lg:hidden flex flex-row justify-start items-center gap-4'>
+          <Link to="/login" className='lg:hidden block'>
+            <img src={accountprofile} alt="profile" className='w-10 h-10 lg:hidden block' />
+          </Link>
+          <button
           className="lg:hidden flex flex-col justify-center items-center w-10 h-10 focus:outline-none"
           onClick={() => setMenuOpen(!menuOpen)}
           aria-label="Toggle menu"
-        >
-          <span className={`block h-0.5 w-6 bg-[#0A1F44] mb-1 transition-transform duration-300 ${menuOpen ? 'rotate-45 translate-y-2' : ''}`}></span>
-          <span className={`block h-0.5 w-6 bg-[#0A1F44] mb-1 transition-opacity duration-300 ${menuOpen ? 'opacity-0' : ''}`}></span>
-          <span className={`block h-0.5 w-6 bg-[#0A1F44] transition-transform duration-300 ${menuOpen ? '-rotate-45 -translate-y-2' : ''}`}></span>
-        </button>
+          >
+            <span className={`block h-0.5 w-6 bg-[#0A1F44] mb-1 transition-transform duration-300 ${menuOpen ? 'rotate-45 translate-y-2' : ''}`}></span>
+            <span className={`block h-0.5 w-6 bg-[#0A1F44] mb-1 transition-opacity duration-300 ${menuOpen ? 'opacity-0' : ''}`}></span>
+            <span className={`block h-0.5 w-6 bg-[#0A1F44] transition-transform duration-300 ${menuOpen ? '-rotate-45 -translate-y-2' : ''}`}></span>
+          </button>
+        </div>
 
         {/* Navigation */}
         <div className="hidden lg:flex space-x-6 font-medium text-[#0A1F44]">
           <Link to="/">Home</Link>
           <Link to="/aboutus">About Us</Link>
           <Link to="/ourservices">Our Service</Link>
-          <Link to="">Testimonials</Link>
+          <Link to="/app/blog">Blog</Link>
           <Link to="/contactus">Contact Us</Link>
         </div>
 
         {/* CTA Button */}
-        <Link to="/quoterequest" className="hidden lg:inline-block bg-[#00B9F1] text-white font-semibold px-4 py-2 rounded-full hover:bg-[#00A1D1] transition">
+        <div className='hidden lg:flex flex-row justify-start gap-4 items-center'>
+          {/* <i className='fa fa-user'></i> */}
+          <Link to="/login" className='hidden lg:block'>
+            <img src={accountprofile} alt="profile" className='w-10 h-10 hidden lg:block' />
+          </Link>
+          <Link to="/quoterequest" className="hidden lg:inline-block bg-[#00B9F1] text-white font-semibold px-4 py-2 rounded-full hover:bg-[#00A1D1] transition">
           Get Free Quote →
-        </Link>
+          </Link>
+        </div>
 
         {/* Mobile Menu */}
         {menuOpen && (
@@ -43,7 +55,7 @@ function MainHeader() {
             <Link to="/" className="py-2 w-full text-center text-[#0A1F44] font-medium hover:bg-gray-200" onClick={() => setMenuOpen(false)}>Home</Link>
             <Link to="/aboutus" className="py-2 w-full text-center text-[#0A1F44] font-medium hover:bg-gray-200" onClick={() => setMenuOpen(false)}>About Us</Link>
             <Link to="/ourservices" className="py-2 w-full text-center text-[#0A1F44] font-medium hover:bg-gray-200" onClick={() => setMenuOpen(false)}>Our Service</Link>
-            <Link to="" className="py-2 w-full text-center text-[#0A1F44] font-medium hover:bg-gray-200" onClick={() => setMenuOpen(false)}>Testimonials</Link>
+            <Link to="/app/blog" className="py-2 w-full text-center text-[#0A1F44] font-medium hover:bg-gray-200" onClick={() => setMenuOpen(false)}>Blog</Link>
             <Link to="/contactus" className="py-2 w-full text-center text-[#0A1F44] font-medium hover:bg-gray-200" onClick={() => setMenuOpen(false)}>Contact Us</Link>
             <Link to="/quoterequest" className="mt-4 bg-[#00B9F1] text-white font-semibold px-4 py-2 rounded-full hover:bg-[#00A1D1] transition" onClick={() => setMenuOpen(false)}>
               Get Free Quote →
