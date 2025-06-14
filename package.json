@@ -20,6 +20,7 @@
     "react-loading": "^2.0.3",
     "react-router-dom": "^7.6.2",
     "react-spinners": "^0.17.0",
+    "recharts": "^2.15.3",
     "rsuite": "^5.82.0",
     "tailwindcss": "^4.1.10"
   },

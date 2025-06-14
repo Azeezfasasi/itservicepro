@@ -3,6 +3,7 @@ import DashHeader from '../assets/components/dashboard-components/DashHeader'
 import DashMenu from '../assets/components/dashboard-components/DashMenu'
 import { Helmet } from 'react-helmet'
 import DashStats from '../assets/components/dashboard-components/DashStats'
+import DashChart from '../assets/components/dashboard-components/DashChart'
 
 function Dashboard() {
   return (
@@ -17,6 +18,7 @@ function Dashboard() {
       </div>
       <div className='w-full lg:w-[80%]'>
         <DashStats />
+        <DashChart />
       </div>
     </div>
     </>
