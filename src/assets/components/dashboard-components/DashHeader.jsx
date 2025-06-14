@@ -90,18 +90,20 @@ function DashHeader() {
 
       {/* Mobile Menu */}
       {menuOpen && (
-        <div className="absolute top-full left-0 w-full bg-white shadow-md flex flex-col items-center py-4 z-50 lg:hidden animate-fade-in border-b">
-          <Link to="/app/dashboard" className="py-2 w-full text-center text-[#0A1F44] font-medium hover:bg-gray-100" onClick={() => setMenuOpen(false)}>Dashboard</Link>
+        <div className="absolute top-full left-0 w-full bg-white shadow-md flex flex-col items-start pl-4 py-4 z-50 lg:hidden animate-fade-in border-b">
+          <Link to="/app/dashboard" className="py-2 w-full text-left text-[#0A1F44] font-medium hover:bg-gray-100" onClick={() => setMenuOpen(false)}>Dashboard</Link>
           {(user?.role === 'admin' || user?.role === 'super admin') && (
-            <Link to="/app/quote" className="py-2 w-full text-center text-[#0A1F44] font-medium hover:bg-gray-100" onClick={() => setMenuOpen(false)}>Quote Request</Link>
+            <Link to="/app/quote" className="py-2 w-full text-left text-[#0A1F44] font-medium hover:bg-gray-100" onClick={() => setMenuOpen(false)}>Quote Request</Link>
           )}
-          <Link to="/app/blogposts" className="py-2 w-full text-center text-[#0A1F44] font-medium hover:bg-gray-100" onClick={() => setMenuOpen(false)}>All Posts</Link>
-          <Link to="/app/addnewpost" className="py-2 w-full text-center text-[#0A1F44] font-medium hover:bg-gray-100" onClick={() => setMenuOpen(false)}>Add New Post</Link>
-          <Link to="/app/profile" className="py-2 w-full text-center text-[#0A1F44] font-medium hover:bg-gray-100" onClick={() => setMenuOpen(false)}>Profile</Link>
-          <Link to="/app/allusers" className="py-2 w-full text-center text-[#0A1F44] font-medium hover:bg-gray-100" onClick={() => setMenuOpen(false)}>All Users</Link>
-          <Link to="/app/addnewuser" className="py-2 w-full text-center text-[#0A1F44] font-medium hover:bg-gray-100" onClick={() => setMenuOpen(false)}>Add New User</Link>
-          <Link to="/app/changeuserpassword" className="py-2 w-full text-center text-[#0A1F44] font-medium hover:bg-gray-100" onClick={() => setMenuOpen(false)}>Change User Password</Link>
-          <Link to="/app/mysettings" className="py-2 w-full text-center text-[#0A1F44] font-medium hover:bg-gray-100" onClick={() => setMenuOpen(false)}>Settings</Link>
+          <Link to="/app/blogposts" className="py-2 w-full text-left text-[#0A1F44] font-medium hover:bg-gray-100" onClick={() => setMenuOpen(false)}>All Posts</Link>
+          <Link to="/app/addnewpost" className="py-2 w-full text-left text-[#0A1F44] font-medium hover:bg-gray-100" onClick={() => setMenuOpen(false)}>Add New Post</Link>
+          <Link to="/app/profile" className="py-2 w-full text-left text-[#0A1F44] font-medium hover:bg-gray-100" onClick={() => setMenuOpen(false)}>Profile</Link>
+          <Link to="/app/allusers" className="py-2 w-full text-left text-[#0A1F44] font-medium hover:bg-gray-100" onClick={() => setMenuOpen(false)}>All Users</Link>
+          <Link to="/app/addnewuser" className="py-2 w-full text-left text-[#0A1F44] font-medium hover:bg-gray-100" onClick={() => setMenuOpen(false)}>Add New User</Link>
+          <Link to="/app/changeuserpassword" className="py-2 w-full text-left text-[#0A1F44] font-medium hover:bg-gray-100" onClick={() => setMenuOpen(false)}>Change User Password</Link>
+          <Link to="/app/products" className="py-2 w-full text-left text-[#0A1F44] font-medium hover:bg-gray-100" onClick={() => setMenuOpen(false)}>All Products</Link>
+          <Link to="/app/addproduct" className="py-2 w-full text-left text-[#0A1F44] font-medium hover:bg-gray-100" onClick={() => setMenuOpen(false)}>Add Product</Link>
+          <Link to="/app/mysettings" className="py-2 w-full text-left text-[#0A1F44] font-medium hover:bg-gray-100" onClick={() => setMenuOpen(false)}>Settings</Link>
           <button onClick={() => { setMenuOpen(false); handleLogout(); }} className="mt-4 bg-red-500 text-white px-4 py-2 rounded-full hover:bg-red-600 transition">Logout</button>
           <div className="flex flex-row items-center gap-2 mt-4">
             <img src={accountprofile} alt="profile" className="w-8 h-8 rounded-full border" />
