@@ -13,8 +13,8 @@ function DashMenu() {
   const menuKeyByPath = {
     '/app/dashboard': '1',
     '/app/quote': '2',
-    '/app/addnewpost': '3-1',
-    '/app/blogposts': '3-2',
+    '/app/blogposts': '3-1',
+    '/app/addnewpost': '3-2',
     '/app/profile': '4',
     '/app/allusers': '5-1',
     '/app/addnewuser': '5-2',
@@ -41,8 +41,8 @@ function DashMenu() {
                     )}
                     {(isSuperAdmin || isAdmin) && (
                     <Nav.Menu eventKey="3" title="Blog Post" icon={<MagicIcon />}>
-                        <Nav.Item eventKey="3-1" as={Link} to="/app/addnewpost">Add New Post</Nav.Item>
-                        <Nav.Item eventKey="3-2" as={Link} to="/app/blogposts">All Posts</Nav.Item>
+                        <Nav.Item eventKey="3-1" as={Link} to="/app/blogposts">All Posts</Nav.Item>
+                        <Nav.Item eventKey="3-2" as={Link} to="/app/addnewpost">Add New Post</Nav.Item>
                     </Nav.Menu>
                     )}
                     {(isSuperAdmin || isAdmin || isUser || isCustomer) && (
