@@ -75,12 +75,12 @@ function Login() {
           <div className="mt-4 text-center">
             <Link to="/forgetpassword" className="text-blue-500 hover:underline text-sm">Forgot password?</Link>
           </div>
-          <div className="flex flex-row justify-center items-center gap-1 mt-4 text-center text-black font-semibold">
+          {/* <div className="flex flex-row justify-center items-center gap-1 mt-4 text-center text-black font-semibold">
             <span>Don't have an account?</span>
             <Link to="/register" className='text-blue-500  hover:underline text-sm'>
                 Register
             </Link>
-          </div>
+          </div> */}
         </form>
       </div>
       <Footer />
