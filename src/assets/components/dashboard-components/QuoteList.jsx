@@ -157,7 +157,7 @@ const QuoteList = () => {
 
       {/* Filters and Search */}
       <div className="flex flex-col md:flex-row justify-between mb-6 gap-4">
-        <div className="flex items-center gap-2">
+        <div className="flex flex-col md:flex-row items-center gap-2">
           <div className="relative">
             <div className="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none">
               <FaSearch className="text-gray-400" />
