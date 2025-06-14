@@ -100,6 +100,7 @@ function DashHeader() {
           <Link to="/app/profile" className="py-2 w-full text-center text-[#0A1F44] font-medium hover:bg-gray-100" onClick={() => setMenuOpen(false)}>Profile</Link>
           <Link to="/app/allusers" className="py-2 w-full text-center text-[#0A1F44] font-medium hover:bg-gray-100" onClick={() => setMenuOpen(false)}>All Users</Link>
           <Link to="/app/addnewuser" className="py-2 w-full text-center text-[#0A1F44] font-medium hover:bg-gray-100" onClick={() => setMenuOpen(false)}>Add New User</Link>
+          <Link to="/app/changeuserpassword" className="py-2 w-full text-center text-[#0A1F44] font-medium hover:bg-gray-100" onClick={() => setMenuOpen(false)}>Change User Password</Link>
           <Link to="/app/mysettings" className="py-2 w-full text-center text-[#0A1F44] font-medium hover:bg-gray-100" onClick={() => setMenuOpen(false)}>Settings</Link>
           <button onClick={() => { setMenuOpen(false); handleLogout(); }} className="mt-4 bg-red-500 text-white px-4 py-2 rounded-full hover:bg-red-600 transition">Logout</button>
           <div className="flex flex-row items-center gap-2 mt-4">
