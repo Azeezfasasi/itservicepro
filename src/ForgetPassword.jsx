@@ -3,6 +3,7 @@ import TopHeader from './assets/components/TopHeader';
 import MainHeader from './assets/components/MainHeader';
 import { useUser } from './assets/context-api/user-context/UseUser';
 import { Helmet } from 'react-helmet'
+import { API_BASE_URL } from './config/api';
 
 function ForgetPassword() {
   const [email, setEmail] = useState('');
@@ -20,7 +21,7 @@ function ForgetPassword() {
     }
     try {
       // Call backend endpoint for password reset
-      const res = await fetch(`${import.meta.env.VITE_API_BASE_URL || 'http://localhost:5000/api'}/users/request-password-reset`, {
+      const res = await fetch(`${import.meta.env.VITE_API_BASE_URL || `${API_BASE_URL}`}/users/request-password-reset`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ email })
