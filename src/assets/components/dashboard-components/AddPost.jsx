@@ -71,7 +71,6 @@ function AddPost() {
             onChange={handleChange}
             className="w-full border rounded px-3 py-2"
           >
-              <option value="">Select Category</option>
               <option value="Business">Business</option>
               <option value="Repair">Repair</option>
               <option value="Web Development">Web Developmemt</option>
