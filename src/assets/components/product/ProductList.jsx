@@ -11,8 +11,9 @@ const ProductList = () => {
     success,
     totalProducts,
     totalPages,
-    currentPage,
+    // currentPage,
     fetchProducts,
+    fetchCategories, 
     deleteProduct,
     formatPrice,
     calculateSalePrice
@@ -25,17 +26,18 @@ const ProductList = () => {
   const [showDeleteModal, setShowDeleteModal] = useState(false);
   const [productToDelete, setProductToDelete] = useState(null);
   const [categories, setCategories] = useState([]);
+  const [page, setPage] = useState(1); // Add this - define the page state variable
 
   useEffect(() => {
     loadProducts();
     // Fetch categories for filter dropdown
     loadCategories();
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [currentPage, sortField, sortDirection]);
+  }, [page, sortField, sortDirection]); // Change currentPage to page
 
   const loadProducts = async () => {
     const params = {
-      page: currentPage,
+      page: page, // Use page instead of currentPage
       sort: `${sortDirection === 'desc' ? '-' : ''}${sortField}`,
       limit: 10
     };
@@ -52,7 +54,6 @@ const ProductList = () => {
   };
 
   const loadCategories = async () => {
-    // This would need to be implemented in your ProductProvider
     const categoryData = await fetchCategories();
     setCategories(categoryData || []);
   };
@@ -84,14 +85,26 @@ const ProductList = () => {
     }
   };
 
-  const changePage = (page) => {
-    if (page > 0 && page <= totalPages) {
-      setCurrentPage(page);
+  const changePage = (newPage) => {
+    if (newPage > 0 && newPage <= totalPages) {
+      setPage(newPage); // Use setPage instead of setCurrentPage
     }
   };
 
   return (
     <div className="bg-white rounded-lg shadow-md p-6">
+      {/* Rest of your component remains the same */}
+      {/* Just update the image src to use import.meta.env.VITE_API_URL */}
+      {/* Replace: */}
+      {/* src={product.featuredImage.startsWith('http') 
+              ? product.featuredImage 
+              : `${process.env.REACT_APP_API_URL}${product.featuredImage}`} */}
+      {/* With: */}
+      {/* src={product.featuredImage.startsWith('http') 
+              ? product.featuredImage 
+              : `${import.meta.env.VITE_API_URL || ''}${product.featuredImage}`} */}
+      
+      {/* Uncomment and fix the image display section */}
       <div className="flex justify-between items-center mb-6">
         <h2 className="text-2xl font-bold text-gray-800">Products</h2>
         <Link 
@@ -240,11 +253,11 @@ const ProductList = () => {
                   <tr key={product._id} className="hover:bg-gray-50">
                     <td className="px-6 py-4 whitespace-nowrap">
                       <div className="flex-shrink-0 h-16 w-16 bg-gray-100 rounded overflow-hidden">
-                        {/* {product.featuredImage ? (
+                        {product.featuredImage ? (
                           <img 
                             src={product.featuredImage.startsWith('http') 
                               ? product.featuredImage 
-                              : `${process.env.REACT_APP_API_URL}${product.featuredImage}`}
+                              : `${import.meta.env.VITE_API_URL || ''}${product.featuredImage}`}
                             alt={product.name}
                             className="h-full w-full object-cover"
                           />
@@ -252,7 +265,7 @@ const ProductList = () => {
                           <div className="h-full w-full flex items-center justify-center bg-gray-200 text-gray-400">
                             No Image
                           </div>
-                        )} */}
+                        )}
                       </div>
                     </td>
                     <td className="px-6 py-4">
@@ -305,7 +318,7 @@ const ProductList = () => {
                           <FaEye size={18} />
                         </Link>
                         <Link 
-                          to={`/admin/products/edit/${product._id}`} 
+                          to={`/app/editproduct/${product._id}`} 
                           className="text-indigo-600 hover:text-indigo-900"
                           title="Edit"
                         >
@@ -333,19 +346,19 @@ const ProductList = () => {
         <div className="flex justify-between items-center mt-6">
           <div>
             <p className="text-sm text-gray-700">
-              Showing <span className="font-medium">{(currentPage - 1) * 10 + 1}</span> to{' '}
+              Showing <span className="font-medium">{(page - 1) * 10 + 1}</span> to{' '}
               <span className="font-medium">
-                {Math.min(currentPage * 10, totalProducts)}
+                {Math.min(page * 10, totalProducts)}
               </span>{' '}
               of <span className="font-medium">{totalProducts}</span> products
             </p>
           </div>
           <div className="flex space-x-2">
             <button
-              onClick={() => changePage(currentPage - 1)}
-              disabled={currentPage === 1}
+              onClick={() => changePage(page - 1)}
+              disabled={page === 1}
               className={`px-3 py-1 rounded ${
-                currentPage === 1 
+                page === 1 
                   ? 'bg-gray-100 text-gray-400 cursor-not-allowed' 
                   : 'bg-white border border-gray-300 text-gray-700 hover:bg-gray-50'
               }`}
@@ -357,12 +370,12 @@ const ProductList = () => {
               let pageNum;
               if (totalPages <= 5) {
                 pageNum = i + 1;
-              } else if (currentPage <= 3) {
+              } else if (page <= 3) {
                 pageNum = i + 1;
-              } else if (currentPage >= totalPages - 2) {
+              } else if (page >= totalPages - 2) {
                 pageNum = totalPages - 4 + i;
               } else {
-                pageNum = currentPage - 2 + i;
+                pageNum = page - 2 + i;
               }
               
               return (
@@ -370,7 +383,7 @@ const ProductList = () => {
                   key={pageNum}
                   onClick={() => changePage(pageNum)}
                   className={`px-3 py-1 rounded ${
-                    currentPage === pageNum 
+                    page === pageNum 
                       ? 'bg-blue-600 text-white' 
                       : 'bg-white border border-gray-300 text-gray-700 hover:bg-gray-50'
                   }`}
@@ -380,10 +393,10 @@ const ProductList = () => {
               );
             })}
             <button
-              onClick={() => changePage(currentPage + 1)}
-              disabled={currentPage === totalPages}
+              onClick={() => changePage(page + 1)}
+              disabled={page === totalPages}
               className={`px-3 py-1 rounded ${
-                currentPage === totalPages 
+                page === totalPages 
                   ? 'bg-gray-100 text-gray-400 cursor-not-allowed' 
                   : 'bg-white border border-gray-300 text-gray-700 hover:bg-gray-50'
               }`}

@@ -634,11 +634,11 @@ const ProductForm = () => {
                 {/* Existing images from server */}
                 {images.map((image, index) => (
                   <div key={`existing-${index}`} className="relative group">
-                    {/* <img
-                      src={image.startsWith('http') ? image : `${process.env.REACT_APP_API_URL}${image}`}
+                    <img
+                      src={image.startsWith('http') ? image : `${import.meta.env.VITE_API_URL || ''}${image}`}
                       alt={`Product ${index}`}
                       className="h-32 w-full object-cover rounded-md"
-                    /> */}
+                    />
                     <button
                       type="button"
                       onClick={() => removeImage(index, 'existing')}
@@ -746,3 +746,4 @@ const ProductForm = () => {
 };
 
 export default ProductForm;
+

@@ -30,6 +30,8 @@ import { ProductProvider } from './assets/context-api/product-context/ProductPro
 import AddProduct from './app/AddProduct';
 import ProductDetails from './app/ProductDetails';
 import Products from './app/Products';
+import ProductCategories from './app/ProductCategories';
+import AddProductCategory from './app/AddProductCategory';
 
 function App() {
   return (
@@ -67,6 +69,8 @@ function App() {
                   <Route path="/app/addproduct" element={<AddProduct />} />
                   <Route path="/app/productdetails/:id" element={<ProductDetails />} />
                   <Route path="/app/products" element={<Products />} />
+                  <Route path="/app/productcategories" element={<ProductCategories />} />
+                  <Route path="/app/addproductcategory" element={<AddProductCategory />} />
                 </Route>
               </Routes>
             </ProductProvider>

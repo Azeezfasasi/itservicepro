@@ -10,6 +10,7 @@ export const ProductProvider = ({ children }) => {
   const [saleProducts, setSaleProducts] = useState([]);
   const [product, setProduct] = useState(null);
   const [categories, setCategories] = useState([]);
+  const [category, setCategory] = useState(null);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState('');
   const [success, setSuccess] = useState('');
@@ -28,6 +29,8 @@ export const ProductProvider = ({ children }) => {
       return () => clearTimeout(timer);
     }
   }, [success, error]);
+
+  // Products Functions ===================================
 
   // Fetch all products with optional filtering, sorting, and pagination
   const fetchProducts = async (params = {}) => {
@@ -397,7 +400,9 @@ export const ProductProvider = ({ children }) => {
     }
   };
 
-  // Fetch categories (for product management)
+  // Category Functions ===================================
+
+  // Fetch all categories
   const fetchCategories = async () => {
     setLoading(true);
     setError('');
@@ -414,6 +419,208 @@ export const ProductProvider = ({ children }) => {
     }
   };
 
+  // Fetch category by ID
+  const fetchCategoryById = async (id) => {
+    setLoading(true);
+    setError('');
+    setCategory(null);
+    try {
+      const response = await axios.get(`${API_BASE_URL}/categories/${id}`);
+      setCategory(response.data);
+      return response.data;
+    } catch (err) {
+      console.error('Error fetching category:', err);
+      setError(err.response?.data?.error || 'Failed to fetch category');
+      return null;
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  // Fetch category by slug
+  const fetchCategoryBySlug = async (slug) => {
+    setLoading(true);
+    setError('');
+    setCategory(null);
+    try {
+      const response = await axios.get(`${API_BASE_URL}/categories/slug/${slug}`);
+      setCategory(response.data);
+      return response.data;
+    } catch (err) {
+      console.error('Error fetching category by slug:', err);
+      setError(err.response?.data?.error || 'Failed to fetch category');
+      return null;
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  // Create new category (admin only)
+  const createCategory = async (categoryData) => {
+    setLoading(true);
+    setError('');
+    setSuccess('');
+    try {
+      // Handle form data for multipart/form-data (for image upload)
+      const formData = new FormData();
+      
+      // Add text fields
+      Object.keys(categoryData).forEach(key => {
+        if (key !== 'image' && categoryData[key] !== undefined) {
+          formData.append(key, categoryData[key]);
+        }
+      });
+      
+      // Add image if present
+      if (categoryData.image) {
+        formData.append('image', categoryData.image);
+      }
+      
+      const response = await axios.post(`${API_BASE_URL}/categories`, formData, {
+        headers: {
+          'Content-Type': 'multipart/form-data',
+          'Authorization': `Bearer ${token}`
+        }
+      });
+      
+      setSuccess('Category created successfully!');
+      
+      // Refresh categories list
+      await fetchCategories();
+      
+      return response.data;
+    } catch (err) {
+      console.error('Error creating category:', err);
+      setError(err.response?.data?.error || 'Failed to create category');
+      return null;
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  // Update category (admin only)
+  const updateCategory = async (id, categoryData) => {
+    setLoading(true);
+    setError('');
+    setSuccess('');
+    try {
+      // Handle form data for multipart/form-data (for image upload)
+      const formData = new FormData();
+      
+      // Add text fields
+      Object.keys(categoryData).forEach(key => {
+        if (key !== 'image' && categoryData[key] !== undefined) {
+          formData.append(key, categoryData[key]);
+        }
+      });
+      
+      // Add image if present
+      if (categoryData.image) {
+        formData.append('image', categoryData.image);
+      }
+      
+      const response = await axios.put(`${API_BASE_URL}/categories/${id}`, formData, {
+        headers: {
+          'Content-Type': 'multipart/form-data',
+          'Authorization': `Bearer ${token}`
+        }
+      });
+      
+      setSuccess('Category updated successfully!');
+      
+      // Refresh categories list
+      await fetchCategories();
+      
+      // If we're currently viewing this category, update the local state
+      if (category && category._id === id) {
+        setCategory(response.data);
+      }
+      
+      return response.data;
+    } catch (err) {
+      console.error('Error updating category:', err);
+      setError(err.response?.data?.error || 'Failed to update category');
+      return null;
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  // Delete category (admin only)
+  const deleteCategory = async (id) => {
+    setLoading(true);
+    setError('');
+    setSuccess('');
+    try {
+      await axios.delete(`${API_BASE_URL}/categories/${id}`, {
+        headers: {
+          'Authorization': `Bearer ${token}`
+        }
+      });
+      
+      setSuccess('Category deleted successfully!');
+      
+      // Update categories list
+      if (categories.length > 0) {
+        setCategories(categories.filter(c => c._id !== id));
+      }
+      
+      return true;
+    } catch (err) {
+      console.error('Error deleting category:', err);
+      setError(err.response?.data?.error || 'Failed to delete category');
+      return false;
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  // Get products by category
+  const getProductsByCategory = async (categoryId, params = {}) => {
+    setLoading(true);
+    setError('');
+    try {
+      const queryParams = { 
+        ...params,
+        category: categoryId 
+      };
+      
+      const response = await axios.get(`${API_BASE_URL}/products`, { 
+        params: queryParams 
+      });
+      
+      return response.data;
+    } catch (err) {
+      console.error('Error fetching products by category:', err);
+      setError(err.response?.data?.error || 'Failed to fetch products');
+      return null;
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  // Get products by category slug
+  const getProductsByCategorySlug = async (slug, params = {}) => {
+    setLoading(true);
+    setError('');
+    try {
+      // First get the category ID from the slug
+      const categoryResponse = await axios.get(`${API_BASE_URL}/categories/slug/${slug}`);
+      const categoryId = categoryResponse.data._id;
+      
+      // Then get products with that category
+      return await getProductsByCategory(categoryId, params);
+    } catch (err) {
+      console.error('Error fetching products by category slug:', err);
+      setError(err.response?.data?.error || 'Failed to fetch products');
+      return null;
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  // Helper Functions ===================================
+
   // Helper function to format price
   const formatPrice = (price) => {
     return new Intl.NumberFormat('en-US', {
@@ -428,19 +635,46 @@ export const ProductProvider = ({ children }) => {
     return price * (1 - discountPercentage / 100);
   };
 
+  // Helper function to get category tree (for hierarchical display)
+  const getCategoryTree = () => {
+    const rootCategories = categories.filter(cat => !cat.parent);
+    
+    const buildTree = (parentId) => {
+      return categories
+        .filter(cat => cat.parent && cat.parent.toString() === parentId.toString())
+        .map(cat => ({
+          ...cat,
+          children: buildTree(cat._id)
+        }));
+    };
+    
+    return rootCategories.map(cat => ({
+      ...cat,
+      children: buildTree(cat._id)
+    }));
+  };
+
   return (
     <ProductContext.Provider value={{
+      // Products state
       products,
       featuredProducts,
       saleProducts,
       product,
+      
+      // Categories state
       categories,
+      category,
+      
+      // UI state
       loading,
       error,
       success,
       totalProducts,
       totalPages,
       currentPage,
+      
+      // Product functions
       fetchProducts,
       fetchProductById,
       fetchProductBySlug,
@@ -454,7 +688,19 @@ export const ProductProvider = ({ children }) => {
       updateInventory,
       bulkUpdateStatus,
       addProductReview,
+      
+      // Category functions
       fetchCategories,
+      fetchCategoryById,
+      fetchCategoryBySlug,
+      createCategory,
+      updateCategory,
+      deleteCategory,
+      getProductsByCategory,
+      getProductsByCategorySlug,
+      getCategoryTree,
+      
+      // Helper functions
       formatPrice,
       calculateSalePrice
     }}>
