@@ -13,12 +13,13 @@ const CategoryForm = () => {
     fetchCategories,
     createCategory,
     updateCategory,
-    loading,
     error,
     success,
     categories
   } = useProduct();
 
+  // Use a local loading state instead of global context loading
+  const [isSubmitting, setIsSubmitting] = useState(false);
   const [formData, setFormData] = useState({
     name: '',
     description: '',
@@ -48,11 +49,11 @@ const CategoryForm = () => {
             isActive: categoryData.isActive !== false
           });
           
-        if (categoryData.image) {
-        setImagePreview(categoryData.image.startsWith('http') 
-            ? categoryData.image 
-            : `${import.meta.env.VITE_API_URL || ''}${categoryData.image}`);
-        }
+          if (categoryData.image) {
+            setImagePreview(categoryData.image.startsWith('http') 
+                ? categoryData.image 
+                : `${import.meta.env.VITE_API_URL || ''}${categoryData.image}`);
+          }
         }
       };
       
@@ -121,22 +122,29 @@ const CategoryForm = () => {
     return errors;
   };
 
-  const handleSubmit = async (e) => {
-    e.preventDefault();
-    
-    // Validate form
-    const errors = validateForm();
-    if (Object.keys(errors).length > 0) {
-      setValidationErrors(errors);
-      window.scrollTo(0, 0);
-      return;
-    }
-    
+const handleSubmit = async (e) => {
+  e.preventDefault();
+
+  // Validate form
+  const errors = validateForm();
+  if (Object.keys(errors).length > 0) {
+    setValidationErrors(errors);
+    window.scrollTo(0, 0);
+    return;
+  }
+  
+  // Set local loading state
+  setIsSubmitting(true);
+  
+  try {
     // Prepare form data for submission
     const categoryFormData = {
       ...formData,
       image: imageFile
     };
+    
+    // Log the form data for debugging
+    console.log('Form data being submitted:', categoryFormData);
     
     let result;
     if (isEditMode) {
@@ -148,10 +156,19 @@ const CategoryForm = () => {
     if (result) {
       // Navigate to category list on success after a short delay
       setTimeout(() => {
-        navigate('/admin/categories');
+        // Make sure both navigation paths are consistent
+        navigate('app/productcategories');
       }, 1500);
     }
-  };
+  } catch (error) {
+    console.error("Error submitting form:", error);
+  } finally {
+    setIsSubmitting(false);
+  }
+};
+
+  // Get the correct return path (use the same path for all navigation)
+  const returnPath = '/app/productcategories';
 
   // Filter out the current category from parent options to prevent circular reference
   const parentOptions = categories.filter(cat => !isEditMode || cat._id !== id);
@@ -160,7 +177,7 @@ const CategoryForm = () => {
     <div className="bg-white rounded-lg shadow-md p-6">
       <div className="flex items-center mb-6">
         <button 
-          onClick={() => navigate('/app/productcategories')}
+          onClick={() => navigate(returnPath)}
           className="text-blue-600 hover:text-blue-800 mr-4"
         >
           <FaArrowLeft size={20} />
@@ -338,17 +355,17 @@ const CategoryForm = () => {
         <div className="flex justify-end space-x-3 pt-6 border-t">
           <button
             type="button"
-            onClick={() => navigate('/admin/categories')}
+            onClick={() => navigate(returnPath)}
             className="px-4 py-2 border border-gray-300 rounded-md text-sm font-medium text-gray-700 hover:bg-gray-50"
           >
             Cancel
           </button>
           <button
             type="submit"
-            disabled={loading}
+            disabled={isSubmitting}
             className="px-4 py-2 bg-blue-600 border border-transparent rounded-md text-sm font-medium text-white hover:bg-blue-700 flex items-center disabled:opacity-50 disabled:cursor-not-allowed"
           >
-            {loading ? (
+            {isSubmitting ? (
               <>
                 <svg className="animate-spin -ml-1 mr-2 h-4 w-4 text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
                   <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"></circle>

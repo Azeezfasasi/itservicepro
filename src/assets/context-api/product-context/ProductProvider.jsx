@@ -456,47 +456,100 @@ export const ProductProvider = ({ children }) => {
   };
 
   // Create new category (admin only)
-  const createCategory = async (categoryData) => {
-    setLoading(true);
-    setError('');
-    setSuccess('');
-    try {
-      // Handle form data for multipart/form-data (for image upload)
-      const formData = new FormData();
-      
-      // Add text fields
-      Object.keys(categoryData).forEach(key => {
-        if (key !== 'image' && categoryData[key] !== undefined) {
-          formData.append(key, categoryData[key]);
-        }
-      });
-      
-      // Add image if present
-      if (categoryData.image) {
-        formData.append('image', categoryData.image);
-      }
-      
-      const response = await axios.post(`${API_BASE_URL}/categories`, formData, {
-        headers: {
-          'Content-Type': 'multipart/form-data',
-          'Authorization': `Bearer ${token}`
-        }
-      });
-      
-      setSuccess('Category created successfully!');
-      
-      // Refresh categories list
-      await fetchCategories();
-      
-      return response.data;
-    } catch (err) {
-      console.error('Error creating category:', err);
-      setError(err.response?.data?.error || 'Failed to create category');
-      return null;
-    } finally {
+
+  // Add this near the beginning of the createCategory function
+  if (!token) {
+    setError('Authentication required. Please log in.');
+    setLoading(false);
+    return null;
+  }
+
+  // Create new category (admin only)
+const createCategory = async (categoryData) => {
+  setLoading(true);
+  setError('');
+  setSuccess('');
+  
+  try {
+    // Validate required fields
+    if (!categoryData.name || categoryData.name.trim() === '') {
+      const nameError = 'Category name is required';
+      setError(nameError);
       setLoading(false);
+      return null;
     }
-  };
+    
+    // Create a fresh FormData instance
+    const formData = new FormData();
+    
+    // Explicitly add the required name field with trimming
+    formData.append('name', categoryData.name.trim());
+    
+    // Add description if present
+    if (categoryData.description) {
+      formData.append('description', categoryData.description);
+    }
+    
+    // Add parent if present and not empty
+    if (categoryData.parent) {
+      formData.append('parent', categoryData.parent);
+    }
+    
+    // Add sortOrder
+    if (categoryData.sortOrder !== undefined) {
+      formData.append('sortOrder', categoryData.sortOrder.toString());
+    }
+    
+    // Add isActive
+    if (categoryData.isActive !== undefined) {
+      formData.append('isActive', categoryData.isActive.toString());
+    }
+    
+    // Add image if present
+    if (categoryData.image) {
+      formData.append('image', categoryData.image);
+    }
+    
+    // Debug: Print form data entries
+    console.log('Category data values:');
+    for (let [key, value] of formData.entries()) {
+      console.log(`${key}: ${value instanceof File ? 'File: ' + value.name : value}`);
+    }
+    
+    // Make the API request
+    const response = await axios.post(`${API_BASE_URL}/categories`, formData, {
+      headers: {
+        'Content-Type': 'multipart/form-data',
+        'Authorization': `Bearer ${token}`
+      }
+    });
+    
+    setSuccess('Category created successfully!');
+    
+    // Refresh categories list
+    await fetchCategories();
+    
+    return response.data;
+  } catch (err) {
+    console.error('Error creating category:', err);
+    
+    // Log more detailed error information
+    if (err.response) {
+      console.error('Error response data:', err.response.data);
+      console.error('Error response status:', err.response.status);
+      console.error('Error response headers:', err.response.headers);
+    } else if (err.request) {
+      console.error('Error request:', err.request);
+    } else {
+      console.error('Error message:', err.message);
+    }
+    
+    setError(err.response?.data?.error || 'Failed to create category');
+    return null;
+  } finally {
+    setLoading(false);
+  }
+};
 
   // Update category (admin only)
   const updateCategory = async (id, categoryData) => {
