@@ -456,15 +456,6 @@ export const ProductProvider = ({ children }) => {
   };
 
   // Create new category (admin only)
-
-  // Add this near the beginning of the createCategory function
-  if (!token) {
-    setError('Authentication required. Please log in.');
-    setLoading(false);
-    return null;
-  }
-
-  // Create new category (admin only)
 const createCategory = async (categoryData) => {
   setLoading(true);
   setError('');
