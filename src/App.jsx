@@ -32,6 +32,7 @@ import ProductDetails from './app/ProductDetails';
 import Products from './app/Products';
 import ProductCategories from './app/ProductCategories';
 import AddProductCategory from './app/AddProductCategory';
+import Shop from './app/Shop';
 
 function App() {
   return (
@@ -52,7 +53,9 @@ function App() {
                 <Route path="/quoterequest" element={<QuoteRequest />} />
                 <Route path="/contactus" element={<ContactUs />} />
                 <Route path="/app/blog" element={<Blog />} />
-                <Route path="/app/blogdetails/:id" element={<BlogDetails />} />
+                <Route path="/app/shop" element={<Shop />} />
+                <Route path="/app/productdetails/slug/:slug" element={<ProductDetails />} />
+                <Route path="/app/blogdetails" element={<BlogDetails />} />
 
                 {/* Private/protected routes */}
                 <Route element={<PrivateRoutes />}>
@@ -67,7 +70,7 @@ function App() {
                   <Route path="/app/mysettings" element={<MySettings />} />
                   <Route path="/app/changeuserpassword" element={<ChangeUserPassword />} />
                   <Route path="/app/addproduct" element={<AddProduct />} />
-                  <Route path="/app/productdetails/:id" element={<ProductDetails />} />
+                  {/* <Route path="/app/productdetails/:id" element={<ProductDetails />} /> */}
                   <Route path="/app/products" element={<Products />} />
                   <Route path="/app/productcategories" element={<ProductCategories />} />
                   <Route path="/app/addproductcategory" element={<AddProductCategory />} />

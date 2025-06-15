@@ -157,7 +157,7 @@ const handleSubmit = async (e) => {
       // Navigate to category list on success after a short delay
       setTimeout(() => {
         // Make sure both navigation paths are consistent
-        navigate('app/productcategories');
+        navigate('/app/productcategories');
       }, 1500);
     }
   } catch (error) {

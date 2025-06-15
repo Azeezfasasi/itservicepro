@@ -13,7 +13,7 @@ const ProductForm = () => {
     fetchCategories,
     createProduct,
     updateProduct,
-    loading,
+    // loading,
     error,
     success
   } = useProduct();
@@ -26,7 +26,7 @@ const ProductForm = () => {
     price: '',
     originalPrice: '',
     category: '',
-    countInStock: '',
+    stockQuantity: '',
     colors: '',
     sizes: '',
     tags: '',
@@ -73,7 +73,7 @@ const ProductForm = () => {
             price: productData.price || '',
             originalPrice: productData.originalPrice || '',
             category: productData.category?._id || '',
-            countInStock: productData.countInStock || '',
+            stockQuantity: productData.stockQuantity || '',
             colors: productData.colors?.join(', ') || '',
             sizes: productData.sizes?.join(', ') || '',
             tags: productData.tags?.join(', ') || '',
@@ -176,59 +176,92 @@ const ProductForm = () => {
     if (!formData.description.trim()) errors.description = 'Description is required';
     if (!formData.price) errors.price = 'Price is required';
     if (!formData.category) errors.category = 'Category is required';
-    if (!formData.countInStock && formData.countInStock !== 0) errors.countInStock = 'Stock quantity is required';
+    if (!formData.stockQuantity && formData.stockQuantity !== 0) errors.stockQuantity = 'Stock quantity is required';
     
     // Numeric validations
     if (formData.price && isNaN(Number(formData.price))) errors.price = 'Price must be a number';
     if (formData.originalPrice && isNaN(Number(formData.originalPrice))) errors.originalPrice = 'Original price must be a number';
-    if (formData.countInStock && isNaN(Number(formData.countInStock))) errors.countInStock = 'Stock quantity must be a number';
+    if (formData.stockQuantity && isNaN(Number(formData.stockQuantity))) errors.stockQuantity = 'Stock quantity must be a number';
     if (formData.discountPercentage && isNaN(Number(formData.discountPercentage))) errors.discountPercentage = 'Discount must be a number';
     
     return errors;
   };
 
   const handleSubmit = async (e) => {
-    e.preventDefault();
-    
-    // Validate form
-    const errors = validateForm();
-    if (Object.keys(errors).length > 0) {
-      setValidationErrors(errors);
-      window.scrollTo(0, 0);
-      return;
-    }
-    
-    // Prepare form data for submission
-    const productFormData = {
-      ...formData,
-      // Convert string numbers to actual numbers
-      price: Number(formData.price),
-      countInStock: Number(formData.countInStock),
-      images: imageFiles // This will be the actual File objects for new uploads
-    };
-    
-    // Handle optional number fields
-    if (formData.originalPrice) productFormData.originalPrice = Number(formData.originalPrice);
-    if (formData.discountPercentage) productFormData.discountPercentage = Number(formData.discountPercentage);
-    if (formData.weight) productFormData.weight = Number(formData.weight);
-    if (formData.dimensions.length) productFormData.dimensions.length = Number(formData.dimensions.length);
-    if (formData.dimensions.width) productFormData.dimensions.width = Number(formData.dimensions.width);
-    if (formData.dimensions.height) productFormData.dimensions.height = Number(formData.dimensions.height);
-    
-    let result;
+  e.preventDefault();
+
+  // Validate form
+  const errors = validateForm();
+  if (Object.keys(errors).length > 0) {
+    setValidationErrors(errors);
+    window.scrollTo(0, 0);
+    return;
+  }
+
+  // Prepare form data for submission
+  const productFormData = {
+    ...formData,
+    // Convert string numbers to actual numbers
+    price: Number(formData.price),
+    stockQuantity: Number(formData.stockQuantity),
+    images: imageFiles,
+  };
+
+  // FIX: Ensure 'status' is a valid enum value for the backend.
+  // The backend enum values are: 'active', 'inactive', 'draft'.
+  // If 'published' was implicitly intended, map it to 'active'.
+  // Otherwise, default to 'draft' or 'active' for new products if not explicitly set.
+  if (productFormData.status === 'published') {
+      productFormData.status = 'active'; // Map 'published' to 'active'
+  } else if (!['active', 'inactive', 'draft'].includes(productFormData.status)) {
+      // If formData.status is not one of the valid enums (or undefined/null),
+      // set a sensible default for creation/update, e.g., 'draft' or 'active'.
+      productFormData.status = 'draft'; // Or 'active', depending on your desired default
+  }
+
+  // Handle optional number fields and nested objects
+  if (formData.originalPrice !== undefined) productFormData.originalPrice = Number(formData.originalPrice);
+  if (formData.discountPercentage !== undefined) productFormData.discountPercentage = Number(formData.discountPercentage);
+  if (formData.weight !== undefined) productFormData.weight = Number(formData.weight);
+
+  // Ensure dimensions are handled correctly, assuming formData.dimensions is an object
+  // and its properties need numerical conversion
+  if (formData.dimensions) {
+      if (formData.dimensions.length !== undefined) productFormData.dimensions.length = Number(formData.dimensions.length);
+      if (formData.dimensions.width !== undefined) productFormData.dimensions.width = Number(formData.dimensions.width);
+      if (formData.dimensions.height !== undefined) productFormData.dimensions.height = Number(formData.dimensions.height);
+  } else {
+      // If formData.dimensions is not provided, ensure it's not sent as undefined/null
+      // or set an empty object if your schema requires it, or remove it from payload.
+      // For now, if not provided, just let the backend handle its default.
+      delete productFormData.dimensions;
+  }
+
+
+  let result;
+  // Assuming `isSubmitting` state is managed outside this snippet as seen in CategoryForm
+  // try { setIsSubmitting(true); ... } finally { setIsSubmitting(false); }
+
+  try {
     if (isEditMode) {
       result = await updateProduct(id, productFormData);
     } else {
       result = await createProduct(productFormData);
     }
-    
+
     if (result) {
       // Navigate to product list on success after a short delay
       setTimeout(() => {
         navigate('/app/products');
       }, 1500);
     }
-  };
+  } catch (error) {
+    console.error("Error submitting product form:", error);
+  } finally {
+    // If you have a local `isSubmitting` state, ensure it's reset here.
+    // setIsSubmitting(false);
+  }
+};
 
   return (
     <div className="bg-white rounded-lg shadow-md p-6">
@@ -423,19 +456,19 @@ const ProductForm = () => {
             </div>
 
             <div>
-              <label htmlFor="countInStock" className="block text-sm font-medium text-gray-700 mb-1">
+              <label htmlFor="stockQuantity" className="block text-sm font-medium text-gray-700 mb-1">
                 Stock Quantity*
               </label>
               <input
                 type="text"
-                id="countInStock"
-                name="countInStock"
-                value={formData.countInStock}
+                id="stockQuantity"
+                name="stockQuantity"
+                value={formData.stockQuantity}
                 onChange={handleChange}
-                className={`w-full border ${validationErrors.countInStock ? 'border-red-500' : 'border-gray-300'} rounded-md px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500`}
+                className={`w-full border ${validationErrors.stockQuantity ? 'border-red-500' : 'border-gray-300'} rounded-md px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500`}
               />
-              {validationErrors.countInStock && (
-                <p className="text-red-500 text-xs mt-1">{validationErrors.countInStock}</p>
+              {validationErrors.stockQuantity && (
+                <p className="text-red-500 text-xs mt-1">{validationErrors.stockQuantity}</p>
               )}
             </div>
           </div>
@@ -721,10 +754,10 @@ const ProductForm = () => {
           </button>
           <button
             type="submit"
-            disabled={loading}
+            // disabled={loading}
             className="px-4 py-2 bg-blue-600 border border-transparent rounded-md text-sm font-medium text-white hover:bg-blue-700 flex items-center disabled:opacity-50 disabled:cursor-not-allowed"
           >
-            {loading ? (
+            {/* {loading ? (
               <>
                 <svg className="animate-spin -ml-1 mr-2 h-4 w-4 text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
                   <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"></circle>
@@ -737,7 +770,8 @@ const ProductForm = () => {
                 <FaSave className="mr-2" />
                 {isEditMode ? 'Update Product' : 'Create Product'}
               </>
-            )}
+            )} */}
+            Add Product
           </button>
         </div>
       </form>

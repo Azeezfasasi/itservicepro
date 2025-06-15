@@ -34,6 +34,7 @@ function MainHeader() {
           <Link to="/">Home</Link>
           <Link to="/aboutus">About Us</Link>
           <Link to="/ourservices">Our Service</Link>
+          <Link to="/app/shop">Shop</Link>
           <Link to="/app/blog">Blog</Link>
           <Link to="/contactus">Contact Us</Link>
         </div>
@@ -55,6 +56,7 @@ function MainHeader() {
             <Link to="/" className="py-2 w-full text-center text-[#0A1F44] font-medium hover:bg-gray-200" onClick={() => setMenuOpen(false)}>Home</Link>
             <Link to="/aboutus" className="py-2 w-full text-center text-[#0A1F44] font-medium hover:bg-gray-200" onClick={() => setMenuOpen(false)}>About Us</Link>
             <Link to="/ourservices" className="py-2 w-full text-center text-[#0A1F44] font-medium hover:bg-gray-200" onClick={() => setMenuOpen(false)}>Our Service</Link>
+            <Link to="/app/shop" className="py-2 w-full text-center text-[#0A1F44] font-medium hover:bg-gray-200" onClick={() => setMenuOpen(false)}>Shop</Link>
             <Link to="/app/blog" className="py-2 w-full text-center text-[#0A1F44] font-medium hover:bg-gray-200" onClick={() => setMenuOpen(false)}>Blog</Link>
             <Link to="/contactus" className="py-2 w-full text-center text-[#0A1F44] font-medium hover:bg-gray-200" onClick={() => setMenuOpen(false)}>Contact Us</Link>
             <Link to="/quoterequest" className="mt-4 bg-[#00B9F1] text-white font-semibold px-4 py-2 rounded-full hover:bg-[#00A1D1] transition" onClick={() => setMenuOpen(false)}>
