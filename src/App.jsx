@@ -33,6 +33,7 @@ import Products from './app/Products';
 import ProductCategories from './app/ProductCategories';
 import AddProductCategory from './app/AddProductCategory';
 import Shop from './app/Shop';
+import EditProduct from './app/EditProduct';
 
 function App() {
   return (
@@ -74,6 +75,7 @@ function App() {
                   <Route path="/app/products" element={<Products />} />
                   <Route path="/app/productcategories" element={<ProductCategories />} />
                   <Route path="/app/addproductcategory" element={<AddProductCategory />} />
+                  <Route path="/app/editproduct/slug/:slug" element={<EditProduct />} />
                 </Route>
               </Routes>
             </ProductProvider>

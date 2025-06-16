@@ -71,7 +71,7 @@ function DashStats() {
             <StatCard label="Super Admins" value={stats.superAdmins} color="bg-purple-700" />
             <StatCard label="Admins" value={stats.admins} color="bg-indigo-600" />
             <StatCard label="Customers" value={stats.customers} color="bg-green-600" />
-            <StatCard label="Users" value={stats.users} color="bg-yellow-500" />
+            <StatCard label="Order Received" value="0" color="bg-yellow-500" />
             <StatCard label="Quotes Received" value={stats.totalQuotes} color="bg-pink-600" />
           </div>
         </>

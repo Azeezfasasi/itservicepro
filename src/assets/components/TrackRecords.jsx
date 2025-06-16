@@ -3,7 +3,7 @@ import globe from '../images/globe.png'
 function TrackRecords() {
     const stats = [
     { label: 'Successful Laptop & Device Repairs', value: '240+' },
-    { label: 'Combined Industry Experience', value: '15y+' },
+    { label: 'Combined Industry Experience', value: '30y+' },
     { label: 'Customer Satisfaction Rate', value: '99%' },
     { label: 'Website and Mobile Apps', value: '50+' },
   ];

@@ -33,8 +33,8 @@ const services = [
   },
   {
     icon: <Server className="w-6 h-6 text-white" />,
-    title: 'Office Computer & Server Setup',
-    desc: 'Setting up a new workspace or upgrading your current tech infrastructure? We handle office computer installations, network configurations, and server setups, ensuring your team works efficiently and securely.',
+    title: 'Office Infrastructure & Server Setup',
+    desc: 'Setting up a new network or upgrading your current network installation? We handle office installations, network configurations, and server setups, ensuring your team works efficiently and securely.',
   },
   // {
   //   icon: <Speaker className="w-6 h-6 text-white" />,

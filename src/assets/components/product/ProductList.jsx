@@ -311,14 +311,14 @@ const ProductList = () => {
                     <td className="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
                       <div className="flex justify-end space-x-2">
                         <Link 
-                          to={`/product/${product.slug}`} 
+                          to={`/app/productdetails/slug/${product.slug}`} 
                           className="text-blue-600 hover:text-blue-900"
                           title="View"
                         >
                           <FaEye size={18} />
                         </Link>
                         <Link 
-                          to={`/app/editproduct/${product._id}`} 
+                          to={`/app/editproduct/slug/${product._id}`} 
                           className="text-indigo-600 hover:text-indigo-900"
                           title="Edit"
                         >

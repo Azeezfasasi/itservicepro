@@ -38,9 +38,9 @@ function HowItWorks() {
               <span className="text-5xl font-bold text-blue-500">1.</span>
             </div>
             <div>
-              <h3 className="text-2xl font-semibold text-gray-800 mb-2">Call us anytime 24/7</h3>
+              <h3 className="text-2xl font-semibold text-gray-800 mb-2">24/7 Support</h3>
               <p className="text-gray-600">
-                Need help? Just give us a call. Our friendly support team is available 24/7 to connect you with the right IT specialist — whether for repairs, setup, web development or rentals.
+                Need help? Just give us a call or request a quote. Our friendly support team is available 24/7 to connect you with the right IT specialist — whether for repairs, setup, web development or rentals.
               </p>
             </div>
           </div>
