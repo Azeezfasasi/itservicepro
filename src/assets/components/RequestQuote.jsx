@@ -63,7 +63,7 @@ function RequestQuote() {
 
           {/* Right Section: Free Quote Form */}
           <div className="bg-gray-50 p-8 rounded-3xl shadow-xl w-full max-w-lg mx-auto border border-solid border-gray-300">
-            <h2 className="text-2xl font-semibold text-gray-800 mb-6 text-center lg:text-left">Free Quote</h2>
+            <h2 className="text-2xl font-semibold text-gray-800 mb-6 text-center lg:text-left">Free Quote Request</h2>
             <form className="space-y-4" onSubmit={handleSubmit}>
               {success && <p className="text-green-600 text-center mt-2">{success}</p>}
               {error && <p className="text-red-600 text-center mt-2">{error}</p>}
