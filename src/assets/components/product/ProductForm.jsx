@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 import { useProduct } from '../../context-api/product-context/UseProduct';
 import { FaImage, FaUpload, FaTimes, FaSave, FaArrowLeft } from 'react-icons/fa';
+import { v4 as uuidv4 } from 'uuid';
 
 const ProductForm = () => {
   const { id } = useParams();
@@ -34,7 +35,7 @@ const ProductForm = () => {
     isFeatured: false,
     isOnSale: false,
     discountPercentage: '',
-    sku: '',
+    sku: uuidv4(),
     weight: '',
     dimensions: {
       length: '',
@@ -311,7 +312,7 @@ const ProductForm = () => {
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
             <div>
               <label htmlFor="name" className="block text-sm font-medium text-gray-700 mb-1">
-                Product Name*
+                Product Name<span className='text-red-700'>*</span>
               </label>
               <input
                 type="text"
@@ -342,7 +343,7 @@ const ProductForm = () => {
             
             <div>
               <label htmlFor="category" className="block text-sm font-medium text-gray-700 mb-1">
-                Category*
+                Category<span className='text-red-700'>*</span>
               </label>
               <select
                 id="category"
@@ -365,7 +366,7 @@ const ProductForm = () => {
             
             <div>
               <label htmlFor="sku" className="block text-sm font-medium text-gray-700 mb-1">
-                SKU
+                SKU<span className='text-red-700'>*</span>
               </label>
               <input
                 type="text"
@@ -380,7 +381,7 @@ const ProductForm = () => {
           
           <div className="mt-4">
             <label htmlFor="description" className="block text-sm font-medium text-gray-700 mb-1">
-              Description*
+              Description<span className='text-red-700'>*</span>
             </label>
             <textarea
               id="description"
@@ -417,10 +418,10 @@ const ProductForm = () => {
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
             <div>
               <label htmlFor="price" className="block text-sm font-medium text-gray-700 mb-1">
-                Price*
+                Price<span className='text-red-700'>*</span>
               </label>
               <div className="relative">
-                <span className="absolute inset-y-0 left-0 flex items-center pl-3 text-gray-500">$</span>
+                <span className="absolute inset-y-0 left-0 flex items-center pl-3 text-gray-500">₦</span>
                 <input
                   type="text"
                   id="price"
@@ -440,7 +441,7 @@ const ProductForm = () => {
                 Original Price (if different)
               </label>
               <div className="relative">
-                <span className="absolute inset-y-0 left-0 flex items-center pl-3 text-gray-500">$</span>
+                <span className="absolute inset-y-0 left-0 flex items-center pl-3 text-gray-500">₦</span>
                 <input
                   type="text"
                   id="originalPrice"
@@ -457,7 +458,7 @@ const ProductForm = () => {
 
             <div>
               <label htmlFor="stockQuantity" className="block text-sm font-medium text-gray-700 mb-1">
-                Stock Quantity*
+                Stock Quantity<span className='text-red-700'>*</span>
               </label>
               <input
                 type="text"
