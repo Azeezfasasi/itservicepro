@@ -2,6 +2,7 @@ import React from 'react';
 import { PhoneCall, Clock, CheckCircle, MapPin, Calendar } from 'lucide-react';
 import heroone from '../images/heroone.jpg'
 import explore from '../images/explore.jpg'
+import { Link } from 'react-router-dom';
 
 const Hero = () => {
   return (
@@ -37,10 +38,10 @@ const Hero = () => {
           </div>
 
           {/* CTA Button */}
-          <button className="bg-[#00B9F1] hover:bg-[#00A1D1] px-6 py-3 rounded-full font-semibold text-white flex items-center justify-center gap-2 mx-auto">
-            Call Us Now
+          <Link to="/quoterequest" className="bg-[#00B9F1] hover:bg-[#00A1D1] px-6 py-3 rounded-full font-semibold text-white flex items-center justify-center gap-2 mx-auto w-[200px]">
+            Request Quote
             <PhoneCall className="w-5 h-5" />
-          </button>
+          </Link>
         </div>
 
         {/* Right Image */}

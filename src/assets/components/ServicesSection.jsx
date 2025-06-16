@@ -8,6 +8,7 @@ import {
   Speaker,
   KeyRound,
 } from 'lucide-react';
+import { Link } from 'react-router-dom';
 
 const services = [
   {
@@ -79,9 +80,9 @@ const ServicesSection = () => {
               <h4 className="text-lg font-semibold mb-2">More service?</h4>
               <p className="text-sm">You can tell us what you need and we can help!</p>
             </div>
-            <button className="mt-6 bg-white text-[#00B9F1] font-semibold px-6 py-2 rounded-full">
-              Call Us Now
-            </button>
+            <Link to="/quoterequest" className="mt-6 bg-white text-[#00B9F1] font-semibold px-6 py-2 rounded-full">
+              Request Quote
+            </Link>
           </div>
         </div>
       </div>
