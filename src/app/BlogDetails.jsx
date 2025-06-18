@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useParams, Link } from 'react-router-dom';
 import TopHeader from '../assets/components/TopHeader';
 import MainHeader from '../assets/components/MainHeader';
@@ -37,8 +37,6 @@ useEffect(() => {
     setCommentInput('');
   };
 
-//   if (loading) return <div className="text-center py-8">Loading...</div>;
-//   if (error) return <div className="text-red-600 text-center mb-4">{error}</div>;
   if (!blog) return <div className="text-center py-8">Blog post not found</div>;
 
   return (

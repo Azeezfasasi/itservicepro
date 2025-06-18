@@ -33,7 +33,6 @@ const CartMain = () => {
     if (!isNaN(newQuantity) && newQuantity > 0) {
       updateCartItemQuantity(productId, newQuantity);
     }
-    // If input is empty or invalid, you might want to debounce or prevent immediate API call
   };
 
   // Handle quantity increase/decrease buttons
@@ -131,7 +130,7 @@ const CartMain = () => {
                             />
                           </div>
                           <div className="ml-4">
-                            <Link to={`/app/productdetails/slug/${item.slugId}`} className="text-sm font-medium text-blue-600 hover:text-blue-800 hover:underline">
+                            <Link to={`/app/productdetails/slug/${item.productId}`} className="text-sm font-medium text-blue-600 hover:text-blue-800 hover:underline">
                                {item.name}
                             </Link>
                           </div>

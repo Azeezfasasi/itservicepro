@@ -2,6 +2,7 @@ import { useState } from 'react'
 import { Link } from 'react-router-dom'
 import accountprofile from '../images/accountprofile.svg'
 import CartIcon from './dashboard-components/CartIcon';
+import WishlistIcon from './dashboard-components/Wishlisticon';
 
 function MainHeader() {
   const [menuOpen, setMenuOpen] = useState(false)
@@ -17,8 +18,9 @@ function MainHeader() {
         {/* Hamburger Icon (Mobile) */}
         <div className='lg:hidden flex flex-row justify-start items-center gap-4'>
           <Link to="/login" className='lg:hidden block'>
-            <img src={accountprofile} alt="profile" className='w-10 h-10 lg:hidden block' />
+            <img src={accountprofile} alt="profile" className='w-8 h-8 lg:hidden block' />
           </Link>
+          <WishlistIcon />
           <CartIcon />
           <button
           className="lg:hidden flex flex-col justify-center items-center w-10 h-10 focus:outline-none"
@@ -46,7 +48,8 @@ function MainHeader() {
           <Link to="/login" className='hidden lg:block'>
             <img src={accountprofile} alt="profile" className='w-10 h-10 hidden lg:block' />
           </Link>
-          <div className='hidden lg:block'>
+          <div className='hidden lg:flex flex-row justify-start gap-4 items-center'>
+            <WishlistIcon />
             <CartIcon />
           </div>
           <Link to="/quoterequest" className="hidden lg:inline-block bg-[#00B9F1] text-white font-semibold px-4 py-2 rounded-full hover:bg-[#00A1D1] transition">

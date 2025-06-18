@@ -36,6 +36,7 @@ import Shop from './app/Shop';
 import EditProduct from './app/EditProduct';
 import Cart from './app/Cart';
 import { CartProvider } from './assets/context-api/cart/CartProvider';
+import Wishlist from './app/WishList';
 
 function App() {
   return (
@@ -60,7 +61,7 @@ function App() {
                   <Route path="/app/shop" element={<Shop />} />
                   <Route path="/app/cart" element={<Cart />} />
                   <Route path="/app/productdetails/slug/:slug" element={<ProductDetails />} />
-                  <Route path="/app/blogdetails" element={<BlogDetails />} />
+                  <Route path="/app/blogdetails/:id" element={<BlogDetails />} />
 
                   {/* Private/protected routes */}
                   <Route element={<PrivateRoutes />}>
@@ -79,6 +80,7 @@ function App() {
                     <Route path="/app/productcategories" element={<ProductCategories />} />
                     <Route path="/app/addproductcategory" element={<AddProductCategory />} />
                     <Route path="/app/editproduct/:id" element={<EditProduct />} />
+                    <Route path="/app/wishlist" element={<Wishlist />} />
                   </Route>
                 </Routes>
               </CartProvider>

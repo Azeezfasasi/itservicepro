@@ -1,20 +1,21 @@
-import React, { useState, useEffect, useContext } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { ProductContext } from '../../context-api/product-context/ProductContext'; // Original path
-import { ShoppingCart, Eye } from 'lucide-react'; // Using Lucide icons for a modern look
+// import { ProductContext } from '../../context-api/product-context/ProductContext';
+import { useProduct } from '../../context-api/product-context/UseProduct';
+import { ShoppingCart, Eye } from 'lucide-react';
+import { FaSpinner } from 'react-icons/fa';
 
 const ProductListForCustomers = () => {
-  // Access product-related state and functions from ProductContext
   const {
     products,
-    // loading,
+    loading,
     error,
     fetchProducts,
     totalPages,
     currentPage,
     formatPrice,
     calculateSalePrice
-  } = useContext(ProductContext);
+  } = useProduct();
 
   // State to manage current page for fetching
   const [page, setPage] = useState(1);
@@ -39,18 +40,15 @@ const ProductListForCustomers = () => {
     navigate(`/app/productdetails/slug/${id}`); // Navigate to a product detail route
   };
 
-  // --- Render Logic ---
-  // if (loading) {
-  //   return (
-  //     <div className="flex justify-center items-center h-64">
-  //       <svg className="animate-spin h-10 w-10 text-blue-600" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
-  //         <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"></circle>
-  //         <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
-  //       </svg>
-  //       <p className="ml-3 text-lg text-gray-700">Loading products...</p>
-  //     </div>
-  //   );
-  // }
+  // Render loading state
+    if (loading) {
+      return (
+        <div className="flex justify-center items-center min-h-[50vh] bg-gray-50 p-6 rounded-lg shadow-md">
+          <FaSpinner className="animate-spin text-blue-500 text-4xl mr-3" />
+          <p className="text-xl text-gray-700">Loading Shop Page...</p>
+        </div>
+      );
+    }
 
   if (error) {
     return (
@@ -85,7 +83,7 @@ const ProductListForCustomers = () => {
             className="bg-white border border-gray-200 rounded-xl shadow-lg overflow-hidden transform transition duration-300 hover:scale-105 hover:shadow-xl flex flex-col" 
           >
             {/* Product Image */}
-            <div className="relative w-full h-48 sm:h-56 overflow-hidden">
+            <div onClick={() => handleViewDetails(product.slug)} className="relative w-full h-48 sm:h-56 overflow-hidden cursor-pointer">
               <img
                 src={product.thumbnail || '/placehold.co/400x400/CCCCCC/000000?text=No+Image'}
                 alt={product.name}
@@ -104,7 +102,7 @@ const ProductListForCustomers = () => {
 
             {/* Product Info */}
             <div className="p-4 flex flex-col flex-grow"> {/* flex-grow to push button to bottom */}
-              <h2 className="text-xl font-semibold text-gray-800 mb-2 truncate" title={product.name}>
+              <h2 onClick={() => handleViewDetails(product.slug)} className="text-xl font-semibold text-gray-800 mb-2 truncate cursor-pointer" title={product.name}>
                 {product.name}
               </h2>
               {product.category && (
@@ -115,7 +113,7 @@ const ProductListForCustomers = () => {
               <div className="flex items-center mb-4">
                 {product.onSale ? (
                   <>
-                    <p className="text-lg font-bold text-red-600 mr-2">
+                    <p className="text-lg font-bold text-blue-700 mr-2">
                       {formatPrice(calculateSalePrice(product.price, product.discountPercentage))}
                     </p>
                     <p className="text-sm text-gray-500 line-through">
@@ -123,35 +121,33 @@ const ProductListForCustomers = () => {
                     </p>
                   </>
                 ) : (
-                  <p className="text-lg font-bold text-gray-900">
+                  <p className="text-lg font-bold text-blue-700">
                     {formatPrice(product.price)}
                   </p>
                 )}
               </div>
-              <p className="text-sm text-gray-600 mb-4 flex-grow line-clamp-2">
+              {/* <p className="text-sm text-gray-600 mb-4 flex-grow line-clamp-2">
                 {product.description}
-              </p>
+              </p> */}
 
               {/* Actions */}
               <div className="flex flex-col space-y-3">
                 <button
                   onClick={() => handleViewDetails(product.slug)}
-                  className="flex items-center justify-center bg-blue-600 text-white py-2 px-4 rounded-lg
-                             hover:bg-blue-700 transition duration-300 ease-in-out
-                             focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-opacity-50"
+                  className="flex items-center justify-center bg-blue-600 text-white py-2 px-4 rounded-lg hover:bg-blue-700 transition duration-300 ease-in-out focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-opacity-50 cursor-pointer"
                 >
                   <Eye className="w-5 h-5 mr-2" />
                   View Details
                 </button>
                 {/* Placeholder for Add to Cart - you can implement this later */}
-                <button
+                {/* <button
                   className="flex items-center justify-center bg-gray-100 text-gray-800 py-2 px-4 rounded-lg
                              hover:bg-gray-200 transition duration-300 ease-in-out border border-gray-300
                              focus:outline-none focus:ring-2 focus:ring-gray-400 focus:ring-opacity-50"
                 >
                   <ShoppingCart className="w-5 h-5 mr-2" />
                   Add to Cart
-                </button>
+                </button> */}
               </div>
             </div>
           </div>
