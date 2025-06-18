@@ -1,9 +1,9 @@
-import React from 'react'
 import { Helmet } from 'react-helmet'
 import DashHeader from '../assets/components/dashboard-components/DashHeader'
 import DashMenu from '../assets/components/dashboard-components/DashMenu'
+import EditProductMain from '../assets/components/product/EditProductMain'
 
-function Profile() {
+function EditProduct() {
   return (
     <>
     <Helmet>
@@ -15,11 +15,11 @@ function Profile() {
         <DashMenu />
       </div>
       <div className='w-full lg:w-[80%]'>
-        
+        <EditProductMain />
       </div>
     </div>
     </>
   )
 }
 
-export default Profile
+export default EditProduct

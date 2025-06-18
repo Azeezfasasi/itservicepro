@@ -1,5 +1,6 @@
-import React, { useEffect, useState } from 'react';
-import { useProduct } from '../../context-api/product-context/UseProduct';
+import { useEffect, useState, useContext } from 'react'; // Added useContext
+import { ProductContext } from '../../context-api/product-context/ProductContext';
+// import { CategoryContext } from '../../context-api/';
 import { FaSearch, FaFilter, FaSortAmountDown, FaSortAmountUp, FaEdit, FaTrash, FaEye } from 'react-icons/fa';
 import { Link } from 'react-router-dom';
 
@@ -11,34 +12,39 @@ const ProductList = () => {
     success,
     totalProducts,
     totalPages,
-    // currentPage,
     fetchProducts,
-    fetchCategories, 
     deleteProduct,
     formatPrice,
-    calculateSalePrice
-  } = useProduct();
+    calculateSalePrice,
+    categories, 
+    fetchCategories
+  } = useContext(ProductContext); // Use useContext to get values from ProductContext
 
   const [searchTerm, setSearchTerm] = useState('');
   const [filterCategory, setFilterCategory] = useState('');
-  const [sortField, setSortField] = useState('dateCreated');
+  const [sortField, setSortField] = useState('createdAt'); // Default to 'createdAt' as 'dateCreated' might not be a direct field
   const [sortDirection, setSortDirection] = useState('desc');
   const [showDeleteModal, setShowDeleteModal] = useState(false);
   const [productToDelete, setProductToDelete] = useState(null);
-  const [categories, setCategories] = useState([]);
-  const [page, setPage] = useState(1); // Add this - define the page state variable
+  // const [categories, setCategories] = useState([]); // This state is now redundant, use categories from CategoryContext
+  const [page, setPage] = useState(1);
+
+  // Define API_URL_BASE here or ensure it's imported correctly
+  const API_URL_BASE = import.meta.env.VITE_API_URL || ''; // Fallback for VITE_API_URL
 
   useEffect(() => {
     loadProducts();
-    // Fetch categories for filter dropdown
-    loadCategories();
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [page, sortField, sortDirection]); // Change currentPage to page
+  }, [page, sortField, sortDirection, searchTerm, filterCategory]); 
+
+  // Fetch categories once when component mounts
+  useEffect(() => {
+    fetchCategories();
+  }, [fetchCategories]); // fetchCategories is memoized in CategoryProvider
 
   const loadProducts = async () => {
     const params = {
-      page: page, // Use page instead of currentPage
-      sort: `${sortDirection === 'desc' ? '-' : ''}${sortField}`,
+      page: page,
+      sortBy: `${sortField === 'createdAt' ? '' : sortField}${sortDirection === 'desc' ? 'Desc' : 'Asc'}`, // Ensure sort by field and direction match backend params
       limit: 10
     };
 
@@ -53,14 +59,10 @@ const ProductList = () => {
     await fetchProducts(params);
   };
 
-  const loadCategories = async () => {
-    const categoryData = await fetchCategories();
-    setCategories(categoryData || []);
-  };
-
   const handleSearch = (e) => {
     e.preventDefault();
-    loadProducts();
+    setPage(1); // Reset to first page on new search
+    loadProducts(); // Call loadProducts to apply search term
   };
 
   const handleSort = (field) => {
@@ -70,6 +72,7 @@ const ProductList = () => {
       setSortField(field);
       setSortDirection('asc');
     }
+    setPage(1); // Reset to first page on sort change
   };
 
   const handleDeleteClick = (product) => {
@@ -79,7 +82,16 @@ const ProductList = () => {
 
   const confirmDelete = async () => {
     if (productToDelete) {
-      await deleteProduct(productToDelete._id);
+      const deleted = await deleteProduct(productToDelete._id);
+      if (deleted) {
+        // If product was successfully deleted, reload products from the current page
+        // Or if the last item on a page was deleted, go back one page if possible
+        if (products.length === 1 && page > 1) {
+            setPage(prevPage => prevPage - 1);
+        } else {
+            loadProducts(); // Reload current page
+        }
+      }
       setShowDeleteModal(false);
       setProductToDelete(null);
     }
@@ -87,28 +99,16 @@ const ProductList = () => {
 
   const changePage = (newPage) => {
     if (newPage > 0 && newPage <= totalPages) {
-      setPage(newPage); // Use setPage instead of setCurrentPage
+      setPage(newPage);
     }
   };
 
   return (
     <div className="bg-white rounded-lg shadow-md p-6">
-      {/* Rest of your component remains the same */}
-      {/* Just update the image src to use import.meta.env.VITE_API_URL */}
-      {/* Replace: */}
-      {/* src={product.featuredImage.startsWith('http') 
-              ? product.featuredImage 
-              : `${process.env.REACT_APP_API_URL}${product.featuredImage}`} */}
-      {/* With: */}
-      {/* src={product.featuredImage.startsWith('http') 
-              ? product.featuredImage 
-              : `${import.meta.env.VITE_API_URL || ''}${product.featuredImage}`} */}
-      
-      {/* Uncomment and fix the image display section */}
       <div className="flex justify-between items-center mb-6">
         <h2 className="text-2xl font-bold text-gray-800">Products</h2>
-        <Link 
-          to="/app/addproduct" 
+        <Link
+          to="/app/addproduct"
           className="bg-blue-600 text-white px-4 py-2 rounded-md hover:bg-blue-700"
         >
           Add New Product
@@ -130,14 +130,18 @@ const ProductList = () => {
               className="pl-10 pr-3 py-2 border border-gray-300 rounded-md focus:ring-blue-500 focus:border-blue-500"
             />
           </div>
-          
+
           <div className="relative">
             <div className="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none">
               <FaFilter className="text-gray-400" />
             </div>
             <select
               value={filterCategory}
-              onChange={(e) => setFilterCategory(e.target.value)}
+              onChange={(e) => {
+                setFilterCategory(e.target.value);
+                setPage(1); // Reset to first page when category filter changes
+                loadProducts(); // Apply filter immediately
+              }}
               className="pl-10 pr-3 py-2 border border-gray-300 rounded-md focus:ring-blue-500 focus:border-blue-500"
             >
               <option value="">All Categories</option>
@@ -148,7 +152,7 @@ const ProductList = () => {
               ))}
             </select>
           </div>
-          
+
           <button
             type="submit"
             className="bg-blue-600 text-white px-4 py-2 rounded-md hover:bg-blue-700"
@@ -164,7 +168,7 @@ const ProductList = () => {
           {error}
         </div>
       )}
-      
+
       {success && (
         <div className="bg-green-50 text-green-700 p-4 rounded-md mb-4">
           {success}
@@ -175,6 +179,7 @@ const ProductList = () => {
       {loading ? (
         <div className="flex justify-center items-center h-64">
           <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-blue-700"></div>
+          <p className="ml-3 text-lg text-gray-700">Loading products...</p>
         </div>
       ) : (
         <div className="overflow-x-auto">
@@ -184,7 +189,7 @@ const ProductList = () => {
                 <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">
                   Image
                 </th>
-                <th 
+                <th
                   className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase cursor-pointer"
                   onClick={() => handleSort('name')}
                 >
@@ -197,7 +202,7 @@ const ProductList = () => {
                     )}
                   </div>
                 </th>
-                <th 
+                <th
                   className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase cursor-pointer"
                   onClick={() => handleSort('price')}
                 >
@@ -210,20 +215,20 @@ const ProductList = () => {
                     )}
                   </div>
                 </th>
-                <th 
+                <th
                   className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase cursor-pointer"
-                  onClick={() => handleSort('countInStock')}
+                  onClick={() => handleSort('stockQuantity')} 
                 >
                   <div className="flex items-center">
                     Stock
-                    {sortField === 'countInStock' && (
+                    {sortField === 'stockQuantity' && (
                       <span className="ml-1">
                         {sortDirection === 'asc' ? <FaSortAmountUp size={14} /> : <FaSortAmountDown size={14} />}
                       </span>
                     )}
                   </div>
                 </th>
-                <th 
+                <th
                   className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase cursor-pointer"
                   onClick={() => handleSort('status')}
                 >
@@ -253,16 +258,17 @@ const ProductList = () => {
                   <tr key={product._id} className="hover:bg-gray-50">
                     <td className="px-6 py-4 whitespace-nowrap">
                       <div className="flex-shrink-0 h-16 w-16 bg-gray-100 rounded overflow-hidden">
-                        {product.featuredImage ? (
-                          <img 
-                            src={product.featuredImage.startsWith('http') 
-                              ? product.featuredImage 
-                              : `${import.meta.env.VITE_API_URL || ''}${product.featuredImage}`}
+                        {/* Display the first image from the 'images' array */}
+                        {product.images && product.images.length > 0 && product.images[0]?.url ? (
+                          <img
+                            src={product.images[0].url.startsWith('http')
+                              ? product.images[0].url
+                              : `${API_URL_BASE}${product.images[0].url}`}
                             alt={product.name}
                             className="h-full w-full object-cover"
                           />
                         ) : (
-                          <div className="h-full w-full flex items-center justify-center bg-gray-200 text-gray-400">
+                          <div className="h-full w-full flex items-center justify-center bg-gray-200 text-gray-400 text-xs">
                             No Image
                           </div>
                         )}
@@ -275,7 +281,7 @@ const ProductList = () => {
                       )}
                     </td>
                     <td className="px-6 py-4 whitespace-nowrap">
-                      {product.isOnSale ? (
+                      {product.onSale ? (
                         <div>
                           <div className="text-sm line-through text-gray-500">{formatPrice(product.price)}</div>
                           <div className="text-sm font-medium text-red-600">
@@ -288,43 +294,44 @@ const ProductList = () => {
                     </td>
                     <td className="px-6 py-4 whitespace-nowrap">
                       <span className={`px-2 py-1 text-xs rounded-full ${
-                        product.countInStock > 10 
-                          ? 'bg-green-100 text-green-800' 
-                          : product.countInStock > 0 
-                            ? 'bg-yellow-100 text-yellow-800' 
-                            : 'bg-red-100 text-red-800'
-                      }`}>
-                        {product.countInStock > 0 ? product.countInStock : 'Out of stock'}
+                          // Use product.stockQuantity for stock status
+                          product.stockQuantity > 10
+                            ? 'bg-green-100 text-green-800'
+                            : product.stockQuantity > 0
+                              ? 'bg-yellow-100 text-yellow-800'
+                              : 'bg-red-100 text-red-800'
+                        }`}>
+                        {product.stockQuantity > 0 ? product.stockQuantity : 'Out of stock'}
                       </span>
                     </td>
                     <td className="px-6 py-4 whitespace-nowrap">
                       <span className={`px-2 py-1 text-xs rounded-full ${
-                        product.status === 'published' 
-                          ? 'bg-green-100 text-green-800' 
-                          : product.status === 'draft' 
-                            ? 'bg-blue-100 text-blue-800' 
-                            : 'bg-gray-100 text-gray-800'
-                      }`}>
+                          product.status === 'active' // Changed from 'published' to 'active' to match common backend status
+                            ? 'bg-green-100 text-green-800'
+                            : product.status === 'draft'
+                              ? 'bg-blue-100 text-blue-800'
+                              : 'bg-gray-100 text-gray-800'
+                        }`}>
                         {product.status}
                       </span>
                     </td>
                     <td className="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
                       <div className="flex justify-end space-x-2">
-                        <Link 
-                          to={`/app/productdetails/slug/${product.slug}`} 
+                        <Link
+                          to={`/app/productdetails/slug/${product.slug}`}
                           className="text-blue-600 hover:text-blue-900"
                           title="View"
                         >
                           <FaEye size={18} />
                         </Link>
-                        <Link 
-                          to={`/app/editproduct/slug/${product._id}`} 
+                        <Link
+                          to={`/app/editproduct/${product._id}`}
                           className="text-indigo-600 hover:text-indigo-900"
                           title="Edit"
                         >
                           <FaEdit size={18} />
                         </Link>
-                        <button 
+                        <button
                           onClick={() => handleDeleteClick(product)}
                           className="text-red-600 hover:text-red-900"
                           title="Delete"
@@ -358,46 +365,32 @@ const ProductList = () => {
               onClick={() => changePage(page - 1)}
               disabled={page === 1}
               className={`px-3 py-1 rounded ${
-                page === 1 
-                  ? 'bg-gray-100 text-gray-400 cursor-not-allowed' 
+                page === 1
+                  ? 'bg-gray-100 text-gray-400 cursor-not-allowed'
                   : 'bg-white border border-gray-300 text-gray-700 hover:bg-gray-50'
               }`}
             >
               Previous
             </button>
-            {Array.from({ length: Math.min(5, totalPages) }, (_, i) => {
-              // Show pages around current page
-              let pageNum;
-              if (totalPages <= 5) {
-                pageNum = i + 1;
-              } else if (page <= 3) {
-                pageNum = i + 1;
-              } else if (page >= totalPages - 2) {
-                pageNum = totalPages - 4 + i;
-              } else {
-                pageNum = page - 2 + i;
-              }
-              
-              return (
-                <button
-                  key={pageNum}
-                  onClick={() => changePage(pageNum)}
-                  className={`px-3 py-1 rounded ${
-                    page === pageNum 
-                      ? 'bg-blue-600 text-white' 
-                      : 'bg-white border border-gray-300 text-gray-700 hover:bg-gray-50'
-                  }`}
-                >
-                  {pageNum}
-                </button>
-              );
-            })}
+            {Array.from({ length: totalPages }, (_, i) => i + 1).map(pageNum => ( // Simplified page number rendering
+              <button
+                key={pageNum}
+                onClick={() => changePage(pageNum)}
+                className={`px-3 py-1 rounded ${
+                  page === pageNum
+                    ? 'bg-blue-600 text-white'
+                    : 'bg-white border border-gray-300 text-gray-700 hover:bg-gray-50'
+                }`}
+              >
+                {pageNum}
+              </button>
+            ))}
             <button
               onClick={() => changePage(page + 1)}
               disabled={page === totalPages}
               className={`px-3 py-1 rounded ${
-                page === totalPages 
-                  ? 'bg-gray-100 text-gray-400 cursor-not-allowed' 
+                page === totalPages
+                  ? 'bg-gray-100 text-gray-400 cursor-not-allowed'
                   : 'bg-white border border-gray-300 text-gray-700 hover:bg-gray-50'
               }`}
             >

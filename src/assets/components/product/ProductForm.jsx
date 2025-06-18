@@ -31,7 +31,7 @@ const ProductForm = () => {
     colors: '',
     sizes: '',
     tags: '',
-    status: 'draft',
+    status: 'published',
     isFeatured: false,
     isOnSale: false,
     discountPercentage: '',
@@ -45,6 +45,11 @@ const ProductForm = () => {
     shippingClass: 'standard',
     taxClass: 'standard'
   });
+
+  //  const handleGenerateSku = () => {
+  //   const sku = `${formData.brand}-${formData.name}-${formData.colors}`;
+  //   setFormData({ ...formData, sku });
+  // };
 
   const [images, setImages] = useState([]);
   const [imageFiles, setImageFiles] = useState([]);
@@ -265,7 +270,7 @@ const ProductForm = () => {
 };
 
   return (
-    <div className="bg-white rounded-lg shadow-md p-6">
+    <div className="bg-white rounded-lg shadow-md p-6 mb-25">
       <div className="flex items-center mb-6">
         <button 
           onClick={() => navigate('/app/products')}
@@ -372,6 +377,7 @@ const ProductForm = () => {
                 type="text"
                 id="sku"
                 name="sku"
+                readOnly
                 value={formData.sku}
                 onChange={handleChange}
                 className="w-full border border-gray-300 rounded-md px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
@@ -438,7 +444,7 @@ const ProductForm = () => {
 
             <div>
               <label htmlFor="originalPrice" className="block text-sm font-medium text-gray-700 mb-1">
-                Original Price (if different)
+                Discounted Price <span className='text-[12px] font-normal'>(Must be less than original price)</span>
               </label>
               <div className="relative">
                 <span className="absolute inset-y-0 left-0 flex items-center pl-3 text-gray-500">₦</span>
@@ -744,19 +750,45 @@ const ProductForm = () => {
           </div>
         </div>
 
+        {/* Validation Errors */}
+        {Object.keys(validationErrors).length > 0 && (
+          <div className="bg-red-50 text-red-700 p-4 rounded-md mb-6">
+            <h3 className="font-medium mb-2">Please fix the following errors:</h3>
+            <ul className="list-disc list-inside">
+              {Object.entries(validationErrors).map(([field, error]) => (
+                <li key={field}>{error}</li>
+              ))}
+            </ul>
+          </div>
+        )}
+
+        {/* API Errors */}
+        {error && (
+          <div className="bg-red-50 text-red-700 p-4 rounded-md mb-6">
+            {error}
+          </div>
+        )}
+        
+        {/* Success Message */}
+        {success && (
+          <div className="bg-green-50 text-green-700 p-4 rounded-md mb-6">
+            {success}
+          </div>
+        )}
+
         {/* Form Actions */}
         <div className="flex justify-end space-x-3 pt-6 border-t">
           <button
             type="button"
             onClick={() => navigate('/admin/products')}
-            className="px-4 py-2 border border-gray-300 rounded-md text-sm font-medium text-gray-700 hover:bg-gray-50"
+            className="px-4 py-2 border border-gray-300 rounded-md text-sm font-medium text-gray-700 hover:bg-gray-50 cursor-pointer"
           >
             Cancel
           </button>
           <button
             type="submit"
             // disabled={loading}
-            className="px-4 py-2 bg-blue-600 border border-transparent rounded-md text-sm font-medium text-white hover:bg-blue-700 flex items-center disabled:opacity-50 disabled:cursor-not-allowed"
+            className="px-4 py-2 bg-blue-600 border border-transparent rounded-md text-sm font-medium text-white hover:bg-blue-700 flex items-center disabled:opacity-50 disabled:cursor-not-allowed cursor-pointer"
           >
             {/* {loading ? (
               <>

@@ -34,6 +34,8 @@ import ProductCategories from './app/ProductCategories';
 import AddProductCategory from './app/AddProductCategory';
 import Shop from './app/Shop';
 import EditProduct from './app/EditProduct';
+import Cart from './app/Cart';
+import { CartProvider } from './assets/context-api/cart/CartProvider';
 
 function App() {
   return (
@@ -42,42 +44,44 @@ function App() {
         <QuoteProvider>
           <BlogProvider>
             <ProductProvider>
-              <ScrollToTop />
-              <Routes>
-                {/* Public routes */}
-                <Route path="/login" element={<Login />} />
-                <Route path="/register" element={<Register />} />
-                <Route path="/forgetpassword" element={<ForgetPassword />} />
-                <Route path="/" element={<Home />} />
-                <Route path="/aboutus" element={<AboutUs />} />
-                <Route path="/ourservices" element={<OurServices />} />
-                <Route path="/quoterequest" element={<QuoteRequest />} />
-                <Route path="/contactus" element={<ContactUs />} />
-                <Route path="/app/blog" element={<Blog />} />
-                <Route path="/app/shop" element={<Shop />} />
-                <Route path="/app/productdetails/slug/:slug" element={<ProductDetails />} />
-                <Route path="/app/blogdetails" element={<BlogDetails />} />
+              <CartProvider>
+                <ScrollToTop />
+                <Routes>
+                  {/* Public routes */}
+                  <Route path="/login" element={<Login />} />
+                  <Route path="/register" element={<Register />} />
+                  <Route path="/forgetpassword" element={<ForgetPassword />} />
+                  <Route path="/" element={<Home />} />
+                  <Route path="/aboutus" element={<AboutUs />} />
+                  <Route path="/ourservices" element={<OurServices />} />
+                  <Route path="/quoterequest" element={<QuoteRequest />} />
+                  <Route path="/contactus" element={<ContactUs />} />
+                  <Route path="/app/blog" element={<Blog />} />
+                  <Route path="/app/shop" element={<Shop />} />
+                  <Route path="/app/cart" element={<Cart />} />
+                  <Route path="/app/productdetails/slug/:slug" element={<ProductDetails />} />
+                  <Route path="/app/blogdetails" element={<BlogDetails />} />
 
-                {/* Private/protected routes */}
-                <Route element={<PrivateRoutes />}>
-                  <Route path="/app/dashboard" element={<Dashboard />} />
-                  <Route path="/app/quote" element={<Quote />} />
-                  <Route path="/app/addnewpost" element={<AddNewPost />} />
-                  <Route path="/app/blogposts" element={<BlogPosts />} />
-                  <Route path="/app/editblogpost/:id" element={<EditBlogPost />} />
-                  <Route path="/app/profile" element={<Profile />} />
-                  <Route path="/app/allusers" element={<AllUsers />} />
-                  <Route path="/app/addnewuser" element={<AddNewUser />} />
-                  <Route path="/app/mysettings" element={<MySettings />} />
-                  <Route path="/app/changeuserpassword" element={<ChangeUserPassword />} />
-                  <Route path="/app/addproduct" element={<AddProduct />} />
-                  {/* <Route path="/app/productdetails/:id" element={<ProductDetails />} /> */}
-                  <Route path="/app/products" element={<Products />} />
-                  <Route path="/app/productcategories" element={<ProductCategories />} />
-                  <Route path="/app/addproductcategory" element={<AddProductCategory />} />
-                  <Route path="/app/editproduct/slug/:slug" element={<EditProduct />} />
-                </Route>
-              </Routes>
+                  {/* Private/protected routes */}
+                  <Route element={<PrivateRoutes />}>
+                    <Route path="/app/dashboard" element={<Dashboard />} />
+                    <Route path="/app/quote" element={<Quote />} />
+                    <Route path="/app/addnewpost" element={<AddNewPost />} />
+                    <Route path="/app/blogposts" element={<BlogPosts />} />
+                    <Route path="/app/editblogpost/:id" element={<EditBlogPost />} />
+                    <Route path="/app/profile" element={<Profile />} />
+                    <Route path="/app/allusers" element={<AllUsers />} />
+                    <Route path="/app/addnewuser" element={<AddNewUser />} />
+                    <Route path="/app/mysettings" element={<MySettings />} />
+                    <Route path="/app/changeuserpassword" element={<ChangeUserPassword />} />
+                    <Route path="/app/addproduct" element={<AddProduct />} />
+                    <Route path="/app/products" element={<Products />} />
+                    <Route path="/app/productcategories" element={<ProductCategories />} />
+                    <Route path="/app/addproductcategory" element={<AddProductCategory />} />
+                    <Route path="/app/editproduct/:id" element={<EditProduct />} />
+                  </Route>
+                </Routes>
+              </CartProvider>
             </ProductProvider>
           </BlogProvider>
         </QuoteProvider>

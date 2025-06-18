@@ -23,6 +23,7 @@
     "recharts": "^2.15.3",
     "rsuite": "^5.82.0",
     "slugify": "^1.6.6",
+    "tailwind-scrollbar": "^4.0.2",
     "tailwindcss": "^4.1.10",
     "uuid": "^11.1.0"
   },
