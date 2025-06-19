@@ -284,17 +284,16 @@ const ProductList = () => {
                       {product.onSale ? (
                         <div>
                           <div className="text-sm line-through text-gray-500">{formatPrice(product.price)}</div>
-                          <div className="text-sm font-medium text-red-600">
+                          <div className="text-sm font-medium text-blue-800">
                             {formatPrice(calculateSalePrice(product.price, product.discountPercentage))}
                           </div>
                         </div>
                       ) : (
-                        <div className="text-sm font-medium text-gray-900">{formatPrice(product.price)}</div>
+                        <div className="text-sm font-medium text-blue-800">{formatPrice(product.price)}</div>
                       )}
                     </td>
                     <td className="px-6 py-4 whitespace-nowrap">
-                      <span className={`px-2 py-1 text-xs rounded-full ${
-                          // Use product.stockQuantity for stock status
+                      <span className={`px-2 py-1 text-xs rounded-full font-semibold ${
                           product.stockQuantity > 10
                             ? 'bg-green-100 text-green-800'
                             : product.stockQuantity > 0
@@ -306,7 +305,7 @@ const ProductList = () => {
                     </td>
                     <td className="px-6 py-4 whitespace-nowrap">
                       <span className={`px-2 py-1 text-xs rounded-full ${
-                          product.status === 'active' // Changed from 'published' to 'active' to match common backend status
+                          product.status === 'active'
                             ? 'bg-green-100 text-green-800'
                             : product.status === 'draft'
                               ? 'bg-blue-100 text-blue-800'
@@ -418,8 +417,9 @@ const ProductList = () => {
               <button
                 onClick={confirmDelete}
                 className="px-4 py-2 bg-red-600 text-white rounded-md hover:bg-red-700"
+                disable={loading}
               >
-                Delete
+                 {loading ? 'Deleting...' : 'Delete'}
               </button>
             </div>
           </div>

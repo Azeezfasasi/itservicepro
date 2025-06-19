@@ -14,7 +14,7 @@ const ProductForm = () => {
     fetchCategories,
     createProduct,
     updateProduct,
-    // loading,
+    loading,
     error,
     success
   } = useProduct();
@@ -213,16 +213,12 @@ const ProductForm = () => {
     images: imageFiles,
   };
 
-  // FIX: Ensure 'status' is a valid enum value for the backend.
-  // The backend enum values are: 'active', 'inactive', 'draft'.
-  // If 'published' was implicitly intended, map it to 'active'.
-  // Otherwise, default to 'draft' or 'active' for new products if not explicitly set.
   if (productFormData.status === 'published') {
       productFormData.status = 'active'; // Map 'published' to 'active'
   } else if (!['active', 'inactive', 'draft'].includes(productFormData.status)) {
       // If formData.status is not one of the valid enums (or undefined/null),
       // set a sensible default for creation/update, e.g., 'draft' or 'active'.
-      productFormData.status = 'draft'; // Or 'active', depending on your desired default
+      productFormData.status = 'draft';
   }
 
   // Handle optional number fields and nested objects
@@ -230,8 +226,6 @@ const ProductForm = () => {
   if (formData.discountPercentage !== undefined) productFormData.discountPercentage = Number(formData.discountPercentage);
   if (formData.weight !== undefined) productFormData.weight = Number(formData.weight);
 
-  // Ensure dimensions are handled correctly, assuming formData.dimensions is an object
-  // and its properties need numerical conversion
   if (formData.dimensions) {
       if (formData.dimensions.length !== undefined) productFormData.dimensions.length = Number(formData.dimensions.length);
       if (formData.dimensions.width !== undefined) productFormData.dimensions.width = Number(formData.dimensions.width);
@@ -242,12 +236,7 @@ const ProductForm = () => {
       // For now, if not provided, just let the backend handle its default.
       delete productFormData.dimensions;
   }
-
-
   let result;
-  // Assuming `isSubmitting` state is managed outside this snippet as seen in CategoryForm
-  // try { setIsSubmitting(true); ... } finally { setIsSubmitting(false); }
-
   try {
     if (isEditMode) {
       result = await updateProduct(id, productFormData);
@@ -266,6 +255,7 @@ const ProductForm = () => {
   } finally {
     // If you have a local `isSubmitting` state, ensure it's reset here.
     // setIsSubmitting(false);
+    loading(false);
   }
 };
 
@@ -790,7 +780,7 @@ const ProductForm = () => {
             // disabled={loading}
             className="px-4 py-2 bg-blue-600 border border-transparent rounded-md text-sm font-medium text-white hover:bg-blue-700 flex items-center disabled:opacity-50 disabled:cursor-not-allowed cursor-pointer"
           >
-            {/* {loading ? (
+            {loading ? (
               <>
                 <svg className="animate-spin -ml-1 mr-2 h-4 w-4 text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
                   <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"></circle>
@@ -803,7 +793,7 @@ const ProductForm = () => {
                 <FaSave className="mr-2" />
                 {isEditMode ? 'Update Product' : 'Create Product'}
               </>
-            )} */}
+            )}
             Add Product
           </button>
         </div>

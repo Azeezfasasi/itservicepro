@@ -126,9 +126,6 @@ const ProductListForCustomers = () => {
                   </p>
                 )}
               </div>
-              {/* <p className="text-sm text-gray-600 mb-4 flex-grow line-clamp-2">
-                {product.description}
-              </p> */}
 
               {/* Actions */}
               <div className="flex flex-col space-y-3">
