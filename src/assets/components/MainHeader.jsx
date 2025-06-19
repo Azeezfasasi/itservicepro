@@ -9,10 +9,10 @@ function MainHeader() {
 
   return (
     <>
-      <div className="bg-gray-300 py-4 px-6 flex justify-between items-center sticky top-0 z-50">
+      <div className="bg-gray-300 py-4 px-2 md:px-6 flex justify-between items-center sticky top-0 z-50">
         {/* Logo */}
         <Link to="/" className="flex items-center space-x-2">
-          <h1 className="text-xl font-bold text-[#0A1F44]">IT Service Pro</h1>
+          <h1 className="text-[17px] md:text-xl font-bold text-[#0A1F44]">IT Service Pro</h1>
         </Link>
 
         {/* Hamburger Icon (Mobile) */}
