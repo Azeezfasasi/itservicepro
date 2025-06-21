@@ -38,6 +38,7 @@ import Cart from './app/Cart';
 import { CartProvider } from './assets/context-api/cart/CartProvider';
 import Wishlist from './app/WishList';
 import Checkout from './app/Checkout';
+import OrderSuccess from './app/OrderSuccess';
 
 function App() {
   return (
@@ -83,6 +84,7 @@ function App() {
                     <Route path="/app/editproduct/:id" element={<EditProduct />} />
                     <Route path="/app/checkout" element={<Checkout />} />
                     <Route path="/app/wishlist" element={<Wishlist />} />
+                    <Route path="/app/ordersuccess" element={<OrderSuccess />} />
                   </Route>
                 </Routes>
               </CartProvider>
