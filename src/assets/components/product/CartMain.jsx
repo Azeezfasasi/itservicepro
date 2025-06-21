@@ -237,12 +237,12 @@ const CartMain = () => {
             </div>
             <p className="text-sm text-gray-600 mb-6">Shipping and taxes calculated at checkout.</p>
           </div>
-          <button
+          <Link
             to="/app/checkout"
             className="w-full bg-green-600 hover:bg-green-700 text-white font-bold py-3 px-6 rounded-md text-center transition duration-300 ease-in-out transform hover:scale-105 flex items-center justify-center gap-2"
           >
             <FaShoppingCart /> Proceed to Checkout
-          </button>
+          </Link>
         </div>
       </div>
     </div>
