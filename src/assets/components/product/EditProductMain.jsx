@@ -1,7 +1,9 @@
-import React, { useState, useEffect } from 'react';
+import { useState, useEffect, useRef } from 'react';
+import { Editor } from '@tinymce/tinymce-react';
 import { useNavigate, useParams } from 'react-router-dom';
 import { useProduct } from '../../context-api/product-context/UseProduct'
 import { FaSave, FaArrowLeft, FaTrash } from 'react-icons/fa'; 
+import { RICHT_TEXT_API } from '../../../config/richText';
 
 const EditProduct = () => {
   const { id } = useParams();
@@ -183,6 +185,11 @@ const EditProduct = () => {
   // Base URL for Cloudinary images (assuming your backend serves them directly or via a proxy)
   const API_URL_BASE = import.meta.env.VITE_API_URL;
 
+  const editorRef = useRef(null);
+  const handleEditorChange = (content) => {
+    setFormData({ ...formData, description: content });
+  };
+
   return (
     <div className='max-w-4xl mx-auto p-4 bg-white rounded-md shadow-md'>
       <h2 className='text-2xl font-bold mb-4'>Edit Product: {product?.name || 'Loading...'}</h2>
@@ -218,26 +225,23 @@ const EditProduct = () => {
           </div>
           <div>
             <label htmlFor="description" className='block text-lg font-medium mb-2'>Description:</label>
-            <textarea
-              name="description"
-              id="description"
-              value={formData.description}
-              onChange={handleChange}
-              className="block w-full p-4 text-lg border border-gray-300 rounded-md focus:outline-none focus:ring focus:ring-gray-500"
-            ></textarea>
-            {validationErrors.description && <p className="text-red-500 text-sm mt-1">{validationErrors.description}</p>}
-          </div>
-          <div>
-            <label htmlFor="richDescription" className="block text-lg font-medium mb-2">Rich Description (HTML allowed):</label>
-            <textarea
-              id="richDescription"
-              name="richDescription"
-              value={formData.richDescription}
-              onChange={handleChange}
-              rows="6"
-              className="mt-1 block w-full border border-gray-300 rounded-md shadow-sm p-2"
-              placeholder="Enter detailed HTML description here..."
-            ></textarea>
+            <Editor
+              apiKey={RICHT_TEXT_API}
+              onInit={(evt, editor) => (editorRef.current = editor)}
+              value={formData.richDescription || formData.description}
+              init={{
+                height: 300,
+                menubar: false,
+                plugins: [
+                  'advlist', 'autolink', 'lists', 'link', 'image', 'charmap', 'preview', 'anchor', 'searchreplace', 'visualblocks', 'code', 'fullscreen', 'insertdatetime', 'media', 'table', 'code', 'help', 'wordcount'
+                ],
+                toolbar: 'undo redo | blocks |' + 'bold italic forecolor | alignleft aligncenter alignright alignjustify |' + '| bullist numlist outdent indent | ' + 'removeformat | help',
+              }}
+              onEditorChange={handleEditorChange}
+            />
+            {validationErrors.description && (
+              <p className="text-red-500 text-xs mt-1">{validationErrors.description}</p>
+            )}
           </div>
 
           {/* Brand, Price, Discounted Price */}

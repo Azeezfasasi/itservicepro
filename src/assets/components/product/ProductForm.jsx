@@ -1,8 +1,10 @@
-import React, { useState, useEffect } from 'react';
+import { useState, useEffect, useRef } from 'react';
+import { Editor } from '@tinymce/tinymce-react';
 import { useNavigate, useParams } from 'react-router-dom';
 import { useProduct } from '../../context-api/product-context/UseProduct';
 import { FaImage, FaUpload, FaTimes, FaSave, FaArrowLeft } from 'react-icons/fa';
 import { v4 as uuidv4 } from 'uuid';
+import { RICHT_TEXT_API } from '../../../config/richText';
 
 const ProductForm = () => {
   const { id } = useParams();
@@ -259,6 +261,11 @@ const ProductForm = () => {
   }
 };
 
+  const editorRef = useRef(null);
+  const handleEditorChange = (content) => {
+    setFormData({ ...formData, description: content });
+  };
+
   return (
     <div className="bg-white rounded-lg shadow-md p-6 mb-25">
       <div className="flex items-center mb-6">
@@ -377,33 +384,27 @@ const ProductForm = () => {
           
           <div className="mt-4">
             <label htmlFor="description" className="block text-sm font-medium text-gray-700 mb-1">
-              Description<span className='text-red-700'>*</span>
+              Product Description<span className='text-red-700'>*</span>
             </label>
-            <textarea
-              id="description"
-              name="description"
-              value={formData.description}
-              onChange={handleChange}
-              rows="4"
-              className={`w-full border ${validationErrors.description ? 'border-red-500' : 'border-gray-300'} rounded-md px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500`}
-            ></textarea>
+            <Editor
+              apiKey={RICHT_TEXT_API}
+              onInit={(evt, editor) => (editorRef.current = editor)}
+              value={formData.richDescription || formData.description}
+              init={{
+                height: 300,
+                menubar: false,
+                plugins: [
+                  'advlist', 'autolink', 'lists', 'link', 'image', 'charmap', 'preview',
+                  'anchor', 'searchreplace', 'visualblocks', 'code', 'fullscreen',
+                  'insertdatetime', 'media', 'table', 'code', 'help', 'wordcount'
+                ],
+                toolbar: 'undo redo | blocks |' + 'bold italic forecolor | alignleft aligncenter alignright alignjustify |' + '| bullist numlist outdent indent | ' + 'removeformat | help',
+              }}
+              onEditorChange={handleEditorChange}
+            />
             {validationErrors.description && (
               <p className="text-red-500 text-xs mt-1">{validationErrors.description}</p>
             )}
-          </div>
-
-          <div className="mt-4">
-            <label htmlFor="richDescription" className="block text-sm font-medium text-gray-700 mb-1">
-              Rich Description (HTML supported)
-            </label>
-            <textarea
-              id="richDescription"
-              name="richDescription"
-              value={formData.richDescription}
-              onChange={handleChange}
-              rows="6"
-              className="w-full border border-gray-300 rounded-md px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
-            ></textarea>
           </div>
         </div>
 

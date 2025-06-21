@@ -1,5 +1,6 @@
-import React, { useEffect, useState, useContext } from 'react';
-import { useParams, Link } from 'react-router-dom';
+import { useEffect, useState, useContext } from 'react';
+import { Editor } from '@tinymce/tinymce-react';
+import { useParams, Link, Navigate } from 'react-router-dom';
 import { ProductContext } from '../../context-api/product-context/ProductContext';
 import { UserContext } from '../../context-api/user-context/UserContext';
 import { useCart } from '../../context-api/cart/UseCart';
@@ -129,6 +130,7 @@ const ProductDetailsMain = () => {
       // You can further react to success here, e.g., redirect
     }
   };
+
 
   const handleToggleWishlist = async () => {
     if (!user) {
@@ -262,7 +264,7 @@ const ProductDetailsMain = () => {
                     key={index}
                     onClick={() => setSelectedImage(index)}
                     className={`flex-shrink-0 w-[70px] h-[70px] md:w-[100px] md:h-[100px] rounded-md overflow-hidden
-                                ${selectedImage === index ? 'ring-2 ring-blue-500' : 'hover:opacity-75'} focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500`}
+                    ${selectedImage === index ? 'ring-2 ring-blue-500' : 'hover:opacity-75'} focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500`}
                   >
                     <img
                       src={image.url?.startsWith('http') ? image.url : `${API_URL_BASE}${image.url}`}
@@ -499,10 +501,11 @@ const ProductDetailsMain = () => {
           </div>
 
           <div className="mt-6 prose prose-sm max-w-none text-gray-500">
-            {product.richDescription ? (
-              <div dangerouslySetInnerHTML={{ __html: product.richDescription }} />
+            {product.description ? (
+              <div dangerouslySetInnerHTML={{ __html: product.description }} />
             ) : (
-              <p>{product.description}</p>
+              // <p>{product.description}</p>
+              <p dangerouslySetInnerHTML={{ __html: product.description.replace(/\n/g, '<br />') }} />
             )}
           </div>
         </div>

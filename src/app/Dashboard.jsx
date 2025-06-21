@@ -4,6 +4,7 @@ import DashMenu from '../assets/components/dashboard-components/DashMenu'
 import { Helmet } from 'react-helmet'
 import DashStats from '../assets/components/dashboard-components/DashStats'
 import DashChart from '../assets/components/dashboard-components/DashChart'
+import ProductChart from '../assets/components/dashboard-components/ProductChart'
 
 function Dashboard() {
   return (
@@ -19,6 +20,7 @@ function Dashboard() {
       <div className='w-full lg:w-[80%]'>
         <DashStats />
         <DashChart />
+        <ProductChart />
       </div>
     </div>
     </>
