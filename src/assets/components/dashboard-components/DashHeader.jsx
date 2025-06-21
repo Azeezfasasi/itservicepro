@@ -5,6 +5,7 @@ import { useUser } from '../../context-api/user-context/UseUser';
 
 function DashHeader() {
   const [menuOpen, setMenuOpen] = useState(false);
+  // const [linkOpen, setLinkOpen] = useState(false);
   const [profileMenuOpen, setProfileMenuOpen] = useState(false);
   const navigate = useNavigate();
   const { user, logout } = useUser();
@@ -47,12 +48,12 @@ function DashHeader() {
 
       {/* Navigation */}
       <div className="hidden lg:flex space-x-6 font-medium text-[#0A1F44] items-center">
-        {/* <Link to="/app/dashboard">Dashboard</Link>
+        <Link to="/">Home</Link>
         {user?.role === 'admin' || user?.role === 'super admin' ? (
-          <Link to="/app/users">Users</Link>
+          <Link to="/app/users">Wishlist</Link>
         ) : null}
-        <Link to="/app/quotes">Quotes</Link>
-        <Link to="/app/profile">Profile</Link> */}
+        <Link to="/app/quotes">Cart</Link>
+        <Link to="/app/profile">Profile</Link>
         <div className="flex flex-row items-center gap-2 ml-4 relative profile-dropdown">
           <div className="relative">
             <img
@@ -90,7 +91,7 @@ function DashHeader() {
 
       {/* Mobile Menu */}
       {menuOpen && (
-        <div className="absolute top-full left-0 w-full bg-white shadow-md flex flex-col items-start pl-4 py-4 z-50 lg:hidden animate-fade-in border-b">
+        <div className="absolute top-full left-0 w-full bg-white shadow-md flex flex-col items-start pl-4 py-4 z-50 lg:hidden animate-fade-in border-b h-[600px] overflow-y-scroll overflow-x-hidden">
           <Link to="/app/dashboard" className="py-2 w-full text-left text-[#0A1F44] font-medium hover:bg-gray-100" onClick={() => setMenuOpen(false)}>Dashboard</Link>
           {(user?.role === 'admin' || user?.role === 'super admin') && (
             <Link to="/app/quote" className="py-2 w-full text-left text-[#0A1F44] font-medium hover:bg-gray-100" onClick={() => setMenuOpen(false)}>Quote Request</Link>
@@ -105,6 +106,8 @@ function DashHeader() {
           <Link to="/app/addproduct" className="py-2 w-full text-left text-[#0A1F44] font-medium hover:bg-gray-100" onClick={() => setMenuOpen(false)}>Add Product</Link>
           <Link to="/app/productcategories" className="py-2 w-full text-left text-[#0A1F44] font-medium hover:bg-gray-100" onClick={() => setMenuOpen(false)}>Product Categories</Link>
           <Link to="/app/addproductcategory" className="py-2 w-full text-left text-[#0A1F44] font-medium hover:bg-gray-100" onClick={() => setMenuOpen(false)}>Add Product Categories</Link>
+          <Link to="/app/userorderdetails" className="py-2 w-full text-left text-[#0A1F44] font-medium hover:bg-gray-100" onClick={() => setMenuOpen(false)}>My Orders</Link>
+          <Link to="/app/adminorderlist" className="py-2 w-full text-left text-[#0A1F44] font-medium hover:bg-gray-100" onClick={() => setMenuOpen(false)}>All Orders</Link>
           <Link to="/app/mysettings" className="py-2 w-full text-left text-[#0A1F44] font-medium hover:bg-gray-100" onClick={() => setMenuOpen(false)}>Settings</Link>
           <button onClick={() => { setMenuOpen(false); handleLogout(); }} className="mt-4 bg-red-500 text-white px-4 py-2 rounded-full hover:bg-red-600 transition">Logout</button>
           <div className="flex flex-row items-center gap-2 mt-4">

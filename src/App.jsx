@@ -39,6 +39,9 @@ import { CartProvider } from './assets/context-api/cart/CartProvider';
 import Wishlist from './app/WishList';
 import Checkout from './app/Checkout';
 import OrderSuccess from './app/OrderSuccess';
+import UserOrderDetails from './app/UserOrderDetails';
+import AdminOrderList from './app/AdminOrderList';
+import TrackOrder from './app/TrackOrder';
 
 function App() {
   return (
@@ -64,6 +67,7 @@ function App() {
                   <Route path="/app/cart" element={<Cart />} />
                   <Route path="/app/productdetails/slug/:slug" element={<ProductDetails />} />
                   <Route path="/app/blogdetails/:id" element={<BlogDetails />} />
+                  <Route path="/app/trackorder" element={<TrackOrder />} />
 
                   {/* Private/protected routes */}
                   <Route element={<PrivateRoutes />}>
@@ -85,6 +89,8 @@ function App() {
                     <Route path="/app/checkout" element={<Checkout />} />
                     <Route path="/app/wishlist" element={<Wishlist />} />
                     <Route path="/app/ordersuccess" element={<OrderSuccess />} />
+                    <Route path="/app/userorderdetails" element={<UserOrderDetails />} />
+                    <Route path="/app/adminorderlist" element={<AdminOrderList />} />
                   </Route>
                 </Routes>
               </CartProvider>
