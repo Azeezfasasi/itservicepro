@@ -30,8 +30,6 @@ export const ProductProvider = ({ children }) => {
     }
   }, [success, error]);
 
-  // Products Functions ===================================
-
   // Fetch all products with optional filtering, sorting, and pagination
   const fetchProducts = useCallback(async (params = {}) => {
     setLoading(true);
@@ -611,7 +609,7 @@ export const ProductProvider = ({ children }) => {
   const formatPrice = useCallback((price) => {
     return new Intl.NumberFormat('en-US', {
       style: 'currency',
-      currency: 'USD'
+      currency: 'NGN'
     }).format(price);
   }, []);
 

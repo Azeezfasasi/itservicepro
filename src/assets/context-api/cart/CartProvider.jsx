@@ -68,7 +68,8 @@ export const CartProvider = ({ children }) => {
     }
   }, [isAuthenticated, token]);
 
-  const addToCart = useCallback(async (productId, quantity) => {
+  // Updated addToCart to accept and send slug, name, image, price
+  const addToCart = useCallback(async (productId, quantity, slug, name, image, price) => {
     if (!isAuthenticated || !token) {
       setError('Please log in to add items to your cart.');
       clearMessages();
@@ -83,7 +84,7 @@ export const CartProvider = ({ children }) => {
           'Content-Type': 'application/json',
           Authorization: `Bearer ${token}`,
         },
-        body: JSON.stringify({ productId, quantity }),
+        body: JSON.stringify({ productId, quantity, slug, name, image, price }),
       });
       const data = await response.json();
       if (!response.ok) throw new Error(data.message || 'Failed to add to cart');

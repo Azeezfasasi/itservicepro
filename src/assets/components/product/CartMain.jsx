@@ -135,7 +135,7 @@ const CartMain = () => {
                             />
                           </div>
                           <div className="ml-4">
-                            <Link to={`/app/productdetails/slug/${item.productId}`} className="text-sm font-medium text-blue-600 hover:text-blue-800 hover:underline">
+                            <Link to={`/app/productdetails/slug/${item.slug}`} className="text-sm font-medium text-blue-600 hover:text-blue-800 hover:underline">
                                {item.name}
                             </Link>
                           </div>

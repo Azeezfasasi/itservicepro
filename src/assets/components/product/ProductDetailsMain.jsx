@@ -4,7 +4,9 @@ import { useParams, Link, Navigate } from 'react-router-dom';
 import { ProductContext } from '../../context-api/product-context/ProductContext';
 import { UserContext } from '../../context-api/user-context/UserContext';
 import { useCart } from '../../context-api/cart/UseCart';
-import { FaStar, FaStarHalfAlt, FaRegStar, FaShoppingCart, FaHeart, FaShare, FaTags, FaSpinner } from 'react-icons/fa';
+import { FaStar, FaStarHalfAlt, FaRegStar, FaShoppingCart, FaHeart, FaShare, FaTags, FaSpinner, FaExpand } from 'react-icons/fa';
+import Lightbox from 'yet-another-react-lightbox';
+import 'yet-another-react-lightbox/styles.css';
 
 const ProductDetailsMain = () => {
   const { slug } = useParams();
@@ -41,6 +43,7 @@ const ProductDetailsMain = () => {
   });
   const [showReviewForm, setShowReviewForm] = useState(false);
   const [showNotification, setShowNotification] = useState(false); // State for notification
+  const [lightboxOpen, setLightboxOpen] = useState(false);
 
   // Auto-hide notification
   useEffect(() => {
@@ -116,19 +119,21 @@ const ProductDetailsMain = () => {
   const handleAddToCart = async () => {
     if (!user) {
       setShowNotification(true);
-      // set error in cart context
       return; // Stop if not logged in
     }
     if (!product || product.stockQuantity === 0) {
-        // setError('Product is out of stock.'); // Set product-specific error
-        setShowNotification(true); // show product error
-        return;
+      setShowNotification(true); // show product error
+      return;
     }
-    // Call addToCart from useCart hook
-    const success = await addToCart(product._id, quantity);
-    if (success) {
-      // You can further react to success here, e.g., redirect
-    }
+    // Pass slug, name, image, price to addToCart
+    await addToCart(
+      product._id,
+      quantity,
+      product.slug,
+      product.name,
+      product.images && product.images[0] ? product.images[0].url : '',
+      product.price
+    );
   };
 
 
@@ -240,18 +245,38 @@ const ProductDetailsMain = () => {
         <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
           {/* Product Images */}
           <div className="space-y-4">
-            <div className="aspect-w-1 aspect-h-1 bg-gray-200 rounded-lg overflow-hidden">
+            <div className="aspect-w-1 aspect-h-1 bg-gray-200 rounded-lg overflow-hidden relative">
               {product.images && product.images.length > 0 && product.images[selectedImage]?.url ? (
-                <img
-                  src={product.images[selectedImage].url.startsWith('http') ? product.images[selectedImage].url : `${API_URL_BASE}${product.images[selectedImage].url}`}
-                  alt={product.name}
-                  className="w-full h-[400px] md:h-[600px] object-center object-cover" // Changed to object-center object-cover
-                />
+                <>
+                  <img
+                    src={product.images[selectedImage].url.startsWith('http') ? product.images[selectedImage].url : `${API_URL_BASE}${product.images[selectedImage].url}`}
+                    alt={product.name}
+                    className="w-full h-[400px] md:h-[600px] object-center object-cover cursor-pointer"
+                    onClick={() => setLightboxOpen(true)}
+                  />
+                  <button
+                    type="button"
+                    className="absolute top-2 right-2 bg-white bg-opacity-80 rounded-full p-2 shadow hover:bg-opacity-100 transition"
+                    title="View Fullscreen"
+                    onClick={() => setLightboxOpen(true)}
+                  >
+                    <FaExpand className="text-gray-700 text-lg" />
+                  </button>
+                </>
               ) : (
                 <img
                   src="/placehold.co/400x400/CCCCCC/000000?text=No+Image"
                   alt="No image available"
                   className="w-full h-full object-center object-cover"
+                />
+              )}
+              {lightboxOpen && (
+                <Lightbox
+                  open={lightboxOpen}
+                  close={() => setLightboxOpen(false)}
+                  slides={product.images.map(img => ({ src: img.url.startsWith('http') ? img.url : `${API_URL_BASE}${img.url}` }))}
+                  index={selectedImage}
+                  on={{ view: ({ index }) => setSelectedImage(index) }}
                 />
               )}
             </div>
@@ -444,7 +469,7 @@ const ProductDetailsMain = () => {
                   <button
                     type="button"
                     onClick={handleAddToCart}
-                    className={`flex-1 bg-blue-600 text-white px-6 py-3 rounded-md hover:bg-blue-700 flex items-center justify-center gap-2 transition-colors duration-200
+                    className={`flex-1 bg-blue-600 text-white px-6 py-3 rounded-md hover:bg-blue-700 flex items-center justify-center gap-2 transition-colors duration-200 cursor-pointer
                      ${(product.stockQuantity === 0 || cartLoading) ? 'opacity-50 cursor-not-allowed' : ''}`}
                     disabled={product.stockQuantity === 0 || cartLoading}
                   >
@@ -454,7 +479,7 @@ const ProductDetailsMain = () => {
                   <button
                     type="button"
                     onClick={handleToggleWishlist}
-                    className={`p-3 border border-gray-300 rounded-md text-gray-700 hover:bg-gray-50 transition-colors duration-200 ${isInWishlist ? 'text-red-500 border-red-300 bg-red-50' : ''}`} 
+                    className={`p-3 border border-gray-300 rounded-md text-gray-700 hover:bg-gray-50 transition-colors duration-200 cursor-pointer ${isInWishlist ? 'text-red-500 border-red-300 bg-red-50' : ''}`} 
                     title={isInWishlist ? "Remove from Wishlist" : "Add to Wishlist"}
                     disabled={cartLoading}
                   >

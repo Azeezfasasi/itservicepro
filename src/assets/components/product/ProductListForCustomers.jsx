@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
-// import { ProductContext } from '../../context-api/product-context/ProductContext';
 import { useProduct } from '../../context-api/product-context/UseProduct';
 import { ShoppingCart, Eye } from 'lucide-react';
 import { FaSpinner } from 'react-icons/fa';
@@ -37,7 +36,7 @@ const ProductListForCustomers = () => {
 
   // Function to navigate to product detail page
   const handleViewDetails = (id) => {
-    navigate(`/app/productdetails/slug/${id}`); // Navigate to a product detail route
+    navigate(`/app/productdetails/slug/${id}`);
   };
 
   // Render loading state
@@ -136,15 +135,6 @@ const ProductListForCustomers = () => {
                   <Eye className="w-5 h-5 mr-2" />
                   View Details
                 </button>
-                {/* Placeholder for Add to Cart - you can implement this later */}
-                {/* <button
-                  className="flex items-center justify-center bg-gray-100 text-gray-800 py-2 px-4 rounded-lg
-                             hover:bg-gray-200 transition duration-300 ease-in-out border border-gray-300
-                             focus:outline-none focus:ring-2 focus:ring-gray-400 focus:ring-opacity-50"
-                >
-                  <ShoppingCart className="w-5 h-5 mr-2" />
-                  Add to Cart
-                </button> */}
               </div>
             </div>
           </div>
@@ -166,11 +156,7 @@ const ProductListForCustomers = () => {
             <button
               key={pageNumber}
               onClick={() => handlePageChange(pageNumber)}
-              className={`px-4 py-2 rounded-lg transition-colors duration-200
-                          ${currentPage === pageNumber
-                            ? 'bg-blue-700 text-white'
-                            : 'bg-gray-200 text-gray-700 hover:bg-gray-300'
-                          }`}
+              className={`px-4 py-2 rounded-lg transition-colors duration-200 ${currentPage === pageNumber ? 'bg-blue-700 text-white' : 'bg-gray-200 text-gray-700 hover:bg-gray-300'}`}
             >
               {pageNumber}
             </button>
