@@ -118,23 +118,13 @@ function DashHeader() {
       {/* Mobile Menu */}
       {menuOpen && (
         <div className="absolute top-full left-0 w-full bg-white shadow-md flex flex-col items-start pl-0 py-4 z-50 lg:hidden animate-fade-in border-b h-[600px] overflow-y-scroll overflow-x-hidden">
-          {/* <Link to="/app/dashboard" className="py-2 w-full text-left text-[#0A1F44] font-medium hover:bg-gray-100" onClick={() => setMenuOpen(false)}>Dashboard</Link>
-          {(user?.role === 'admin' || user?.role === 'super admin') && (
-            <Link to="/app/quote" className="py-2 w-full text-left text-[#0A1F44] font-medium hover:bg-gray-100" onClick={() => setMenuOpen(false)}>Quote Request</Link>
-          )}
-          <Link to="/app/blogposts" className="py-2 w-full text-left text-[#0A1F44] font-medium hover:bg-gray-100" onClick={() => setMenuOpen(false)}>All Posts</Link>
-          <Link to="/app/addnewpost" className="py-2 w-full text-left text-[#0A1F44] font-medium hover:bg-gray-100" onClick={() => setMenuOpen(false)}>Add New Post</Link>
-          <Link to="/app/profile" className="py-2 w-full text-left text-[#0A1F44] font-medium hover:bg-gray-100" onClick={() => setMenuOpen(false)}>Profile</Link>
-          <Link to="/app/allusers" className="py-2 w-full text-left text-[#0A1F44] font-medium hover:bg-gray-100" onClick={() => setMenuOpen(false)}>All Users</Link>
-          <Link to="/app/addnewuser" className="py-2 w-full text-left text-[#0A1F44] font-medium hover:bg-gray-100" onClick={() => setMenuOpen(false)}>Add New User</Link>
-          <Link to="/app/changeuserpassword" className="py-2 w-full text-left text-[#0A1F44] font-medium hover:bg-gray-100" onClick={() => setMenuOpen(false)}>Change User Password</Link>
-          <Link to="/app/products" className="py-2 w-full text-left text-[#0A1F44] font-medium hover:bg-gray-100" onClick={() => setMenuOpen(false)}>All Products</Link>
-          <Link to="/app/addproduct" className="py-2 w-full text-left text-[#0A1F44] font-medium hover:bg-gray-100" onClick={() => setMenuOpen(false)}>Add Product</Link>
-          <Link to="/app/productcategories" className="py-2 w-full text-left text-[#0A1F44] font-medium hover:bg-gray-100" onClick={() => setMenuOpen(false)}>Product Categories</Link>
-          <Link to="/app/addproductcategory" className="py-2 w-full text-left text-[#0A1F44] font-medium hover:bg-gray-100" onClick={() => setMenuOpen(false)}>Add Product Categories</Link>
-          <Link to="/app/userorderdetails" className="py-2 w-full text-left text-[#0A1F44] font-medium hover:bg-gray-100" onClick={() => setMenuOpen(false)}>My Orders</Link>
-          <Link to="/app/adminorderlist" className="py-2 w-full text-left text-[#0A1F44] font-medium hover:bg-gray-100" onClick={() => setMenuOpen(false)}>All Orders</Link>
-          <Link to="/app/mysettings" className="py-2 w-full text-left text-[#0A1F44] font-medium hover:bg-gray-100" onClick={() => setMenuOpen(false)}>Settings</Link> */}
+          <div className="flex flex-row items-center gap-2 mt-4 ml-4 mb-4">
+            <img src={accountprofile} alt="profile" className="w-8 h-8 rounded-full border" />
+            <div className="flex flex-col text-xs">
+              <span className="font-semibold">{user?.name || 'User'}</span>
+              <span className="text-gray-500 capitalize">{user?.role}</span>
+            </div>
+          </div>
           <Sidenav>
             <Sidenav.Body>
                 <Nav activeKey={activeKey}>
@@ -191,19 +181,8 @@ function DashHeader() {
                     )}
                 </Nav>
             </Sidenav.Body>
-        </Sidenav>
-
-
-
-
-          <button onClick={() => { setMenuOpen(false); handleLogout(); }} className="mt-4 bg-red-500 text-white px-4 py-2 rounded-full hover:bg-red-600 transition">Logout</button>
-          <div className="flex flex-row items-center gap-2 mt-4">
-            <img src={accountprofile} alt="profile" className="w-8 h-8 rounded-full border" />
-            <div className="flex flex-col text-xs">
-              <span className="font-semibold">{user?.name || 'User'}</span>
-              <span className="text-gray-500 capitalize">{user?.role}</span>
-            </div>
-          </div>
+          </Sidenav>
+          <button onClick={() => { setMenuOpen(false); handleLogout(); }} className="mt-4 ml-4 bg-red-500 text-white px-4 py-2 rounded-full hover:bg-red-600 transition">Logout</button>
         </div>
       )}
     </div>
