@@ -1,7 +1,7 @@
 import { useState, useCallback, useEffect } from 'react';
 import { CartContext } from './CartContext';
 import { useUser } from '../user-context/UseUser';
-const API_URL = import.meta.env.VITE_API_URL;
+import { API_BASE_URL } from '../../../config/api';
 
 export const CartProvider = ({ children }) => {
 //   const { token, isAuthenticated } = useAuth();
@@ -51,7 +51,7 @@ export const CartProvider = ({ children }) => {
     setLoading(true);
     setError(null);
     try {
-      const response = await fetch(`${API_URL}/api/cart`, {
+      const response = await fetch(`${API_BASE_URL}/cart`, {
         headers: {
           Authorization: `Bearer ${token}`,
         },
@@ -78,7 +78,7 @@ export const CartProvider = ({ children }) => {
     setLoading(true);
     setError(null);
     try {
-      const response = await fetch(`${API_URL}/api/cart`, {
+      const response = await fetch(`${API_BASE_URL}/cart`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -109,7 +109,7 @@ export const CartProvider = ({ children }) => {
     setLoading(true);
     setError(null);
     try {
-      const response = await fetch(`${API_URL}/api/cart/${productId}`, {
+      const response = await fetch(`${API_BASE_URL}/cart/${productId}`, {
         method: 'PUT',
         headers: {
           'Content-Type': 'application/json',
@@ -131,7 +131,7 @@ export const CartProvider = ({ children }) => {
     }
   }, [isAuthenticated, token]);
 
-  const removeCartItem = useCallback(async (productId) => {
+  const removeCartItem = useCallback(async (itemId) => {
     if (!isAuthenticated || !token) {
       setError('Please log in to remove items from your cart.');
       clearMessages();
@@ -140,7 +140,7 @@ export const CartProvider = ({ children }) => {
     setLoading(true);
     setError(null);
     try {
-      const response = await fetch(`${API_URL}/api/cart/${productId}`, {
+      const response = await fetch(`${API_BASE_URL}/cart/item/${itemId}`, {
         method: 'DELETE',
         headers: {
           Authorization: `Bearer ${token}`,
@@ -149,14 +149,7 @@ export const CartProvider = ({ children }) => {
       const data = await response.json();
       if (!response.ok) throw new Error(data.message || 'Failed to remove item from cart');
 
-      setCart(prevCart => (
-        data.cart
-          ? data.cart
-          : {
-              ...prevCart,
-              items: prevCart?.items?.filter(item => item.productId !== productId)
-            }
-      ));
+      setCart(data.cart);
       setSuccess(data.message);
       return true;
     } catch (err) {
@@ -177,7 +170,7 @@ export const CartProvider = ({ children }) => {
     setLoading(true);
     setError(null);
     try {
-      const response = await fetch(`${API_URL}/api/cart`, {
+      const response = await fetch(`${API_BASE_URL}/cart`, {
         method: 'DELETE',
         headers: {
           Authorization: `Bearer ${token}`,
@@ -207,7 +200,7 @@ export const CartProvider = ({ children }) => {
     setLoading(true);
     setError(null);
     try {
-      const response = await fetch(`${API_URL}/api/wishlist`, {
+      const response = await fetch(`${API_BASE_URL}/wishlist`, {
         headers: {
           Authorization: `Bearer ${token}`,
         },
@@ -233,7 +226,7 @@ export const CartProvider = ({ children }) => {
     setLoading(true);
     setError(null);
     try {
-      const response = await fetch(`${API_URL}/api/wishlist`, {
+      const response = await fetch(`${API_BASE_URL}/wishlist`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -264,7 +257,7 @@ export const CartProvider = ({ children }) => {
     setLoading(true);
     setError(null);
     try {
-      const response = await fetch(`${API_URL}/api/wishlist/${productId}`, {
+      const response = await fetch(`${API_BASE_URL}/wishlist/${productId}`, {
         method: 'DELETE',
         headers: {
           Authorization: `Bearer ${token}`,

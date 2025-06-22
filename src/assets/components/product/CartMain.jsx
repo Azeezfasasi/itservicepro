@@ -135,9 +135,9 @@ const CartMain = () => {
                             />
                           </div>
                           <div className="ml-4">
-                            <Link to={`/app/productdetails/slug/${item.slug}`} className="text-sm font-medium text-blue-600 hover:text-blue-800 hover:underline">
+                            <div className="text-sm font-medium text-blue-600">
                                {item.name}
-                            </Link>
+                            </div>
                           </div>
                         </div>
                         {/* Quantity and action buttons */}
@@ -185,7 +185,7 @@ const CartMain = () => {
                         {/* delete cart item button */}
                         <div className='mt-[20px]'>
                             <button
-                            onClick={() => handleRemoveItem(item.productId)}
+                            onClick={() => handleRemoveItem(item._id)}
                             className="flex flex-row items-center justify-start gap-1 bg-red-50 text-red-600 hover:text-red-900 transition duration-150 ease-in-out p-2 rounded-full hover:bg-red-50 focus:outline-none focus:ring-2 focus:ring-red-500"
                             title="Remove item"
                             >
