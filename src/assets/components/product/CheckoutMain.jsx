@@ -53,7 +53,7 @@ const CheckoutMain = () => {
 
   const subtotal = cart?.items?.reduce((acc, item) => acc + (parseFloat(item.price) * item.quantity), 0) || 0;
   const estimatedShipping = 1500;
-  const taxRate = 0.075;
+  const taxRate = 0;
   const taxAmount = subtotal * taxRate;
   const totalAmount = subtotal + estimatedShipping + taxAmount;
 
@@ -105,7 +105,7 @@ const CheckoutMain = () => {
       queryClient.invalidateQueries({ queryKey: ['myOrders'] });
 
       navigate('/app/ordersuccess', {
-        state: { orderId: orderResponse.order._id },
+        state: { orderId: orderResponse.order._id, orderNumber: orderResponse.order.orderNumber},
       });
     },
     onError: (err) => {

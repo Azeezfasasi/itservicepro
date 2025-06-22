@@ -1,3 +1,4 @@
+import React, { useState } from 'react';
 import { Sidenav, Nav } from 'rsuite';
 import { Link, useLocation } from 'react-router-dom';
 import DashboardIcon from '@rsuite/icons/legacy/Dashboard';
@@ -9,7 +10,7 @@ function DashMenu() {
     const {isSuperAdmin, isAdmin, isUser, isCustomer} = useUser()
     const location = useLocation();
 
-    // Map route paths to eventKeys
+  // Map route paths to eventKeys
   const menuKeyByPath = {
     '/app/dashboard': '1',
     '/app/quote': '2',

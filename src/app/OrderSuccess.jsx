@@ -7,6 +7,8 @@ import Footer from '../assets/components/Footer';
 const OrderSuccess = () => {
   const location = useLocation();
   const orderId = location.state?.orderId;
+  // Show order number (orderNumber) if available in location.state
+  const orderNumber = location.state?.orderNumber;
 
   return (
     <>
@@ -24,8 +26,8 @@ const OrderSuccess = () => {
           Thank you for your purchase. Your order has been confirmed and will be processed shortly.
         </p>
 
-        <p className="text-lg text-gray-700 mb-6">
-          <span className='font-semibold text-blue-600'>Order NO:</span> {orderId ? orderId : <span className="text-gray-400">Not available</span>}
+        <p className="text-lg text-gray-700 mb-6 font-semibold">
+          <span className='font-semibold text-blue-600'>Order NO:</span> {orderNumber ? orderNumber : orderId ? orderId : <span className="text-gray-400">Not available</span>}
         </p>
 
         <p className="text-md text-gray-600 mb-8">
@@ -34,11 +36,18 @@ const OrderSuccess = () => {
 
         <div className="flex flex-col sm:flex-row justify-center gap-4">
           <Link
-            to="/app/dashboard"
+            to="/app/userorderdetails"
             className="flex items-center justify-center bg-blue-600 hover:bg-blue-700 text-white font-semibold py-3 px-6 rounded-full transition duration-300 ease-in-out transform hover:scale-105 shadow-md"
           >
             <FaClipboardList className="mr-2" /> View Your Orders
           </Link>
+
+          {/* <Link
+            to="/app/dashboard"
+            className="flex items-center justify-center bg-blue-600 hover:bg-blue-700 text-white font-semibold py-3 px-6 rounded-full transition duration-300 ease-in-out transform hover:scale-105 shadow-md"
+          >
+            <FaClipboardList className="mr-2" /> View Your Orders
+          </Link> */}
 
           <Link
             to="/app/shop"
