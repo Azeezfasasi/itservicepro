@@ -151,11 +151,10 @@ const EditProduct = () => {
     e.preventDefault();
 
     if (!validateForm()) {
-        window.scrollTo(0, 0); // Scroll to top to show errors
-        return;
+      window.scrollTo(0, 0);
+      return;
     }
 
-    // Use FormData to support file uploads and arrays
     const dataToSend = new FormData();
     // Append all text fields
     for (const key in formData) {
@@ -165,6 +164,7 @@ const EditProduct = () => {
           if (formData.dimensions.width !== '') dataToSend.append('dimensions.width', Number(formData.dimensions.width));
           if (formData.dimensions.height !== '') dataToSend.append('dimensions.height', Number(formData.dimensions.height));
         } else if (Array.isArray(formData[key])) {
+          // Send as comma-separated string for colors, sizes, tags
           dataToSend.append(key, formData[key].join(','));
         } else if (typeof formData[key] === 'boolean') {
           dataToSend.append(key, formData[key] ? 'true' : 'false');
@@ -173,12 +173,21 @@ const EditProduct = () => {
         }
       }
     }
-    // Append new image files
-    imageFiles.forEach((file) => {
-      dataToSend.append('images', file);
-    });
-    // Append URLs of existing images to keep (as JSON string)
-    dataToSend.append('existingImageUrls', JSON.stringify(currentImages));
+    // Append new image files if any
+    if (imageFiles && imageFiles.length > 0) {
+      imageFiles.forEach((file) => {
+        dataToSend.append('images', file);
+      });
+    }
+    // Only append existingImageUrls if editing and there are existing images
+    if (currentImages && currentImages.length > 0 && id) {
+      dataToSend.append('existingImageUrls', JSON.stringify(currentImages.map(img => ({ url: img.url, public_id: img.public_id }))));
+    }
+
+    console.log('FormData being sent:');
+    for (let pair of dataToSend.entries()) {
+      console.log(pair[0], pair[1]);
+    }
 
     const result = await updateProduct(id, dataToSend);
 

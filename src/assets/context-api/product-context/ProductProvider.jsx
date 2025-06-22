@@ -156,7 +156,6 @@ export const ProductProvider = ({ children }) => {
 
       const response = await axios.post(`${API_BASE_URL}/products`, formData, {
         headers: {
-          'Content-Type': 'multipart/form-data',
           'Authorization': `Bearer ${token}`
         }
       });
@@ -196,7 +195,6 @@ export const ProductProvider = ({ children }) => {
 
       const response = await axios.put(`${API_BASE_URL}/products/${id}`, formData, {
         headers: {
-          'Content-Type': 'multipart/form-data',
           'Authorization': `Bearer ${token}`
         }
       });
@@ -482,7 +480,6 @@ export const ProductProvider = ({ children }) => {
 
       const response = await axios.post(`${API_BASE_URL}/categories`, formData, {
         headers: {
-          'Content-Type': 'multipart/form-data',
           'Authorization': `Bearer ${token}`
         }
       });
@@ -521,7 +518,6 @@ export const ProductProvider = ({ children }) => {
 
       const response = await axios.put(`${API_BASE_URL}/categories/${id}`, formData, {
         headers: {
-          'Content-Type': 'multipart/form-data',
           'Authorization': `Bearer ${token}`
         }
       });

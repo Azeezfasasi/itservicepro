@@ -1,9 +1,13 @@
+// import { useParams } from 'react-router-dom';
 import { Helmet } from 'react-helmet'
 import DashHeader from '../assets/components/dashboard-components/DashHeader'
 import DashMenu from '../assets/components/dashboard-components/DashMenu'
 import EditProductMain from '../assets/components/product/EditProductMain'
+import UpdateProductDetails from './UpdateProductDetails';
 
 function EditProduct() {
+  // const { productId, token } = useParams();
+
   return (
     <>
     <Helmet>
@@ -16,6 +20,7 @@ function EditProduct() {
       </div>
       <div className='w-full lg:w-[80%]'>
         <EditProductMain />
+        {/* <UpdateProductDetails productId={productId} token={token} /> */}
       </div>
     </div>
     </>
