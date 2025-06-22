@@ -43,8 +43,8 @@ const CartMain = () => {
     }
   };
 
-  const handleRemoveItem = (productId) => {
-    removeCartItem(productId);
+  const handleRemoveItem = (itemId) => {
+    removeCartItem(itemId);
   };
 
   const handleClearCart = () => {

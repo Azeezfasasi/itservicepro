@@ -13,6 +13,8 @@ const CheckoutMain = () => {
   const { cart, loading: cartLoading, formatPrice, clearCart } = useCart();
   const { user, token } = useUser();
   const [showPaymentFields, setShowPaymentFields] = useState(false);
+  const [paymentMethod, setPaymentMethod] = useState('Cash on Delivery');
+  const [bankReference, setBankReference] = useState('');
 
   const [shippingAddress, setShippingAddress] = useState({
     fullName: '',
@@ -92,9 +94,9 @@ const CheckoutMain = () => {
   const {
     mutate,
     isLoading,
-    isError,
+    // isError,
     isSuccess,
-    error,
+    // error,
   } = useMutation({
     mutationFn: createOrderApi,
     onSuccess: (orderResponse) => {
@@ -182,11 +184,23 @@ const CheckoutMain = () => {
         return;
     }
 
+    // Build paymentResult object based on payment method
+    let paymentResult = {};
+    if (paymentMethod === 'Bank Transfer') {
+      paymentResult = { bankReference };
+    } else if (paymentMethod === 'Credit/Debit Card') {
+      paymentResult = { ...paymentDetails };
+    } else if (paymentMethod === 'WhatsApp') {
+      paymentResult = {
+        whatsappMessage: `Order via WhatsApp: ${cart.items.map(item => `${item.name} x${item.quantity}`).join(', ')}`
+      };
+    }
 
     const orderData = {
       orderItems: validOrderItems, // Use the filtered valid order items
       shippingAddress: shippingAddress,
-      paymentMethod: showPaymentFields ? 'Credit Card' : 'Cash on Delivery',
+      paymentMethod,
+      paymentResult,
       itemsPrice: subtotal,
       taxPrice: taxAmount,
       shippingPrice: estimatedShipping,
@@ -265,11 +279,26 @@ const CheckoutMain = () => {
     );
   }
 
+  // WhatsApp order message and number
+  const whatsappNumber = "2348117256648";
+  const orderLines = cart.items.map(item => `• ${item.name} x${item.quantity} @ ${formatPrice(parseFloat(item.price))} = ${formatPrice(parseFloat(item.price) * item.quantity)}`);
+  const subtotalLine = `Subtotal: ${formatPrice(subtotal)}`;
+  const shippingLine = `Shipping: ${formatPrice(estimatedShipping)}`;
+  const taxLine = `Tax (${taxRate * 100}%): ${formatPrice(taxAmount)}`;
+  const totalLine = `Total: ${formatPrice(totalAmount)}`;
+  const addressLine = `Shipping Address:\n${shippingAddress.fullName}\n${shippingAddress.address1}${shippingAddress.address2 ? ", " + shippingAddress.address2 : ""}\n${shippingAddress.city}, ${shippingAddress.state}, ${shippingAddress.zipCode}\n${shippingAddress.country}`;
+  const contactLine = user && user.email ? `Email: ${user.email}` : '';
+  const whatsappOrderMessage =
+    `I'd like to place an order on IT ServicePro:\n\n` +
+    orderLines.join("\n") +
+    `\n\n${subtotalLine}\n${shippingLine}\n${taxLine}\n${totalLine}\n\n${addressLine}` +
+    (contactLine ? `\n${contactLine}` : '');
+
   return (
     <div className="container mx-auto px-4 py-8 max-w-7xl">
       <h1 className="text-4xl font-extrabold text-gray-900 mb-8 text-center">Checkout</h1>
 
-      {(isError || Object.keys(validationErrors).length > 0) && (
+      {/* {(isError || Object.keys(validationErrors).length > 0) && (
         <div className="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded relative mb-6" role="alert">
           <strong className="font-bold mr-2">
             {isError ? 'Checkout Error!' : 'Please fix the following errors!'}
@@ -281,7 +310,7 @@ const CheckoutMain = () => {
             </ul>
           )}
         </div>
-      )}
+      )} */}
 
       <form onSubmit={handleSubmitCheckout} className="grid grid-cols-1 lg:grid-cols-3 gap-8">
         <div className="lg:col-span-2 bg-white shadow-lg rounded-lg p-6 space-y-8">
@@ -296,7 +325,7 @@ const CheckoutMain = () => {
                   className={`w-full border ${validationErrors.fullName ? 'border-red-500' : 'border-gray-300'} rounded-md shadow-sm px-3 py-2 focus:ring-blue-500 focus:border-blue-500`}
                   required
                 />
-                {validationErrors.fullName && <p className="text-red-500 text-xs mt-1">{validationErrors.fullName}</p>}
+                {/* {validationErrors.fullName && <p className="text-red-500 text-xs mt-1">{validationErrors.fullName}</p>} */}
               </div>
               <div className="md:col-span-2">
                 <label htmlFor="address1" className="block text-sm font-medium text-gray-700 mb-1">Address Line 1*</label>
@@ -306,7 +335,7 @@ const CheckoutMain = () => {
                   className={`w-full border ${validationErrors.address1 ? 'border-red-500' : 'border-gray-300'} rounded-md shadow-sm px-3 py-2 focus:ring-blue-500 focus:border-blue-500`}
                   required
                 />
-                {validationErrors.address1 && <p className="text-red-500 text-xs mt-1">{validationErrors.address1}</p>}
+                {/* {validationErrors.address1 && <p className="text-red-500 text-xs mt-1">{validationErrors.address1}</p>} */}
               </div>
               <div className="md:col-span-2">
                 <label htmlFor="address2" className="block text-sm font-medium text-gray-700 mb-1">Address Line 2 (Optional)</label>
@@ -324,7 +353,7 @@ const CheckoutMain = () => {
                   className={`w-full border ${validationErrors.city ? 'border-red-500' : 'border-gray-300'} rounded-md shadow-sm px-3 py-2 focus:ring-blue-500 focus:border-blue-500`}
                   required
                 />
-                {validationErrors.city && <p className="text-red-500 text-xs mt-1">{validationErrors.city}</p>}
+                {/* {validationErrors.city && <p className="text-red-500 text-xs mt-1">{validationErrors.city}</p>} */}
               </div>
               <div>
                 <label htmlFor="state" className="block text-sm font-medium text-gray-700 mb-1">State / Region*</label>
@@ -334,7 +363,7 @@ const CheckoutMain = () => {
                   className={`w-full border ${validationErrors.state ? 'border-red-500' : 'border-gray-300'} rounded-md shadow-sm px-3 py-2 focus:ring-blue-500 focus:border-blue-500`}
                   required
                 />
-                {validationErrors.state && <p className="text-red-500 text-xs mt-1">{validationErrors.state}</p>}
+                {/* {validationErrors.state && <p className="text-red-500 text-xs mt-1">{validationErrors.state}</p>} */}
               </div>
               <div>
                 <label htmlFor="zipCode" className="block text-sm font-medium text-gray-700 mb-1">Zip / Postal Code*</label>
@@ -344,7 +373,7 @@ const CheckoutMain = () => {
                   className={`w-full border ${validationErrors.zipCode ? 'border-red-500' : 'border-gray-300'} rounded-md shadow-sm px-3 py-2 focus:ring-blue-500 focus:border-blue-500`}
                   required
                 />
-                {validationErrors.zipCode && <p className="text-red-500 text-xs mt-1">{validationErrors.zipCode}</p>}
+                {/* {validationErrors.zipCode && <p className="text-red-500 text-xs mt-1">{validationErrors.zipCode}</p>} */}
               </div>
               <div>
                 <label htmlFor="country" className="block text-sm font-medium text-gray-700 mb-1">Country*</label>
@@ -360,76 +389,152 @@ const CheckoutMain = () => {
                   <option value="UK">United Kingdom</option>
                   {/* Add more countries as needed */}
                 </select>
-                {validationErrors.country && <p className="text-red-500 text-xs mt-1">{validationErrors.country}</p>}
+                {/* {validationErrors.country && <p className="text-red-500 text-xs mt-1">{validationErrors.country}</p>} */}
               </div>
             </div>
           </div>
 
           <div>
-            <h2 className="text-2xl font-semibold text-gray-800 mb-6 border-b pb-3">Payment Method</h2>
-            <div className="flex items-center mb-4">
-              <input
-                type="checkbox"
-                id="usePayment"
-                checked={showPaymentFields}
-                onChange={() => setShowPaymentFields(!showPaymentFields)}
-                className="h-4 w-4 text-blue-600 focus:ring-blue-500 border-gray-300 rounded"
-              />
-              <label htmlFor="usePayment" className="ml-2 block text-base font-medium text-gray-700">
-                Pay with Credit/Debit Card (Mock)
-              </label>
-            </div>
-
-            {showPaymentFields && (
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                <div className="md:col-span-2">
-                  <label htmlFor="cardNumber" className="block text-sm font-medium text-gray-700 mb-1">Card Number*</label>
+              <h2 className="text-2xl font-semibold text-gray-800 mb-6 border-b pb-3">Payment Method</h2>
+              <div className="space-y-3">
+                <label className="flex items-center">
                   <input
-                    type="text" id="cardNumber" name="cardNumber"
-                    value={paymentDetails.cardNumber} onChange={handlePaymentChange}
-                    className={`w-full border ${validationErrors.cardNumber ? 'border-red-500' : 'border-gray-300'} rounded-md shadow-sm px-3 py-2 focus:ring-blue-500 focus:border-blue-500`}
-                    placeholder="XXXX XXXX XXXX XXXX"
-                    maxLength="19"
-                    required
+                    type="radio"
+                    name="paymentMethod"
+                    value="Cash on Delivery"
+                    checked={paymentMethod === 'Cash on Delivery'}
+                    onChange={() => setPaymentMethod('Cash on Delivery')}
+                    className="mr-2"
                   />
-                  {validationErrors.cardNumber && <p className="text-red-500 text-xs mt-1">{validationErrors.cardNumber}</p>}
-                </div>
-                <div>
-                  <label htmlFor="expiryDate" className="block text-sm font-medium text-gray-700 mb-1">Expiry Date (MM/YY)*</label>
+                  Payment on Delivery
+                </label>
+                <label className="flex items-center">
                   <input
-                    type="text" id="expiryDate" name="expiryDate"
-                    value={paymentDetails.expiryDate} onChange={handlePaymentChange}
-                    className={`w-full border ${validationErrors.expiryDate ? 'border-red-500' : 'border-gray-300'} rounded-md shadow-sm px-3 py-2 focus:ring-blue-500 focus:border-blue-500`}
-                    placeholder="MM/YY"
-                    maxLength="5"
-                    required
+                    type="radio"
+                    name="paymentMethod"
+                    value="Bank Transfer"
+                    checked={paymentMethod === 'Bank Transfer'}
+                    onChange={() => setPaymentMethod('Bank Transfer')}
+                    className="mr-2"
                   />
-                  {validationErrors.expiryDate && <p className="text-red-500 text-xs mt-1">{validationErrors.expiryDate}</p>}
-                </div>
-                <div>
-                  <label htmlFor="cvv" className="block text-sm font-medium text-gray-700 mb-1">CVV*</label>
+                  Bank Transfer
+                </label>
+                <label className="flex items-center">
                   <input
-                    type="text" id="cvv" name="cvv"
-                    value={paymentDetails.cvv} onChange={handlePaymentChange}
-                    className={`w-full border ${validationErrors.cvv ? 'border-red-500' : 'border-gray-300'} rounded-md shadow-sm px-3 py-2 focus:ring-blue-500 focus:border-blue-500`}
-                    placeholder="XXX"
-                    maxLength="4"
-                    required
+                    type="radio"
+                    name="paymentMethod"
+                    value="Credit/Debit Card"
+                    checked={paymentMethod === 'Credit/Debit Card'}
+                    onChange={() => setPaymentMethod('Credit/Debit Card')}
+                    className="mr-2"
                   />
-                  {validationErrors.cvv && <p className="text-red-500 text-xs mt-1">{validationErrors.cvv}</p>}
-                </div>
-                <div className="md:col-span-2">
-                  <label htmlFor="cardName" className="block text-sm font-medium text-gray-700 mb-1">Name on Card*</label>
+                  Pay with Credit/Debit Card
+                </label>
+                <label className="flex items-center">
                   <input
-                    type="text" id="cardName" name="cardName"
-                    value={paymentDetails.cardName} onChange={handlePaymentChange}
-                    className={`w-full border ${validationErrors.cardName ? 'border-red-500' : 'border-gray-300'} rounded-md shadow-sm px-3 py-2 focus:ring-blue-500 focus:border-blue-500`}
-                    required
+                    type="radio"
+                    name="paymentMethod"
+                    value="WhatsApp"
+                    checked={paymentMethod === 'WhatsApp'}
+                    onChange={() => setPaymentMethod('WhatsApp')}
+                    className="mr-2"
                   />
-                  {validationErrors.cardName && <p className="text-red-500 text-xs mt-1">{validationErrors.cardName}</p>}
-                </div>
+                  Purchase Via WhatsApp
+                </label>
               </div>
-            )}
+
+              {/* Bank Transfer Fields */}
+              {paymentMethod === 'Bank Transfer' && (
+                <div className="mt-4">
+                  <p className="text-sm text-gray-700 mb-2">
+                    Please transfer the total amount to:<br />
+                    <b>Bank Name:</b> Example Bank<br />
+                    <b>Account Number:</b> 1234567890<br />
+                    <b>Account Name:</b> IT ServicePro Ltd
+                  </p>
+                  <label className="block text-sm font-medium text-gray-700 mb-1">
+                    Bank Transfer Reference / Proof (optional)
+                  </label>
+                  <input
+                    type="text"
+                    value={bankReference}
+                    onChange={e => setBankReference(e.target.value)}
+                    className="w-full border border-gray-300 rounded-md shadow-sm px-3 py-2"
+                    placeholder="Enter your bank transfer reference"
+                  />
+                </div>
+              )}
+
+              {/* Credit/Debit Card Fields */}
+              {paymentMethod === 'Credit/Debit Card' && (
+                <div className="mt-4">
+                  <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                    <div className="md:col-span-2">
+                      <label htmlFor="cardNumber" className="block text-sm font-medium text-gray-700 mb-1">Card Number*</label>
+                      <input
+                        type="text" id="cardNumber" name="cardNumber"
+                        value={paymentDetails.cardNumber} onChange={handlePaymentChange}
+                        className={`w-full border ${validationErrors.cardNumber ? 'border-red-500' : 'border-gray-300'} rounded-md shadow-sm px-3 py-2 focus:ring-blue-500 focus:border-blue-500`}
+                        placeholder="XXXX XXXX XXXX XXXX"
+                        maxLength="19"
+                        required
+                      />
+                      {/* {validationErrors.cardNumber && <p className="text-red-500 text-xs mt-1">{validationErrors.cardNumber}</p>} */}
+                    </div>
+                    <div>
+                      <label htmlFor="expiryDate" className="block text-sm font-medium text-gray-700 mb-1">Expiry Date (MM/YY)*</label>
+                      <input
+                        type="text" id="expiryDate" name="expiryDate"
+                        value={paymentDetails.expiryDate} onChange={handlePaymentChange}
+                        className={`w-full border ${validationErrors.expiryDate ? 'border-red-500' : 'border-gray-300'} rounded-md shadow-sm px-3 py-2 focus:ring-blue-500 focus:border-blue-500`}
+                        placeholder="MM/YY"
+                        maxLength="5"
+                        required
+                      />
+                      {/* {validationErrors.expiryDate && <p className="text-red-500 text-xs mt-1">{validationErrors.expiryDate}</p>} */}
+                    </div>
+                    <div>
+                      <label htmlFor="cvv" className="block text-sm font-medium text-gray-700 mb-1">CVV*</label>
+                      <input
+                        type="text" id="cvv" name="cvv"
+                        value={paymentDetails.cvv} onChange={handlePaymentChange}
+                        className={`w-full border ${validationErrors.cvv ? 'border-red-500' : 'border-gray-300'} rounded-md shadow-sm px-3 py-2 focus:ring-blue-500 focus:border-blue-500`}
+                        placeholder="XXX"
+                        maxLength="4"
+                        required
+                      />
+                      {/* {validationErrors.cvv && <p className="text-red-500 text-xs mt-1">{validationErrors.cvv}</p>} */}
+                    </div>
+                    <div className="md:col-span-2">
+                      <label htmlFor="cardName" className="block text-sm font-medium text-gray-700 mb-1">Name on Card*</label>
+                      <input
+                        type="text" id="cardName" name="cardName"
+                        value={paymentDetails.cardName} onChange={handlePaymentChange}
+                        className={`w-full border ${validationErrors.cardName ? 'border-red-500' : 'border-gray-300'} rounded-md shadow-sm px-3 py-2 focus:ring-blue-500 focus:border-blue-500`}
+                        required
+                      />
+                      {/* {validationErrors.cardName && <p className="text-red-500 text-xs mt-1">{validationErrors.cardName}</p>} */}
+                    </div>
+                  </div>
+                </div>
+              )}
+
+              {/* WhatsApp Fields */}
+              {paymentMethod === 'WhatsApp' && (
+                <div className="mt-4">
+                  <a
+                    href={`https://wa.me/${whatsappNumber}?text=${encodeURIComponent(whatsappOrderMessage)}`}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="inline-block bg-green-500 text-white px-4 py-2 rounded hover:bg-green-600"
+                  >
+                    Complete Purchase via WhatsApp
+                  </a>
+                  <p className="text-xs text-gray-500 mt-2">
+                    Clicking the button will open WhatsApp with your order details.
+                  </p>
+                </div>
+              )}
           </div>
         </div>
 

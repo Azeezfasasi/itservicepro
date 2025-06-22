@@ -1,10 +1,13 @@
-import { Link } from 'react-router-dom';
+import { Link, useLocation } from 'react-router-dom';
 import { FaCheckCircle, FaClipboardList, FaShoppingCart } from 'react-icons/fa';
 import TopHeader from '../assets/components/TopHeader';
 import MainHeader from '../assets/components/MainHeader';
 import Footer from '../assets/components/Footer';
 
 const OrderSuccess = () => {
+  const location = useLocation();
+  const orderId = location.state?.orderId;
+
   return (
     <>
     <TopHeader />
@@ -22,7 +25,7 @@ const OrderSuccess = () => {
         </p>
 
         <p className="text-lg text-gray-700 mb-6">
-          <span className='font-semibold text-blue-600'>Order NO:</span> 
+          <span className='font-semibold text-blue-600'>Order NO:</span> {orderId ? orderId : <span className="text-gray-400">Not available</span>}
         </p>
 
         <p className="text-md text-gray-600 mb-8">
