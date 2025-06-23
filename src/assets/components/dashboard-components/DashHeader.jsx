@@ -53,7 +53,7 @@ function DashHeader() {
   }, [profileMenuOpen]);
 
   return (
-    <div className="bg-white py-4 px-6 flex justify-between items-center shadow-md sticky top-0 z-50">
+    <div className="bg-white py-4 px-6 flex justify-between items-center shadow-md sticky top-0 z-50 border-b border-solid border-gray-500">
       {/* Logo */}
       <Link to="/" className="flex items-center space-x-2">
         <h1 className="text-[20px] font-bold text-[#0A1F44]">IT Service Pro</h1>
@@ -61,6 +61,13 @@ function DashHeader() {
 
       {/* Hamburger Icon (Mobile) */}
       <div className="lg:hidden flex flex-row items-center gap-4">
+        <div className="flex flex-row items-center gap-2 mt-0 ml-0 mb-0">
+            <img src={accountprofile} alt="profile" className="w-8 h-8 rounded-full border" />
+            <div className="flex flex-col text-xs">
+              <span className="font-semibold">{user?.name || 'User'}</span>
+              <span className="text-gray-500 capitalize">{user?.role}</span>
+            </div>
+        </div>
         <button
           className="lg:hidden flex flex-col justify-center items-center w-10 h-10 focus:outline-none"
           onClick={() => setMenuOpen(!menuOpen)}
@@ -76,9 +83,9 @@ function DashHeader() {
       <div className="hidden lg:flex space-x-6 font-medium text-[#0A1F44] items-center">
         <Link to="/">Home</Link>
         {user?.role === 'admin' || user?.role === 'super admin' ? (
-          <Link to="/app/users">Wishlist</Link>
+          <Link to="/app/wishlist">Wishlist</Link>
         ) : null}
-        <Link to="/app/quotes">Cart</Link>
+        <Link to="/app/cart">Cart</Link>
         <Link to="/app/profile">Profile</Link>
         <div className="flex flex-row items-center gap-2 ml-4 relative profile-dropdown">
           <div className="relative">
@@ -117,14 +124,14 @@ function DashHeader() {
 
       {/* Mobile Menu */}
       {menuOpen && (
-        <div className="absolute top-full left-0 w-full bg-white shadow-md flex flex-col items-start pl-0 py-4 z-50 lg:hidden animate-fade-in border-b h-[600px] overflow-y-scroll overflow-x-hidden">
-          <div className="flex flex-row items-center gap-2 mt-4 ml-4 mb-4">
+        <div className="absolute top-full left-0 w-full bg-white shadow-md flex flex-col items-start pl-0 py-0 z-50 lg:hidden animate-fade-in border-b h-[600px] overflow-y-scroll overflow-x-hidden">
+          {/* <div className="flex flex-row items-center gap-2 mt-0 ml-4 mb-4">
             <img src={accountprofile} alt="profile" className="w-8 h-8 rounded-full border" />
             <div className="flex flex-col text-xs">
               <span className="font-semibold">{user?.name || 'User'}</span>
               <span className="text-gray-500 capitalize">{user?.role}</span>
             </div>
-          </div>
+          </div> */}
           <Sidenav>
             <Sidenav.Body>
                 <Nav activeKey={activeKey}>
