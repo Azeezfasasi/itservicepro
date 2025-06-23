@@ -4,6 +4,7 @@ import MainHeader from '../assets/components/MainHeader';
 import { useBlog } from '../assets/context-api/blog-context/UseBlog';
 import { Link } from 'react-router-dom';
 import { FaSpinner } from 'react-icons/fa';
+import Footer from '../assets/components/Footer';
 
 
 function Blog() {
@@ -87,6 +88,7 @@ function Blog() {
           </div>
         )}
       </div>
+      <Footer />
     </>
   );
 }

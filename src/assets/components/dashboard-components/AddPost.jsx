@@ -7,16 +7,16 @@ function AddPost() {
     title: '',
     content: '',
     categories: [],
-    status: 'draft',
+    status: 'published',
     image: null,
   });
-  const [preview, setPreview] = useState(null);
+  // const [preview, setPreview] = useState(null);
 
   const handleChange = (e) => {
     const { name, value, type, files } = e.target;
     if (type === 'file') {
       setForm({ ...form, image: files[0] });
-      setPreview(URL.createObjectURL(files[0]));
+      // setPreview(URL.createObjectURL(files[0]));
     } else if (name === 'categories') {
       setForm({ ...form, categories: Array.from(e.target.selectedOptions, opt => opt.value) });
     } else {
@@ -34,7 +34,7 @@ function AddPost() {
     if (form.image) formData.append('image', form.image);
     await createBlog(formData);
     setForm({ title: '', content: '', categories: [], status: 'draft', image: null });
-    setPreview(null);
+    // setPreview(null);
   };
 
   return (
@@ -84,11 +84,12 @@ function AddPost() {
             onChange={handleChange}
             className="w-full border rounded px-3 py-2"
           >
+            <option value="">Select Status</option>
             <option value="draft">Draft</option>
             <option value="published">Published</option>
           </select>
         </div>
-        <div>
+        {/* <div>
           <label className="block font-semibold mb-1">Image</label>
           <input
             type="file"
@@ -100,7 +101,7 @@ function AddPost() {
           {preview && (
             <img src={preview} alt="Preview" className="mt-2 h-32 object-cover rounded" />
           )}
-        </div>
+        </div> */}
         {error && <div className="text-red-600 text-center">{error}</div>}
         {success && <div className="text-green-600 text-center">{success}</div>}
         <button

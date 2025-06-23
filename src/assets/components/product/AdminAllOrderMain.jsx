@@ -245,7 +245,7 @@ const AdminAllOrderMain = () => {
                     </select>
                   </td>
                   <td className="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
-                    <Link to={`/app/admin/orders/${order._id}`} className="text-blue-600 hover:text-blue-900 mr-3">
+                    <Link to={`/app/vieworderdetails/${order._id}`} className="text-blue-600 hover:text-blue-900 mr-3">
                       <FaEye className="inline-block" /> View
                     </Link>
                     {/* Add delete button (use with caution in real apps, confirm delete) */}

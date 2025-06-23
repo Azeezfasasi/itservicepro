@@ -43,6 +43,8 @@ import UserOrderDetails from './app/UserOrderDetails';
 import AdminOrderList from './app/AdminOrderList';
 import TrackOrder from './app/TrackOrder';
 import UpdateProductDetails from './app/UpdateProductDetails';
+import ViewOrderDetails from './app/ViewOrderDetails';
+import ViewUserOrderDetails from './app/ViewUserOrderDetails';
 
 function App() {
   return (
@@ -86,12 +88,14 @@ function App() {
                     <Route path="/app/products" element={<Products />} />
                     <Route path="/app/productcategories" element={<ProductCategories />} />
                     <Route path="/app/addproductcategory" element={<AddProductCategory />} />
-                    <Route path="/app/editproduct/:productId" element={<EditProduct />} />
+                    <Route path="/app/editproduct/:id" element={<EditProduct />} />
                     <Route path="/app/checkout" element={<Checkout />} />
                     <Route path="/app/wishlist" element={<Wishlist />} />
                     <Route path="/app/ordersuccess" element={<OrderSuccess />} />
                     <Route path="/app/userorderdetails" element={<UserOrderDetails />} />
                     <Route path="/app/adminorderlist" element={<AdminOrderList />} />
+                    <Route path="/app/vieworderdetails/:id" element={<ViewOrderDetails />} />
+                    <Route path="/app/viewuserorderdetails/:id" element={<ViewUserOrderDetails />} />
                   </Route>
                 </Routes>
               </CartProvider>

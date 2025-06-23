@@ -3,6 +3,7 @@ import Footer from "./assets/components/Footer"
 import Hero from "./assets/components/Hero"
 import HowItWorks from "./assets/components/HowItWorks"
 import MainHeader from "./assets/components/MainHeader"
+import FeaturedProduct from "./assets/components/product/FeaturedProduct"
 import RequestQuote from "./assets/components/RequestQuote"
 import ServicesSection from "./assets/components/ServicesSection"
 import TopHeader from "./assets/components/TopHeader"
@@ -21,6 +22,7 @@ function Home() {
     <MainHeader />
     <Hero />
     <ServicesSection />
+    <FeaturedProduct />
     <TrackRecords />
     <CallToAction />
     <HowItWorks />

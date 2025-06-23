@@ -1,4 +1,4 @@
-import React from 'react'
+import aboutimage2 from '../images/aboutimage2.png'
 
 function OurVission() {
   return (
@@ -9,7 +9,7 @@ function OurVission() {
         {/* Left Section: Vision Statement and Description */}
         <div className="flex flex-col justify-center text-center lg:text-left">
           <p className="text-gray-600 uppercase tracking-wide text-[18px] mb-4 font-semibold">Our Vision</p>
-          <h1 className="text-[25px] sm:text-[40px] lg:text-[40px] font-bold text-gray-800 leading-tight mb-6">
+          <h1 className="text-[25px] sm:text-[30px] lg:text-[30px] font-bold text-gray-800 leading-tight mb-6">
             At IT Service Pro, our vision is to redefine the standard of IT support and digital services by delivering innovative, customer-focused solutions that keep pace with an ever-evolving tech landscape.
           </h1>
           <p className="text-base sm:text-lg text-gray-600 leading-relaxed">
@@ -20,14 +20,11 @@ function OurVission() {
         </div>
 
         {/* Right Section: Image */}
-        <div className="w-full h-96 sm:h-[500px] lg:h-[600px] flex justify-center items-center">
-          {/* Main image with rounded corners and shadow */}
-          {/* Using a placeholder as the exact image isn't available */}
+        <div className="w-full flex justify-center items-center">
           <img
-            src="https://placehold.co/600x500/a0c4ff/ffffff?text=Vision+Image"
-            alt="Man holding blueprints"
-            className="rounded-3xl shadow-xl object-cover w-full h-full"
-            onError={(e) => { e.target.onerror = null; e.target.src="https://placehold.co/600x500/cccccc/333333?text=Image+Error"; }}
+            src={aboutimage2}
+            alt="About Image 2"
+            className="rounded-3xl shadow-xl object-fill w-full h-[300px] md:h-[400px]"
           />
         </div>
       </div>

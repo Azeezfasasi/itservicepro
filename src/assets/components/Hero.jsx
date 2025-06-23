@@ -2,6 +2,7 @@ import React from 'react';
 import { PhoneCall, Clock, CheckCircle, MapPin, Calendar } from 'lucide-react';
 import heroone from '../images/heroone.jpg'
 import explore from '../images/explore.jpg'
+import shopping from '../images/shopping.svg';
 import { Link } from 'react-router-dom';
 
 const Hero = () => {
@@ -21,8 +22,8 @@ const Hero = () => {
         <div className="w-full lg:w-[60%] text-center space-y-4 px-4 md:px-8">
           <p className="text-gray-400">Maintenances • Repairs • Developmemnt</p>
           <h1 className="text-3xl md:text-4xl font-bold leading-tight">
-            Looking for expert laptop services, office IT setup, or professional website development? <br />
-            <span className="text-blue-300">we can help!</span>
+            Your Trusted Partner for Expert IT Services, Advanced Computing Hardware, and Professional Web Solutions <br />
+            {/* <span className="text-blue-300">we can help!</span> */}
           </h1>
 
           {/* Features */}
@@ -38,10 +39,16 @@ const Hero = () => {
           </div>
 
           {/* CTA Button */}
-          <Link to="/quoterequest" className="bg-[#00B9F1] hover:bg-[#00A1D1] px-6 py-3 rounded-full font-semibold text-white flex items-center justify-center gap-2 mx-auto w-[200px]">
-            Request Quote
-            <PhoneCall className="w-5 h-5" />
-          </Link>
+          <div className='flex flex-col md:flex-row justify-start items-center gap-6 md:gap-6 mt-6'>
+            <Link to="/quoterequest" className="bg-[#00B9F1] hover:bg-[#00A1D1] px-6 py-3 rounded-full font-semibold text-white flex items-center justify-center gap-2 mx-auto w-[200px] md:mr-0 uppercase">
+              Request Quote
+              <PhoneCall className="w-5 h-5" />
+            </Link>
+            <Link to="/app/shop" className="bg-[#00B9F1] hover:bg-[#00A1D1] px-6 py-3 rounded-full font-semibold text-white flex items-center justify-center gap-2 mx-auto w-[200px] md:ml-0 uppercase">
+              Shop Now
+              <img src={shopping} alt="shopping" className='w-5 h-5 text-white' />
+            </Link>
+          </div>
         </div>
 
         {/* Right Image */}

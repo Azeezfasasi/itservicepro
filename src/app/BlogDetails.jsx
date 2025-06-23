@@ -3,6 +3,7 @@ import { useParams, Link } from 'react-router-dom';
 import TopHeader from '../assets/components/TopHeader';
 import MainHeader from '../assets/components/MainHeader';
 import { useBlog } from '../assets/context-api/blog-context/UseBlog';
+import Footer from '../assets/components/Footer';
 
 function BlogDetail() {
   const { id } = useParams();
@@ -121,6 +122,7 @@ useEffect(() => {
           </div>
         </article>
       </div>
+      <Footer />
     </>
   );
 }

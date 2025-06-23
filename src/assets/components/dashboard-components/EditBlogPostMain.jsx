@@ -107,7 +107,7 @@ function EditBlogPostMain() {
             <option value="published">Published</option>
           </select>
         </div>
-        <div>
+        {/* <div>
           <label className="block font-semibold mb-1">Image</label>
           <input
             type="file"
@@ -116,7 +116,7 @@ function EditBlogPostMain() {
             onChange={handleChange}
             className="w-full"
           />
-        </div>
+        </div> */}
         {error && <div className="text-red-600 text-center">{error}</div>}
         {success && <div className="text-green-600 text-center">{success}</div>}
         <button
