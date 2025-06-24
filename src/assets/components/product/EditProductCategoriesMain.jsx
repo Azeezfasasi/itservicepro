@@ -209,14 +209,14 @@ function EditProductCategoriesMain() {
         <div className="flex gap-4 mt-6">
           <button
             type="submit"
-            className="bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700"
+            className="bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700 cursor-pointer"
             disabled={mutation.isLoading}
           >
             {mutation.isLoading ? 'Saving...' : 'Save Changes'}
           </button>
           <button
             type="button"
-            className="bg-gray-300 text-gray-800 px-4 py-2 rounded hover:bg-gray-400"
+            className="bg-gray-300 text-gray-800 px-4 py-2 rounded hover:bg-gray-400 cursor-pointer"
             onClick={() => navigate('/app/productcategories')}
           >
             Cancel

@@ -182,12 +182,12 @@ const CategoryList = () => {
             : 'No categories found. Create your first category!'}
         </div>
       ) : (
-        <div className="border rounded-md">
-          <div className="bg-gray-50 p-3 border-b font-medium text-gray-700 flex items-center">
+        <div className="border border-solid border-gray-400 rounded-md">
+          <div className="bg-blue-200 p-3 border-b border-solid border-gray-400 font-medium text-gray-700 flex items-center">
             <div className="w-5 mr-2"></div>
             <div>Category Name</div>
           </div>
-          <div className="divide-y">
+          <div className="">
             {searchTerm 
               ? filteredCategories.map(category => renderCategoryItem(category)) 
               : filteredCategories.map(category => renderCategoryItem(category))}
