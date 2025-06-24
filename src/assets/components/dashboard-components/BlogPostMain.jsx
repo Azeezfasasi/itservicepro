@@ -64,23 +64,17 @@ function BlogPostMain() {
               <p className="text-gray-800 mb-4 line-clamp-3">{blog.content}</p>
               <div className="flex gap-2 mt-auto">
                 <button
-                  className="bg-indigo-600 text-white px-3 py-1 rounded hover:bg-indigo-700 text-sm"
+                  className="bg-indigo-600 text-white px-3 py-1 rounded hover:bg-indigo-700 text-sm cursor-pointer"
                   onClick={() => handleEdit(blog._id)}
                 >
                   Edit
                 </button>
                 <button
-                  className="bg-red-600 text-white px-3 py-1 rounded hover:bg-red-700 text-sm"
+                  className="bg-red-600 text-white px-3 py-1 rounded hover:bg-red-700 text-sm cursor-pointer"
                   onClick={() => handleDelete(blog._id)}
                 >
                   Delete
                 </button>
-                {/* <button
-                  className={`px-3 py-1 rounded text-sm ${blog.status === 'published' ? 'bg-yellow-500 hover:bg-yellow-600 text-white' : 'bg-green-600 hover:bg-green-700 text-white'}`}
-                  onClick={() => handleStatus(blog._id, blog.status)}
-                >
-                  {blog.status === 'published' ? 'Set Draft' : 'Publish'}
-                </button> */}
               </div>
             </div>
           ))}

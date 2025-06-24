@@ -178,7 +178,7 @@ const handleSubmit = async (e) => {
       <div className="flex items-center mb-6">
         <button 
           onClick={() => navigate(returnPath)}
-          className="text-blue-600 hover:text-blue-800 mr-4"
+          className="text-blue-600 hover:text-blue-800 mr-4 cursor-pointer"
         >
           <FaArrowLeft size={20} />
         </button>
@@ -356,14 +356,14 @@ const handleSubmit = async (e) => {
           <button
             type="button"
             onClick={() => navigate(returnPath)}
-            className="px-4 py-2 border border-gray-300 rounded-md text-sm font-medium text-gray-700 hover:bg-gray-50"
+            className="px-4 py-2 border border-gray-300 rounded-md text-sm font-medium text-gray-700 hover:bg-gray-50 cursor-pointer"
           >
             Cancel
           </button>
           <button
             type="submit"
             disabled={isSubmitting}
-            className="px-4 py-2 bg-blue-600 border border-transparent rounded-md text-sm font-medium text-white hover:bg-blue-700 flex items-center disabled:opacity-50 disabled:cursor-not-allowed"
+            className="px-4 py-2 bg-blue-600 border border-transparent rounded-md text-sm font-medium text-white hover:bg-blue-700 flex items-center disabled:opacity-50 disabled:cursor-not-allowed cursor-pointer"
           >
             {isSubmitting ? (
               <>

@@ -342,7 +342,7 @@ const QuoteList = () => {
                       <select
                         value={quote.status}
                         onChange={(e) => handleStatusChange(quote._id, e.target.value)}
-                        className={`${getStatusColor(quote.status)} border-0 rounded-full px-3 py-1 text-xs font-medium focus:outline-none focus:ring-2 focus:ring-blue-500`}
+                        className={`${getStatusColor(quote.status)} border-0 rounded-full px-3 py-1 text-xs font-medium focus:outline-none focus:ring-2 focus:ring-blue-500 cursor-pointer`}
                       >
                         {statusOptions.map((status) => (
                           <option 
@@ -362,14 +362,14 @@ const QuoteList = () => {
                         <>
                           <button
                             onClick={handleEditSave}
-                            className="text-green-600 hover:text-green-900 focus:outline-none"
+                            className="text-green-600 hover:text-green-900 focus:outline-none cursor-pointer"
                             title="Save"
                           >
                             <FaSave size={18} />
                           </button>
                           <button
                             onClick={() => setEditId(null)}
-                            className="text-gray-600 hover:text-gray-900 focus:outline-none"
+                            className="text-gray-600 hover:text-gray-900 focus:outline-none cursor-pointer"
                             title="Cancel"
                           >
                             <FaTimesCircle size={18} />
@@ -379,21 +379,21 @@ const QuoteList = () => {
                         <>
                           <button
                             onClick={() => setViewQuote(quote)}
-                            className="text-blue-600 hover:text-blue-900 focus:outline-none"
+                            className="text-blue-600 hover:text-blue-900 focus:outline-none cursor-pointer"
                             title="View Details"
                           >
                             <FaEye size={18} />
                           </button>
                           <button
                             onClick={() => handleEdit(quote)}
-                            className="text-indigo-600 hover:text-indigo-900 focus:outline-none"
+                            className="text-indigo-600 hover:text-indigo-900 focus:outline-none cursor-pointer"
                             title="Edit"
                           >
                             <FaEdit size={18} />
                           </button>
                           <button
                             onClick={() => handleDeleteClick(quote)}
-                            className="text-red-600 hover:text-red-900 focus:outline-none"
+                            className="text-red-600 hover:text-red-900 focus:outline-none cursor-pointer"
                             title="Delete"
                           >
                             <FaTrash size={18} />

@@ -213,7 +213,7 @@ function AllUserMain() {
           
           <button
             onClick={fetchUsers}
-            className="bg-blue-600 text-white px-3 py-1 rounded-md text-sm hover:bg-blue-700"
+            className="bg-blue-600 text-white px-3 py-1 rounded-md text-sm hover:bg-blue-700 cursor-pointer"
           >
             Refresh
           </button>
@@ -354,7 +354,7 @@ function AllUserMain() {
                         <div className="flex justify-end space-x-2">
                           <button
                             onClick={() => handleEditClick(user)}
-                            className="text-indigo-600 hover:text-indigo-900"
+                            className="text-indigo-600 hover:text-indigo-900 cursor-pointer"
                             title="Edit User"
                           >
                             <FaEdit size={18} />
@@ -363,7 +363,7 @@ function AllUserMain() {
                           {(isSuperAdmin || user.role !== 'super admin') && (
                             <button
                               onClick={() => handleDeleteClick(user)}
-                              className="text-red-600 hover:text-red-900"
+                              className="text-red-600 hover:text-red-900 cursor-pointer"
                               title="Delete User"
                             >
                               <FaTrash size={18} />
@@ -371,7 +371,7 @@ function AllUserMain() {
                           )}
                           <button
                             onClick={() => toggleUserStatus(user)}
-                            className={user.isActive ? "text-orange-600 hover:text-orange-900" : "text-green-600 hover:text-green-900"}
+                            className={user.isActive ? "text-orange-600 hover:text-orange-900 cursor-pointer" : "text-green-600 hover:text-green-900 cursor-pointer"}
                             title={user.isActive ? "Disable User" : "Enable User"}
                           >
                             {user.isActive ? <FaBan size={18} /> : <FaCheck size={18} />}
@@ -506,13 +506,13 @@ function AllUserMain() {
                 <button
                   type="button"
                   onClick={() => setIsEditModalOpen(false)}
-                  className="bg-gray-200 text-gray-700 px-4 py-2 rounded-md text-sm font-medium hover:bg-gray-300"
+                  className="bg-gray-200 text-gray-700 px-4 py-2 rounded-md text-sm font-medium hover:bg-gray-300 cursor-pointer"
                 >
                   Cancel
                 </button>
                 <button
                   type="submit"
-                  className="bg-blue-600 text-white px-4 py-2 rounded-md text-sm font-medium hover:bg-blue-700"
+                  className="bg-blue-600 text-white px-4 py-2 rounded-md text-sm font-medium hover:bg-blue-700 cursor-pointer"
                 >
                   Save Changes
                 </button>
@@ -534,13 +534,13 @@ function AllUserMain() {
               <button
                 type="button"
                 onClick={() => setIsDeleteModalOpen(false)}
-                className="bg-gray-200 text-gray-700 px-4 py-2 rounded-md text-sm font-medium hover:bg-gray-300"
+                className="bg-gray-200 text-gray-700 px-4 py-2 rounded-md text-sm font-medium hover:bg-gray-300 cursor-pointer"
               >
                 Cancel
               </button>
               <button
                 onClick={confirmDelete}
-                className="bg-red-600 text-white px-4 py-2 rounded-md text-sm font-medium hover:bg-red-700"
+                className="bg-red-600 text-white px-4 py-2 rounded-md text-sm font-medium hover:bg-red-700 cursor-pointer"
               >
                 Delete User
               </button>

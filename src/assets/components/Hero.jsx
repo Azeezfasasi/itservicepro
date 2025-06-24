@@ -40,7 +40,7 @@ const Hero = () => {
 
           {/* CTA Button */}
           <div className='flex flex-col md:flex-row justify-start items-center gap-6 md:gap-6 mt-6'>
-            <Link to="/quoterequest" className="bg-[#00B9F1] hover:bg-[#00A1D1] px-6 py-3 rounded-full font-semibold text-white flex items-center justify-center gap-2 mx-auto w-[200px] md:mr-0 uppercase">
+            <Link to="/quoterequest" className="bg-[#00B9F1] hover:bg-[#00A1D1] px-6 py-3 rounded-full font-semibold text-white flex items-center justify-center gap-2 mx-auto w-fit md:mr-0 uppercase">
               Request Quote
               <PhoneCall className="w-5 h-5" />
             </Link>

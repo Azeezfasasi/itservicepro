@@ -271,7 +271,7 @@ const ProductForm = () => {
       <div className="flex items-center mb-6">
         <button 
           onClick={() => navigate('/app/products')}
-          className="text-blue-600 hover:text-blue-800 mr-4"
+          className="text-blue-600 hover:text-blue-800 mr-4 cursor-pointer"
         >
           <FaArrowLeft size={20} />
         </button>
@@ -771,7 +771,7 @@ const ProductForm = () => {
         <div className="flex justify-end space-x-3 pt-6 border-t">
           <button
             type="button"
-            onClick={() => navigate('/admin/products')}
+            onClick={() => navigate('/app/products')}
             className="px-4 py-2 border border-gray-300 rounded-md text-sm font-medium text-gray-700 hover:bg-gray-50 cursor-pointer"
           >
             Cancel

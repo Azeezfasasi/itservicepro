@@ -607,7 +607,7 @@ const EditProduct = () => {
           <div className='flex flex-row justify-start items-center gap-5 mt-6'>
             <button
               type="submit"
-              className="flex justify-center items-center gap-3 bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-md focus:outline-none focus:ring focus:ring-blue-500 w-[200px]"
+              className="flex justify-center items-center gap-3 bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-md focus:outline-none focus:ring focus:ring-blue-500 w-[200px] cursor-pointer"
               disabled={loading}
             >
               {loading ? 'Saving...' : <><FaSave /> Save Changes</>}
@@ -615,7 +615,7 @@ const EditProduct = () => {
             <button
               type="button"
               onClick={() => navigate('/app/products')}
-              className="flex justify-center items-center gap-3 bg-gray-300 hover:bg-gray-400 text-gray-800 font-bold py-2 px-4 rounded-md focus:outline-none focus:ring focus:ring-gray-500 w-[200px]"
+              className="flex justify-center items-center gap-3 bg-gray-300 hover:bg-gray-400 text-gray-800 font-bold py-2 px-4 rounded-md focus:outline-none focus:ring focus:ring-gray-500 w-[200px] cursor-pointer"
             >
               <FaArrowLeft /> Cancel
             </button>
