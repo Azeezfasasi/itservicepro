@@ -7,7 +7,7 @@ function BlogPostMain() {
     blogs,
     fetchBlogs,
     deleteBlog,
-    changeStatus,
+    // changeStatus,
     loading,
     error,
     success
@@ -25,10 +25,10 @@ function BlogPostMain() {
     }
   };
 
-  const handleStatus = (id, currentStatus) => {
-    const newStatus = currentStatus === 'published' ? 'draft' : 'published';
-    changeStatus(id, newStatus);
-  };
+  // const handleStatus = (id, currentStatus) => {
+  //   const newStatus = currentStatus === 'published' ? 'draft' : 'published';
+  //   changeStatus(id, newStatus);
+  // };
 
   const handleEdit = (id) => {
     navigate(`/app/editblogpost/${id}`);
@@ -75,12 +75,12 @@ function BlogPostMain() {
                 >
                   Delete
                 </button>
-                <button
+                {/* <button
                   className={`px-3 py-1 rounded text-sm ${blog.status === 'published' ? 'bg-yellow-500 hover:bg-yellow-600 text-white' : 'bg-green-600 hover:bg-green-700 text-white'}`}
                   onClick={() => handleStatus(blog._id, blog.status)}
                 >
                   {blog.status === 'published' ? 'Set Draft' : 'Publish'}
-                </button>
+                </button> */}
               </div>
             </div>
           ))}

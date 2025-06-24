@@ -45,6 +45,7 @@ import TrackOrder from './app/TrackOrder';
 import UpdateProductDetails from './app/UpdateProductDetails';
 import ViewOrderDetails from './app/ViewOrderDetails';
 import ViewUserOrderDetails from './app/ViewUserOrderDetails';
+import EditProductCategories from './app/EditProductCategories';
 
 function App() {
   return (
@@ -87,6 +88,7 @@ function App() {
                     <Route path="/app/addproduct" element={<AddProduct />} />
                     <Route path="/app/products" element={<Products />} />
                     <Route path="/app/productcategories" element={<ProductCategories />} />
+                    <Route path="/app/editproductcategories/:id" element={<EditProductCategories />} />
                     <Route path="/app/addproductcategory" element={<AddProductCategory />} />
                     <Route path="/app/editproduct/:id" element={<EditProduct />} />
                     <Route path="/app/checkout" element={<Checkout />} />

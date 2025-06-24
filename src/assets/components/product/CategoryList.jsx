@@ -82,7 +82,13 @@ const CategoryList = () => {
             </button>
           )}
           {!hasChildren && <div className="w-5 mr-2"></div>}
-          
+          {/* Category image */}
+          <img
+            src={category.image || '/placehold.co/40x40/CCCCCC/000000?text=No+Image'}
+            alt={category.name}
+            className="w-8 h-8 object-cover rounded-full border border-solid border-gray-400 mr-3"
+            style={{ minWidth: 32, minHeight: 32 }}
+          />
           <div className="flex-grow">
             <div className="font-medium">{category.name}</div>
             {category.description && (
@@ -98,7 +104,7 @@ const CategoryList = () => {
             )}
             
             <Link 
-              to={`/admin/categories/edit/${category._id}`}
+              to={`/app/editproductcategories/${category._id}`}
               className="text-indigo-600 hover:text-indigo-900 p-2"
             >
               <FaEdit size={16} />

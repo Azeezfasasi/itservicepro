@@ -1,6 +1,8 @@
 import React, { useEffect, useState } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import { useBlog } from '../../context-api/blog-context/UseBlog';
+import back from '../../images/back.svg';
+import { Link } from 'react-router-dom';
 
 function EditBlogPostMain() {
   const { id } = useParams();
@@ -58,6 +60,9 @@ function EditBlogPostMain() {
 
   return (
     <div className="max-w-2xl mx-auto bg-white rounded-lg shadow p-8 mt-8">
+      <Link to="/app/blogposts" className='flex flex-row justify-start mb-6'>
+          <img src={back} alt="Back" className='w-7 h-7 mr-2' /><p className='font-semibold'>Back to Blog Posts</p>
+      </Link>
       <h2 className="text-2xl font-bold mb-6 text-center">Edit Blog Post</h2>
       <form onSubmit={handleSubmit} className="space-y-5">
         <div>
