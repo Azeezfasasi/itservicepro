@@ -61,12 +61,32 @@ function DashHeader() {
 
       {/* Hamburger Icon (Mobile) */}
       <div className="lg:hidden flex flex-row items-center gap-4">
-        <div className="flex flex-row items-center gap-2 mt-0 ml-0 mb-0">
-            <img src={accountprofile} alt="profile" className="w-8 h-8 rounded-full border" />
-            <div className="flex flex-col text-xs">
-              <span className="font-semibold">{user?.name || 'User'}</span>
-              <span className="text-gray-500 capitalize">{user?.role}</span>
-            </div>
+        <div className="flex flex-row items-center gap-2 ml-4 relative profile-dropdown">
+          <div className="relative">
+            <img
+              src={accountprofile}
+              alt="profile"
+              className="w-8 h-8 rounded-full border cursor-pointer"
+              onClick={() => setProfileMenuOpen((open) => !open)}
+            />
+            {/* Dropdown Menu */}
+            {profileMenuOpen && (
+              <div className="absolute top-10 right-[-150px] mt-2 w-44 bg-white border border-solid border-gray-300 rounded shadow-lg z-50 animate-fade-in">
+                <Link to="/app/dashboard" className="block px-4 py-2 hover:bg-gray-100 text-[#0A1F44]" onClick={() => setProfileMenuOpen(false)}>Dashboard</Link>
+                <Link to="/app/userorderdetails" className="block px-4 py-2 hover:bg-gray-100 text-[#0A1F44]" onClick={() => setProfileMenuOpen(false)}>My Orders</Link>
+                <Link to="" className="block px-4 py-2 hover:bg-gray-100 text-[#0A1F44]" onClick={() => setProfileMenuOpen(false)}>My Quotes</Link>
+                <Link to="/app/profile" className="block px-4 py-2 hover:bg-gray-100 text-[#0A1F44]" onClick={() => setProfileMenuOpen(false)}>Profile</Link>                
+                <button
+                  onClick={() => { setProfileMenuOpen(false); handleLogout(); }}
+                  className="w-full text-left px-4 py-2 text-red-500 hover:bg-gray-100"
+                >Logout</button>
+              </div>
+            )}
+          </div>
+          <div className="flex flex-col text-xs cursor-pointer" onClick={() => setProfileMenuOpen((open) => !open)}>
+            <span className="font-semibold">{user?.name || 'User'}</span>
+            <span className="text-gray-500 capitalize">{user?.role}</span>
+          </div>
         </div>
         <button
           className="lg:hidden flex flex-col justify-center items-center w-10 h-10 focus:outline-none"
@@ -125,13 +145,6 @@ function DashHeader() {
       {/* Mobile Menu */}
       {menuOpen && (
         <div className="absolute top-full left-0 w-full bg-white shadow-md flex flex-col items-start pl-0 py-0 z-50 lg:hidden animate-fade-in border-b h-[600px] overflow-y-scroll overflow-x-hidden">
-          {/* <div className="flex flex-row items-center gap-2 mt-0 ml-4 mb-4">
-            <img src={accountprofile} alt="profile" className="w-8 h-8 rounded-full border" />
-            <div className="flex flex-col text-xs">
-              <span className="font-semibold">{user?.name || 'User'}</span>
-              <span className="text-gray-500 capitalize">{user?.role}</span>
-            </div>
-          </div> */}
           <Sidenav>
             <Sidenav.Body>
                 <Nav activeKey={activeKey}>
