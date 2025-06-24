@@ -4,18 +4,23 @@ import { useNavigate, useParams } from 'react-router-dom';
 import { useProduct } from '../../context-api/product-context/UseProduct'
 import { FaSave, FaArrowLeft, FaTrash } from 'react-icons/fa'; 
 import { RICHT_TEXT_API } from '../../../config/richText';
+import { useMutation, useQueryClient } from '@tanstack/react-query';
+import axios from 'axios';
+import { API_BASE_URL } from '../../../config/api';
+import back from '../../images/back.svg';
+import { Link } from 'react-router-dom';
 
 const EditProduct = () => {
   const { id } = useParams();
   const navigate = useNavigate();
+  const queryClient = useQueryClient();
 
   const {
     product,
     fetchProductById,
-    updateProduct,
-    loading, // Access loading state
-    error,   // Access error state
-    success,  // Access success state
+    loading,
+    error,  
+    success, 
     categories, fetchCategories
   } = useProduct();
 
@@ -147,6 +152,23 @@ const EditProduct = () => {
     return Object.keys(errors).length === 0;
   };
 
+  // React Query mutation for updating product
+  const updateProductMutation = useMutation({
+    mutationFn: async ({ id, dataToSend }) => {
+      const token = localStorage.getItem('token');
+      const response = await axios.put(`${API_BASE_URL}/products/${id}`, dataToSend, {
+        headers: {
+          Authorization: `Bearer ${token}`
+        }
+      });
+      return response.data;
+    },
+    onSuccess: (data) => {
+      queryClient.invalidateQueries(['products']);
+      queryClient.invalidateQueries(['product', id]);
+    },
+  });
+
   const handleSubmit = async (e) => {
     e.preventDefault();
 
@@ -163,12 +185,22 @@ const EditProduct = () => {
           if (formData.dimensions.length !== '') dataToSend.append('dimensions.length', Number(formData.dimensions.length));
           if (formData.dimensions.width !== '') dataToSend.append('dimensions.width', Number(formData.dimensions.width));
           if (formData.dimensions.height !== '') dataToSend.append('dimensions.height', Number(formData.dimensions.height));
+        } else if (key === 'discountPercentage') {
+          // Only append if it's a valid number and not empty
+          if (
+            formData.discountPercentage !== '' &&
+            !isNaN(Number(formData.discountPercentage)) &&
+            formData.discountPercentage !== null &&
+            formData.discountPercentage !== undefined
+          ) {
+            dataToSend.append('discountPercentage', Number(formData.discountPercentage));
+          }
         } else if (Array.isArray(formData[key])) {
           // Send as comma-separated string for colors, sizes, tags
           dataToSend.append(key, formData[key].join(','));
         } else if (typeof formData[key] === 'boolean') {
           dataToSend.append(key, formData[key] ? 'true' : 'false');
-        } else if (formData[key] !== null && formData[key] !== undefined) {
+        } else if (formData[key] !== null && formData[key] !== undefined && key !== 'discountPercentage') {
           dataToSend.append(key, formData[key]);
         }
       }
@@ -184,18 +216,25 @@ const EditProduct = () => {
       dataToSend.append('existingImageUrls', JSON.stringify(currentImages.map(img => ({ url: img.url, public_id: img.public_id }))));
     }
 
+    // Debug: log all FormData
     console.log('FormData being sent:');
     for (let pair of dataToSend.entries()) {
       console.log(pair[0], pair[1]);
     }
 
-    const result = await updateProduct(id, dataToSend);
-
-    if (result) {
-      setTimeout(() => {
-        navigate('/app/products');
-      }, 1500);
-    }
+    updateProductMutation.mutate(
+      { id, dataToSend },
+      {
+        onSuccess: () => {
+          setTimeout(() => {
+            navigate('/app/products');
+          }, 1500);
+        },
+        onError: (err) => {
+          setValidationErrors({ submit: err?.response?.data?.error || err.message || 'Failed to update product. Please try again.' });
+        }
+      }
+    );
   };
 
   // Base URL for Cloudinary images (assuming your backend serves them directly or via a proxy)
@@ -208,11 +247,17 @@ const EditProduct = () => {
 
   return (
     <div className='max-w-4xl mx-auto p-4 bg-white rounded-md shadow-md'>
+      <Link to="/app/products" className='flex flex-row justify-start mb-6'>
+          <img src={back} alt="Back" className='w-7 h-7 mr-2' /><p className='font-semibold'>Back to Products</p>
+      </Link>
       <h2 className='text-2xl font-bold mb-4'>Edit Product: {product?.name || 'Loading...'}</h2>
 
       {loading && <p className="text-blue-600 mb-4">Loading product data...</p>}
       {error && <p className="text-red-600 mb-4">{error}</p>}
       {success && <p className="text-green-600 mb-4">{success}</p>}
+      {updateProductMutation.isError && (
+        <p className="text-red-600 mb-4">{updateProductMutation.error?.response?.data?.error || updateProductMutation.error?.message}</p>
+      )}
 
       {(!product && !loading) ? (
         <div className="text-center py-8">

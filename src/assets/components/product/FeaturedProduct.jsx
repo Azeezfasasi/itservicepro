@@ -113,11 +113,11 @@ const FeaturedProduct = () => {
                     <div className="mb-2">
                       {product.onSale ? (
                         <>
-                          <span className="text-xl font-bold text-red-600 mr-2">${product.salePrice?.toFixed(2)}</span>
-                          <span className="text-base line-through text-gray-400">${product.price?.toFixed(2)}</span>
+                          <span className="text-xl font-bold text-blue-600 mr-2">₦{product.salePrice?.toFixed(2)}</span>
+                          <span className="text-base line-through text-gray-400">₦{product.price?.toFixed(2)}</span>
                         </>
                       ) : (
-                        <span className="text-xl font-bold text-gray-800">${product.price?.toFixed(2)}</span>
+                        <span className="text-xl font-bold text-gray-800">₦{product.price?.toFixed(2)}</span>
                       )}
                     </div>
                     {product.rating > 0 && (

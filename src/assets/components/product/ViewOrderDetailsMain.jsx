@@ -18,9 +18,7 @@ const fetchOrderById = async (id, token) => {
 };
 
 export default function ViewOrderDetailsMain({ token: propToken }) {
-  // Use 'id' from useParams (matches your route: /app/vieworderdetails/:id)
   const { id: orderId } = useParams();
-  // Try to get token from prop or from localStorage (or context if you prefer)
   const token = propToken || localStorage.getItem('token');
   const {
     data: order,
