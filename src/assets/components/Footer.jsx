@@ -1,6 +1,7 @@
 import React from 'react'
 import { Mail, Phone, MapPin } from 'lucide-react'
 import { Link } from 'react-router-dom'
+import SubscribeToNewsletter from './SubscribeToNewsletter'
 
 function Footer() {
   return (
@@ -39,24 +40,7 @@ function Footer() {
         </div>
 
         {/* Newsletter */}
-        <div className="flex-1">
-          <h3 className="text-lg font-semibold mb-3">Subscribe to Our Newsletter</h3>
-          <form className="flex flex-col sm:flex-row gap-2">
-            <input
-              type="email"
-              placeholder="Your email address"
-              className="px-3 py-2 rounded text-[white] focus:outline-white borde border-solid border-white outline"
-              required
-            />
-            <button
-              type="submit"
-              className="bg-[#00B9F1] hover:bg-[#00A1D1] text-white px-4 py-2 rounded transition"
-            >
-              Subscribe
-            </button>
-          </form>
-          <p className="text-xs text-gray-400 mt-2">Get the latest updates and offers.</p>
-        </div>
+        <SubscribeToNewsletter />
       </div>
       <div className="border-t border-gray-700 mt-8 pt-4 text-center text-gray-400 text-xs">
         &copy; {new Date().getFullYear()} IT Service Pro. All rights reserved.
