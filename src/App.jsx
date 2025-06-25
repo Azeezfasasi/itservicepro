@@ -46,6 +46,9 @@ import UpdateProductDetails from './app/UpdateProductDetails';
 import ViewOrderDetails from './app/ViewOrderDetails';
 import ViewUserOrderDetails from './app/ViewUserOrderDetails';
 import EditProductCategories from './app/EditProductCategories';
+import SendNewsletter from './app/SendNewsletter';
+import AllNewsletter from './app/AllNewsletter';
+import NewsletterSubscribers from './app/NewsletterSubscribers';
 
 function App() {
   return (
@@ -98,6 +101,9 @@ function App() {
                     <Route path="/app/adminorderlist" element={<AdminOrderList />} />
                     <Route path="/app/vieworderdetails/:id" element={<ViewOrderDetails />} />
                     <Route path="/app/viewuserorderdetails/:id" element={<ViewUserOrderDetails />} />
+                    <Route path="/app/sendnewsletter" element={<SendNewsletter />} />
+                    <Route path="/app/allnewsletter" element={<AllNewsletter />} />
+                    <Route path="/app/Newslettersubscribers" element={<NewsletterSubscribers />} />
                   </Route>
                 </Routes>
               </CartProvider>

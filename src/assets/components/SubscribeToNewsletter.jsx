@@ -51,7 +51,7 @@ function SubscribeToNewsletter() {
         />
         <button
             type="submit"
-            className="bg-[#00B9F1] hover:bg-[#00A1D1] text-white px-4 py-2 rounded transition"
+            className="bg-[#00B9F1] hover:bg-[#00A1D1] text-white px-4 py-2 rounded transition cursor-pointer"
             disabled={mutation.isLoading}
         >
             {mutation.isLoading ? 'Subscribing...' : 'Subscribe'}

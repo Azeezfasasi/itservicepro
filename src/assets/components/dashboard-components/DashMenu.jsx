@@ -25,7 +25,10 @@ function DashMenu() {
     '/app/addproductcategory': '6-4',
     '/app/userorderdetails': '7',
     '/app/adminorderlist': '8',
-    '/app/mysettings': '9',
+    '/app/sendnewsletter': '9-1',
+    '/app/allnewsletter': '9-2',
+    '/app/Newslettersubscribers': '9-3',
+    '/app/mysettings': '10',
   };
   const activeKey = menuKeyByPath[location.pathname];
 
@@ -81,8 +84,15 @@ function DashMenu() {
                         All Order 
                     </Nav.Item>
                     )}
+                    {(isSuperAdmin || isAdmin) && (
+                    <Nav.Menu eventKey="9" title="Newsletter" icon={<MagicIcon />}>
+                        <Nav.Item eventKey="9-1" as={Link} to="/app/sendnewsletter">Send Newsletter</Nav.Item>
+                        <Nav.Item eventKey="9-2" as={Link} to="/app/allnewsletter">All Newsletters</Nav.Item>
+                        <Nav.Item eventKey="9-3" as={Link} to="/app/Newslettersubscribers">Subscribers</Nav.Item>
+                    </Nav.Menu>
+                    )}
                     {(isSuperAdmin || isAdmin || isUser || isCustomer) && (
-                    <Nav.Item eventKey="9" icon={<GroupIcon />} as={Link} to="/app/mysettings">
+                    <Nav.Item eventKey="10" icon={<GroupIcon />} as={Link} to="/app/mysettings">
                         Settings
                     </Nav.Item>
                     )}
