@@ -234,6 +234,17 @@ const QuoteList = () => {
               </th>
               <th 
                 className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider cursor-pointer"
+                onClick={() => handleSort('phone')}
+              >
+                <div className="flex items-center">
+                  Phone Number
+                  {sortConfig.key === 'phone' && (
+                    sortConfig.direction === 'asc' ? <FaSortAmountUp className="ml-1" /> : <FaSortAmountDown className="ml-1" />
+                  )}
+                </div>
+              </th>
+              <th 
+                className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider cursor-pointer"
                 onClick={() => handleSort('service')}
               >
                 <div className="flex items-center">
@@ -294,6 +305,18 @@ const QuoteList = () => {
                       />
                     ) : (
                       <div className="text-sm text-gray-600">{quote.email}</div>
+                    )}
+                  </td>
+                  <td className="px-6 py-4 whitespace-nowrap">
+                    {editId === quote.phone ? (
+                      <input
+                        name="phone"
+                        value={editData.phone}
+                        onChange={handleEditChange}
+                        className="border rounded px-3 py-1 w-full"
+                      />
+                    ) : (
+                      <div className="text-sm text-gray-600">{quote.phone}</div>
                     )}
                   </td>
                   <td className="px-6 py-4 whitespace-nowrap">

@@ -5,6 +5,7 @@ function RequestQuote() {
   const [form, setForm] = useState({
     name: '',
     email: '',
+    phone: '',
     service: '',
     message: ''
   });
@@ -12,7 +13,7 @@ function RequestQuote() {
 
    useEffect(() => {
     if (success) {
-      setForm({ name: '', email: '', service: '', message: '' });
+      setForm({ name: '', email: '', phone: '', service: '', message: '' });
     }
   }, [success]);
 
@@ -23,7 +24,7 @@ function RequestQuote() {
   const handleSubmit = async (e) => {
     e.preventDefault();
     await submitQuote(form);
-    if (success) setForm({ name: '', email: '', service: '', message: '' });
+    if (success) setForm({ name: '', email: '', phone: '', service: '', message: '' });
   };
 
   return (
@@ -90,6 +91,17 @@ function RequestQuote() {
                 />
               </div>
               <div>
+                <input
+                  type="phone"
+                  name="phone"
+                  value={form.phone}
+                  onChange={handleChange}
+                  placeholder="Your Phone Number"
+                  className="w-full px-4 py-3 rounded-lg bg-gray-100 border border-gray-200 focus:outline-none focus:ring-2 focus:ring-blue-500"
+                  required
+                />
+              </div>
+              <div>
                 <select
                   name="service"
                   value={form.service}
@@ -101,6 +113,7 @@ function RequestQuote() {
                   <option value="Laptop Repair">Laptop Repair</option>
                   <option value="Website Development">Website Development</option>
                   <option value="Mobile App Development">Mobile App Development</option>
+                  <option value="Laptop Purchase">Laptop Purchase</option>
                   <option value="Office Computer & Server Setup">Office Computer & Server Setup</option>
                   <option value="IT Solutions">IT Solutions</option>                  
                   <option value="Networking">Networking</option>
