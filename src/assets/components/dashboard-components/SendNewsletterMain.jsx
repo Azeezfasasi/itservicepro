@@ -1,7 +1,9 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 import { useMutation } from '@tanstack/react-query';
 import axios from 'axios';
 import { API_BASE_URL } from '../../../config/api';
+import { Editor } from '@tinymce/tinymce-react';
+import { RICHT_TEXT_API } from '../../../config/richText';
 
 function SendNewsletterMain() {
   const [subject, setSubject] = useState('');
@@ -19,7 +21,7 @@ function SendNewsletterMain() {
         { headers: { Authorization: `Bearer ${token}` } }
       );
     },
-    onSuccess: (res) => {
+    onSuccess: () => {
       setSuccess('Newsletter sent successfully!');
       setError('');
       setSubject('');
@@ -63,14 +65,21 @@ function SendNewsletterMain() {
             required
           />
         </div>
-        <div style={{ marginBottom: 18 }}>
-          <label style={{ fontWeight: 500 }}>Content<span style={{ color: 'red' }}>*</span></label>
-          <textarea
+        <div className="mb-4">
+          <label className="font-semibold block mb-1">Content<span className="text-red-500">*</span></label>
+          <Editor
+            apiKey={RICHT_TEXT_API}
             value={content}
-            onChange={e => setContent(e.target.value)}
-            style={{ width: '100%', minHeight: 140, padding: 10, borderRadius: 4, border: '1px solid #ccc', marginTop: 6 }}
-            placeholder="Newsletter content (HTML allowed)"
-            required
+            init={{
+              height: 400,
+              menubar: false,
+              plugins: [
+                'advlist', 'autolink', 'lists', 'link', 'image', 'charmap', 'preview', 'anchor', 'searchreplace', 'visualblocks', 'code', 'fullscreen', 'insertdatetime', 'media', 'table', 'code', 'help', 'wordcount'
+              ],
+              toolbar:
+                'undo redo | blocks |' + 'bold italic forecolor | alignleft aligncenter alignright alignjustify |' + '| bullist numlist outdent indent | ' + 'removeformat | help',
+            }}
+            onEditorChange={setContent}
           />
         </div>
         <div style={{ marginBottom: 18 }}>
