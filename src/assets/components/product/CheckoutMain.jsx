@@ -119,7 +119,7 @@ const CheckoutMain = () => {
     if (!shippingAddress.address1.trim()) errors.address1 = 'Address Line 1 is required.';
     if (!shippingAddress.city.trim()) errors.city = 'City is required.';
     if (!shippingAddress.state.trim()) errors.state = 'State/Region is required.';
-    if (!shippingAddress.zipCode.trim()) errors.zipCode = 'Zip/Postal Code is required.';
+    // if (!shippingAddress.zipCode.trim()) errors.zipCode = 'Zip/Postal Code is required.';
     if (!shippingAddress.country.trim()) errors.country = 'Country is required.';
 
     if (showPaymentFields) {
@@ -298,20 +298,6 @@ const CheckoutMain = () => {
     <div className="container mx-auto px-4 py-8 max-w-7xl">
       <h1 className="text-4xl font-extrabold text-gray-900 mb-8 text-center">Checkout</h1>
 
-      {/* {(isError || Object.keys(validationErrors).length > 0) && (
-        <div className="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded relative mb-6" role="alert">
-          <strong className="font-bold mr-2">
-            {isError ? 'Checkout Error!' : 'Please fix the following errors!'}
-          </strong>
-          {isError && <span className="block sm:inline">{error?.message || 'An unknown error occurred.'}</span>}
-          {Object.keys(validationErrors).length > 0 && (
-            <ul className="mt-2 list-disc list-inside">
-              {Object.values(validationErrors).map((errMsg, index) => errMsg && <li key={index}>{errMsg}</li>)}
-            </ul>
-          )}
-        </div>
-      )} */}
-
       <form onSubmit={handleSubmitCheckout} className="grid grid-cols-1 lg:grid-cols-3 gap-8">
         <div className="lg:col-span-2 bg-white shadow-lg rounded-lg p-6 space-y-8">
           <div>
@@ -325,7 +311,6 @@ const CheckoutMain = () => {
                   className={`w-full border ${validationErrors.fullName ? 'border-red-500' : 'border-gray-300'} rounded-md shadow-sm px-3 py-2 focus:ring-blue-500 focus:border-blue-500`}
                   required
                 />
-                {/* {validationErrors.fullName && <p className="text-red-500 text-xs mt-1">{validationErrors.fullName}</p>} */}
               </div>
               <div className="md:col-span-2">
                 <label htmlFor="address1" className="block text-sm font-medium text-gray-700 mb-1">Address Line 1*</label>
@@ -335,7 +320,6 @@ const CheckoutMain = () => {
                   className={`w-full border ${validationErrors.address1 ? 'border-red-500' : 'border-gray-300'} rounded-md shadow-sm px-3 py-2 focus:ring-blue-500 focus:border-blue-500`}
                   required
                 />
-                {/* {validationErrors.address1 && <p className="text-red-500 text-xs mt-1">{validationErrors.address1}</p>} */}
               </div>
               <div className="md:col-span-2">
                 <label htmlFor="address2" className="block text-sm font-medium text-gray-700 mb-1">Address Line 2 (Optional)</label>
@@ -353,7 +337,6 @@ const CheckoutMain = () => {
                   className={`w-full border ${validationErrors.city ? 'border-red-500' : 'border-gray-300'} rounded-md shadow-sm px-3 py-2 focus:ring-blue-500 focus:border-blue-500`}
                   required
                 />
-                {/* {validationErrors.city && <p className="text-red-500 text-xs mt-1">{validationErrors.city}</p>} */}
               </div>
               <div>
                 <label htmlFor="state" className="block text-sm font-medium text-gray-700 mb-1">State / Region*</label>
@@ -363,17 +346,14 @@ const CheckoutMain = () => {
                   className={`w-full border ${validationErrors.state ? 'border-red-500' : 'border-gray-300'} rounded-md shadow-sm px-3 py-2 focus:ring-blue-500 focus:border-blue-500`}
                   required
                 />
-                {/* {validationErrors.state && <p className="text-red-500 text-xs mt-1">{validationErrors.state}</p>} */}
               </div>
               <div>
-                <label htmlFor="zipCode" className="block text-sm font-medium text-gray-700 mb-1">Zip / Postal Code*</label>
+                <label htmlFor="zipCode" className="block text-sm font-medium text-gray-700 mb-1">Zip / Postal Code</label>
                 <input
                   type="text" id="zipCode" name="zipCode"
                   value={shippingAddress.zipCode} onChange={handleShippingChange}
-                  className={`w-full border ${validationErrors.zipCode ? 'border-red-500' : 'border-gray-300'} rounded-md shadow-sm px-3 py-2 focus:ring-blue-500 focus:border-blue-500`}
-                  required
+                  className="w-full border border-gray-300'rounded-md shadow-sm px-3 py-2 focus:ring-blue-500 focus:border-blue-500"
                 />
-                {/* {validationErrors.zipCode && <p className="text-red-500 text-xs mt-1">{validationErrors.zipCode}</p>} */}
               </div>
               <div>
                 <label htmlFor="country" className="block text-sm font-medium text-gray-700 mb-1">Country*</label>
