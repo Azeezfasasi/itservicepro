@@ -92,12 +92,50 @@ export const QuoteProvider = ({ children }) => {
     }
   };
 
+  // New function to reply to a quote request
+  const replyToQuote = async (id, replyData) => {
+  setLoading(true);
+  setError(null);
+  try {
+    const response = await axios.post(
+      `${API_BASE_URL}/quotes/${id}/reply`, // Corrected URL
+      replyData,
+      {
+        headers: {
+          Authorization: `Bearer ${token}`, // Use token from context
+        },
+      }
+    );
+    fetchQuotes();
+    setSuccess(response.data.message || 'Reply sent successfully!');
+  } catch (err) {
+    console.error('Error sending reply:', err);
+    setError(err.response?.data?.error || 'Failed to send reply.');
+    throw err;
+  } finally {
+    setLoading(false);
+  }
+};
+
+  // Clear success/error messages after a delay
+  useEffect(() => {
+    if (success) {
+      const timer = setTimeout(() => setSuccess(null), 3000);
+      return () => clearTimeout(timer);
+    }
+    if (error) {
+      const timer = setTimeout(() => setError(null), 5000);
+      return () => clearTimeout(timer);
+    }
+  }, [success, error]);
+
   return (
     <QuoteContext.Provider value={{
       submitQuote,
       fetchQuotes,
       deleteQuote,
       updateQuote,
+      replyToQuote,
       quotes,
       loading,
       error,
