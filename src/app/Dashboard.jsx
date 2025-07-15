@@ -24,6 +24,7 @@ function Dashboard() {
         {(isSuperAdmin || isAdmin) && (
           <DashChart />
         )}
+        <br />
         {(isSuperAdmin || isAdmin) && (
         <ProductChart />
         )}

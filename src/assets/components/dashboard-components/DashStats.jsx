@@ -7,38 +7,40 @@ import { Link } from 'react-router-dom';
 
 function DashStats() {
   const { getAllUsers, loading: userLoading, isSuperAdmin, isAdmin, isCustomer, user } = useUser();
-  const { quotes, loading: quoteLoading } = useQuote();
+  const { quotes, loading: quoteLoading, fetchCustomerQuotes } = useQuote(); // Added fetchCustomerQuotes
   const [stats, setStats] = useState({
     totalUsers: 0,
     superAdmins: 0,
     admins: 0,
     customers: 0,
     users: 0,
-    totalQuotes: 0,
-    myQuotes: 0,
+    totalQuotes: 0, // Total quotes for admin view
+    myQuotes: 0,    // Quotes for customer/user view
     myPending: 0,
     myCompleted: 0,
   });
-  const [orderCount, setOrderCount] = useState(0);
-  const [customerOrderCount, setCustomerOrderCount] = useState(0);
+  const [orderCount, setOrderCount] = useState(0); // For admin total orders
+  const [customerOrderCount, setCustomerOrderCount] = useState(0); // For customer's own orders
   const [orderLoading, setOrderLoading] = useState(false);
 
-  // Fetch users ONCE on mount
+  // Fetch user-related stats conditionally for admins
   useEffect(() => {
-    const fetchStats = async () => {
-      const users = await getAllUsers();
-      setStats(prev => ({
-        ...prev,
-        totalUsers: users ? users.length : 0,
-        superAdmins: users ? users.filter(u => u.role === 'super admin').length : 0,
-        admins: users ? users.filter(u => u.role === 'admin').length : 0,
-        customers: users ? users.filter(u => u.role === 'customer').length : 0,
-        users: users ? users.filter(u => u.role === 'user').length : 0,
-      }));
+    const fetchUserStats = async () => {
+      if (isSuperAdmin || isAdmin) { // <--- CRUCIAL CHANGE: Only fetch users if admin
+        const users = await getAllUsers();
+        setStats(prev => ({
+          ...prev,
+          totalUsers: users ? users.length : 0,
+          superAdmins: users ? users.filter(u => u.role === 'super admin').length : 0,
+          admins: users ? users.filter(u => u.role === 'admin').length : 0,
+          customers: users ? users.filter(u => u.role === 'customer').length : 0,
+          users: users ? users.filter(u => u.role === 'user').length : 0,
+        }));
+      }
     };
-    fetchStats();
-    // eslint-disable-next-line
-  }, []);
+    fetchUserStats();
+    // Dependencies: isSuperAdmin, isAdmin to re-run if role changes (e.g., after login)
+  }, [isSuperAdmin, isAdmin, getAllUsers]); // Added getAllUsers to dependencies
 
   // Fetch total orders for admin/super admin
   useEffect(() => {
@@ -72,7 +74,7 @@ function DashStats() {
   // Fetch total orders for customers
   useEffect(() => {
     const fetchCustomerOrders = async () => {
-      if (isCustomer) {
+      if (isCustomer) { // <--- Already conditional, which is good
         setOrderLoading(true);
         try {
           const token = localStorage.getItem('token');
@@ -101,20 +103,35 @@ function DashStats() {
   // Update quotes count when quotes or user changes
   useEffect(() => {
     let myQuotes = 0, myPending = 0, myCompleted = 0;
-    if (user && quotes && (user.role === 'user' || user.role === 'customer')) {
-      const userQuotes = quotes.filter(q => q.email === user.email);
-      myQuotes = userQuotes.length;
-      myPending = userQuotes.filter(q => q.status === 'Pending').length;
-      myCompleted = userQuotes.filter(q => q.status === 'Completed' || q.status === 'Done').length;
+    let totalQuotesForAdmin = 0; // Initialize for admin view
+
+    if (quotes) {
+      if (isSuperAdmin || isAdmin) {
+        totalQuotesForAdmin = quotes.length; // All quotes for admin
+      } else if (user && (user.role === 'user' || user.role === 'customer')) {
+        // For customer/user, filter quotes by their email
+        const userQuotes = quotes.filter(q => q.email === user.email);
+        myQuotes = userQuotes.length;
+        myPending = userQuotes.filter(q => q.status === 'Pending').length;
+        myCompleted = userQuotes.filter(q => q.status === 'Completed' || q.status === 'Done').length;
+      }
     }
+
     setStats(prev => ({
       ...prev,
-      totalQuotes: quotes ? quotes.length : 0,
+      totalQuotes: totalQuotesForAdmin, // Set totalQuotes for admin view
       myQuotes,
       myPending,
       myCompleted,
     }));
-  }, [quotes, user]);
+  }, [quotes, user, isSuperAdmin, isAdmin]); // Added isSuperAdmin, isAdmin to dependencies
+
+  // Fetch customer quotes specifically for customer role
+  useEffect(() => {
+    if (isCustomer && user && user.email) {
+      fetchCustomerQuotes(); // This will update the 'quotes' state in useQuote context
+    }
+  }, [isCustomer, user, fetchCustomerQuotes]); // Depend on user and fetchCustomerQuotes
 
   if (userLoading || quoteLoading || orderLoading) {
     return <Spinner />;
@@ -126,10 +143,11 @@ function DashStats() {
         <>
           {user && (
             <div className="col-span-3 text-xl font-semibold mb-2 md:mb-2 mt-3 px-4 lg:px-5">
-              <p className='font-semibold'>Welcome {user.name || user.email || 'User'}!</p>
+              <p className='font-semibold'>Welcome {user.name || user.email || 'Admin'}!</p>
             </div>
           )}
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6 p-6">
+            {/* Only show user stats for admins */}
             <Link to="/app/allusers">
               <StatCard label="Total Users" value={stats.totalUsers} color="bg-blue-600" />
             </Link>
@@ -150,33 +168,30 @@ function DashStats() {
             </Link>
           </div>
         </>
-      ) : (user && user.role === 'customer') ? (
-        <>
-          <div className="col-span-3 text-xl font-semibold mb-2 md:mb-2 mt-3 px-4 lg:px-5">
-            <p className='font-semibold'>Welcome {user.name || user.email || 'Customer'}!</p>
-          </div>
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-6 p-6">
-            <Link to="/app/userorderdetails">
-              <StatCard label="My Orders" value={customerOrderCount} color="bg-purple-600" />
-            </Link>
-            <StatCard label="My Quotes" value={stats.myQuotes} color="bg-blue-600" />
-            <StatCard label="Pending Quotes" value={stats.myPending} color="bg-yellow-500" />
-            <StatCard label="Completed Quotes" value={stats.myCompleted} color="bg-green-600" />
-          </div>
-        </>
-      )
-       : (user && user.role === 'user') ? (
+      ) : (user && (user.role === 'customer' || user.role === 'user')) ? ( // Combined customer and user roles
         <>
           <div className="col-span-3 text-xl font-semibold mb-2 md:mb-2 mt-3 px-4 lg:px-5">
             <p className='font-semibold'>Welcome {user.name || user.email || 'User'}!</p>
           </div>
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6 p-6">
-            <StatCard label="My Quotes" value={stats.myQuotes} color="bg-blue-600" />
-            <StatCard label="Pending Quotes" value={stats.myPending} color="bg-yellow-500" />
-            <StatCard label="Completed Quotes" value={stats.myCompleted} color="bg-green-600" />
+            {(isCustomer) && ( // Only show "My Orders" for actual customers
+              <Link to="/app/userorderdetails">
+                <StatCard label="My Orders" value={customerOrderCount} color="bg-purple-600" />
+              </Link>
+            )}
+            {/* My Quotes and related stats are visible to both 'customer' and 'user' roles */}
+            <Link to="/app/customer/my-quotes"> {/* Link to the new customer quotes list */}
+              <StatCard label="My Quotes" value={stats.myQuotes} color="bg-blue-600" />
+            </Link>
+            <Link to="/app/customer/my-quotes"> {/* Link to the new customer quotes list */}
+              <StatCard label="Pending Quotes" value={stats.myPending} color="bg-yellow-500" />
+            </Link>
+            <Link to="/app/customer/my-quotes"> {/* Link to the new customer quotes list */}
+              <StatCard label="Completed Quotes" value={stats.myCompleted} color="bg-green-600" />
+            </Link>
           </div>
         </>
-      ) : null
+      ) : null // Render nothing if no matching role
       }
     </>
   );

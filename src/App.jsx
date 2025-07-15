@@ -42,13 +42,16 @@ import OrderSuccess from './app/OrderSuccess';
 import UserOrderDetails from './app/UserOrderDetails';
 import AdminOrderList from './app/AdminOrderList';
 import TrackOrder from './app/TrackOrder';
-import UpdateProductDetails from './app/UpdateProductDetails';
+// import UpdateProductDetails from './app/UpdateProductDetails';
 import ViewOrderDetails from './app/ViewOrderDetails';
 import ViewUserOrderDetails from './app/ViewUserOrderDetails';
 import EditProductCategories from './app/EditProductCategories';
 import SendNewsletter from './app/SendNewsletter';
 import AllNewsletter from './app/AllNewsletter';
 import NewsletterSubscribers from './app/NewsletterSubscribers';
+import MyQuotes from './app/MyQuotes';
+import CustomerQuotesList from './app/CustomerQuotesList';
+
 
 function App() {
   return (
@@ -80,6 +83,8 @@ function App() {
                   <Route element={<PrivateRoutes />}>
                     <Route path="/app/dashboard" element={<Dashboard />} />
                     <Route path="/app/quote" element={<Quote />} />
+                    <Route path="/app/myquotes" element={<MyQuotes />} />
+                    <Route path="/app/quoteslist/:id" element={<CustomerQuotesList />} />
                     <Route path="/app/addnewpost" element={<AddNewPost />} />
                     <Route path="/app/blogposts" element={<BlogPosts />} />
                     <Route path="/app/editblogpost/:id" element={<EditBlogPost />} />
