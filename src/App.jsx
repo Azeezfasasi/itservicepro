@@ -51,6 +51,7 @@ import AllNewsletter from './app/AllNewsletter';
 import NewsletterSubscribers from './app/NewsletterSubscribers';
 import MyQuotes from './app/MyQuotes';
 import CustomerQuotesList from './app/CustomerQuotesList';
+import ProjectDetailsGallery from './app/ProjectDetailsGallery';
 
 
 function App() {
@@ -78,6 +79,7 @@ function App() {
                   <Route path="/app/productdetails/slug/:slug" element={<ProductDetails />} />
                   <Route path="/app/blogdetails/:id" element={<BlogDetails />} />
                   <Route path="/app/trackorder" element={<TrackOrder />} />
+                  <Route path="/app/projectdetailsgallery/:id" element={<ProjectDetailsGallery />} />
 
                   {/* Private/protected routes */}
                   <Route element={<PrivateRoutes />}>

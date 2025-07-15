@@ -1,4 +1,5 @@
 import CallToAction from "./assets/components/CallToAction"
+import CompletedProjects from "./assets/components/CompletedProjects"
 import Footer from "./assets/components/Footer"
 import Hero from "./assets/components/Hero"
 import HowItWorks from "./assets/components/HowItWorks"
@@ -22,6 +23,7 @@ function Home() {
     <MainHeader />
     <Hero />
     <ServicesSection />
+    <CompletedProjects />
     <FeaturedProduct />
     <TrackRecords />
     <CallToAction />
