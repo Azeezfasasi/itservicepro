@@ -8,7 +8,7 @@ function EditBlogPost() {
   return (
     <>
     <Helmet>
-        <title>Posts - IT Service Pro</title>
+        <title>Posts - Marshall Global Ventures</title>
     </Helmet>
     <DashHeader />
     <div className='flex flex-row justify-start gap-4'>

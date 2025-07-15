@@ -7,7 +7,7 @@ function AllNewsletter() {
   return (
     <>
     <Helmet>
-        <title>All Newsletters - IT Service Pro</title>
+        <title>All Newsletters - Marshall Global Ventures</title>
     </Helmet>
     <DashHeader />
     <div className='flex flex-row justify-start gap-4'>

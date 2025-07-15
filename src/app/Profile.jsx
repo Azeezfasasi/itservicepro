@@ -8,7 +8,7 @@ function Profile() {
   return (
     <>
     <Helmet>
-        <title>My Profile - IT Service Pro</title>
+        <title>My Profile - Marshall Global Ventures</title>
     </Helmet>
     <DashHeader />
     <div className='flex flex-row justify-start gap-4'>

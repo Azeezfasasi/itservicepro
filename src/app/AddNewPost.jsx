@@ -8,7 +8,7 @@ function AddNewPost() {
   return (
     <>
     <Helmet>
-        <title>Add New Post - IT Service Pro</title>
+        <title>Add New Post - Marshall Global Ventures</title>
     </Helmet>
     <DashHeader />
     <div className='flex flex-row justify-start gap-4'>

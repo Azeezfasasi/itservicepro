@@ -10,7 +10,7 @@ function OurMission() {
         <div className="mb-0 flex flex-col justify-start items-center mx-auto">
           <p className="text-gray-600 uppercase tracking-wide text-[14px] lg:text-[20px] font-semibold mb-4 text-center lg:text-center">Our Mission</p>
           <h1 className="text-[25px] md:text-[30px] lg:text-[30px] font-bold text-gray-800 leading-tight text-center lg:text-center max-w-4xl mx-auto lg:mx-0">
-            At IT Service Pro, our mission is simple: To empower individuals and businesses through reliable, efficient, and expert-driven IT solutions.
+            At Marshall Global Ventures, our mission is simple: To empower individuals and businesses through reliable, efficient, and expert-driven IT solutions.
           </h1>
         </div>
 

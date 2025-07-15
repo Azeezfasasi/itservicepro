@@ -13,7 +13,7 @@ function CallToAction() {
             Powering Your Devices, Spaces & Digital Presence
           </h1>
           <p className="text-base sm:text-lg text-gray-600 leading-relaxed mb-8">
-            At IT Service Pro, we deliver reliable, expert-driven solutions designed to keep your technology running smoothly and your business moving forward. From diagnosing and repairing laptops to setting up office networks and building powerful websites and apps, we bring precision, efficiency, and attention to detail to every service we offer.
+            At Marshall Global Ventures, we deliver reliable, expert-driven solutions designed to keep your technology running smoothly and your business moving forward. From diagnosing and repairing laptops to setting up office networks and building powerful websites and apps, we bring precision, efficiency, and attention to detail to every service we offer.
             <br />
             Let us handle the tech — so you can stay focused on what matters most.
           </p>

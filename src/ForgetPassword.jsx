@@ -41,7 +41,7 @@ function ForgetPassword() {
   return (
     <>
     <Helmet>
-      <title>Forget Password - IT Service Pro</title>
+      <title>Forget Password - Marshall Global Ventures</title>
     </Helmet>
       <TopHeader />
       <MainHeader />

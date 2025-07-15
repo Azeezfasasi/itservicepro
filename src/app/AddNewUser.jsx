@@ -8,7 +8,7 @@ function AddNewUser() {
   return (
     <>
     <Helmet>
-        <title>Add User - IT Service Pro</title>
+        <title>Add User - Marshall Global Ventures</title>
     </Helmet>
     <DashHeader />
     <div className='flex flex-row justify-start gap-4'>

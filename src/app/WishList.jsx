@@ -8,7 +8,7 @@ function Wishlist() {
   return (
     <>
     <Helmet>
-        <title>Wishlist - IT Service Pro</title>
+        <title>Wishlist - Marshall Global Ventures</title>
     </Helmet>
     <TopHeader />
     <MainHeader />

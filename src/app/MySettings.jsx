@@ -22,7 +22,7 @@ function MySettings() {
   return (
     <>
     <Helmet>
-        <title>Settings - IT Service Pro</title>
+        <title>Settings - Marshall Global Ventures</title>
     </Helmet>
     <DashHeader />
     <div className='flex flex-row justify-start gap-4'>

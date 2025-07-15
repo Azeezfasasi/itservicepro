@@ -5,6 +5,7 @@ import { useBlog } from '../assets/context-api/blog-context/UseBlog';
 import { Link } from 'react-router-dom';
 import { FaSpinner } from 'react-icons/fa';
 import Footer from '../assets/components/Footer';
+import { Helmet } from 'react-helmet';
 
 
 function Blog() {
@@ -28,6 +29,9 @@ function Blog() {
   
   return (
     <>
+      <Helmet>
+        <title>Blog | Marshall Global Ventures</title>
+      </Helmet>
       <TopHeader />
       <MainHeader />
       <div className="max-w-5xl mx-auto mt-8 px-4">

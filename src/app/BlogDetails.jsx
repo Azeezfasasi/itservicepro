@@ -4,6 +4,7 @@ import TopHeader from '../assets/components/TopHeader';
 import MainHeader from '../assets/components/MainHeader';
 import { useBlog } from '../assets/context-api/blog-context/UseBlog';
 import Footer from '../assets/components/Footer';
+import { Helmet } from 'react-helmet';
 
 function BlogDetail() {
   const { id } = useParams();
@@ -42,6 +43,9 @@ useEffect(() => {
 
   return (
     <>
+      <Helmet>
+        <title>Blog Details | Marshall Global Ventures</title>
+      </Helmet>
       <TopHeader />
       <MainHeader />
       <div className="max-w-4xl mx-auto mt-8 px-4 pb-12">

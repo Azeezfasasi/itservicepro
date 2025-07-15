@@ -61,7 +61,7 @@ function MeetExpert() {
           </div>
           <div className="text-center">
             <p className="text-gray-600 mb-4">
-              At IT Service Pro, we’ve built a team of dedicated IT professionals who are passionate about delivering top-tier technology services — from laptop repairs and office setups to web and mobile development.
+              At Marshall Global Ventures, we have built a team of dedicated IT professionals who are passionate about delivering top-tier technology services — from laptop repairs and office setups to web and mobile development.
             </p>
             <p className="text-gray-600">
               Our team includes certified technicians, developers, and support specialists, all committed to providing fast, friendly, and dependable service. Whether you are troubleshooting a device or building something new, our experts are here to help you every step of the way.

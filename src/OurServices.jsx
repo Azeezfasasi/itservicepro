@@ -9,7 +9,7 @@ function OurServices() {
   return (
     <>
     <Helmet>
-      <title>Our Services - IT Service Pro</title>
+      <title>Our Services - Marshall Global Ventures</title>
     </Helmet>
     <TopHeader />
     <MainHeader />

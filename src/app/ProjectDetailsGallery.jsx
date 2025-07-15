@@ -8,7 +8,7 @@ function ProjectDetailsGallery() {
   return (
     <>
     <Helmet>
-        <title>Project Details | IT Service Pro</title>
+        <title>Project Details | Marshall Global Ventures</title>
     </Helmet>
     <TopHeader />
     <MainHeader />

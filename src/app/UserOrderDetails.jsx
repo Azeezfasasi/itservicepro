@@ -9,7 +9,7 @@ function OrderDetails() {
   return (
     <>
     <Helmet>
-        <title>My Orders - IT Service Pro</title>
+        <title>My Orders - Marshall Global Ventures</title>
     </Helmet>
     <DashHeader />
     <div className='flex flex-row justify-start gap-4'>

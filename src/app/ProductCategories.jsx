@@ -8,7 +8,7 @@ function ProductCategories() {
   return (
     <>
     <Helmet>
-        <title>Product Categories - IT Service Pro</title>
+        <title>Product Categories - Marshall Global Ventures</title>
     </Helmet>
     <DashHeader />
     <div className='flex flex-row justify-start gap-4'>

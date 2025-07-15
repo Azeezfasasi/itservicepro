@@ -16,8 +16,8 @@ function Home() {
   return (
     <>
     <Helmet>
-      <title>Home - IT Service Pro</title>
-      <meta name="description" content="IT Service Pro offers expert laptop repair, IT solutions, web and mobile development, and more. Trusted, skilled, and always ready to serve your business technology needs." />
+      <title>Home - Marshall Global Ventures</title>
+      <meta name="description" content="Marshall Global Ventures offers expert laptop repair, IT solutions, web and mobile development, and more. Trusted, skilled, and always ready to serve your business technology needs." />
     </Helmet>
     <TopHeader />
     <MainHeader />

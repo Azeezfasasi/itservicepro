@@ -9,7 +9,7 @@ function ProductDetails() {
   return (
     <>
     <Helmet>
-        <title>Product Details - IT Service Pro</title>
+        <title>Product Details - Marshall Global Ventures</title>
     </Helmet>
     <TopHeader />
     <MainHeader />

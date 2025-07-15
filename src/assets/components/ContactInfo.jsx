@@ -29,7 +29,7 @@ function ContactInfo() {
         {/* Map */}
         <div className="flex-1 min-h-[250px]">
           <iframe
-            title="IT Service Pro Location"
+            title="Marshall Global Ventures Location"
             src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d63413.00632451278!2d3.3857409219622667!3d6.60798697049935!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x103b92f114f06d2f%3A0x5649b43ee2a98305!2sIkorodu%20Rd%2C%20Ketu%2C%20Kosofe%20105102%2C%20Lagos%2C%20Nigeria!5e0!3m2!1sen!2sin!4v1749824929048!5m2!1sen!2sin"
             width="100%"
             height="100%"

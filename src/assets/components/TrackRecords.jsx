@@ -29,7 +29,7 @@ function TrackRecords() {
                         </h1>
                         <p>Proven Expertise. Measurable Results.</p>
                         <p className="text-base sm:text-lg text-blue-200 leading-relaxed">
-                        At IT Service Pro, we take pride in our consistent delivery of reliable, high-quality tech services across laptop repairs, IT setups, and digital development. Backed by years of hands-on experience, our team continues to earn trust through skill, speed, and service excellence.
+                        At Marshall Global Ventures, we take pride in our consistent delivery of reliable, high-quality tech services across laptop repairs, IT setups, and digital development. Backed by years of hands-on experience, our team continues to earn trust through skill, speed, and service excellence.
                         <br />
                         Here’s a snapshot of what we’ve achieved:
                         </p>

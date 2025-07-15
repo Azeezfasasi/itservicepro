@@ -9,7 +9,7 @@ function CustomerQuotesList() {
   return (
     <>
     <Helmet>
-        <title>My Quotes - IT Service Pro</title>
+        <title>My Quotes - Marshall Global Ventures</title>
     </Helmet>
     <DashHeader />
     <div className='flex flex-row justify-start gap-4'>

@@ -9,7 +9,7 @@ function Checkout() {
   return (
     <>
     <Helmet>
-        <title>Checkout - IT Service Pro</title>
+        <title>Checkout - Marshall Global Ventures</title>
     </Helmet>
     <TopHeader />
     <MainHeader />

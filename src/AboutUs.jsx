@@ -10,7 +10,7 @@ function AboutUs() {
   return (
     <>
     <Helmet>
-      <title>About Us - IT Service Pro</title>
+      <title>About Us - Marshall Global Ventures</title>
     </Helmet>
     <TopHeader />
     <MainHeader />

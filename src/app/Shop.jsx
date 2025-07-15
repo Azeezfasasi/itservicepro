@@ -9,7 +9,7 @@ function Shop() {
   return (
     <>
     <Helmet>
-        <title>Shop - IT Service Pro</title>
+        <title>Shop - Marshall Global Ventures</title>
     </Helmet>
     <TopHeader />
     <MainHeader />

@@ -41,13 +41,13 @@ function WhyChooseUs() {
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 mb-12">
           <div className="text-center lg:text-left">
             <h1 className="text-[25px] md:text-[40px] lg:text-[50px] font-bold text-gray-800 leading-tight">
-              Why Choose IT Service Pro?
+              Why Choose Marshall Global Ventures?
             </h1>
           </div>
           <div className="text-center lg:text-left">
             <p className="text-[18px] font-semibold">Trusted. Skilled. Always Ready.</p>
             <p className="text-gray-600 text-base sm:text-lg leading-relaxed">
-              Experience true peace of mind with our cutting-edge tech solutions, expert technicians, and outstanding customer support. Here’s why IT Service Pro is the smart choice for all your IT needs:
+              Experience true peace of mind with our cutting-edge tech solutions, expert technicians, and outstanding customer support. Here’s why Marshall Global Ventures is the smart choice for all your IT needs:
             </p>
           </div>
         </div>

@@ -10,7 +10,7 @@ function OurVission() {
         <div className="flex flex-col justify-center text-center lg:text-left">
           <p className="text-gray-600 uppercase tracking-wide text-[18px] mb-4 font-semibold">Our Vision</p>
           <h1 className="text-[25px] sm:text-[30px] lg:text-[30px] font-bold text-gray-800 leading-tight mb-6">
-            At IT Service Pro, our vision is to redefine the standard of IT support and digital services by delivering innovative, customer-focused solutions that keep pace with an ever-evolving tech landscape.
+            At Marshall Global Ventures, our vision is to redefine the standard of IT support and digital services by delivering innovative, customer-focused solutions that keep pace with an ever-evolving tech landscape.
           </h1>
           <p className="text-base sm:text-lg text-gray-600 leading-relaxed">
             We are committed to staying at the forefront of technology — from hardware repairs to web and app development — while ensuring every client experience is marked by reliability, excellence, and trust.

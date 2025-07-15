@@ -56,7 +56,7 @@ const ServicesSection = () => {
         <div className="text-center mb-12">
           <h2 className="text-3xl md:text-4xl font-bold text-gray-800">Our Services</h2>
           <p className="mt-2 text-gray-500 max-w-2xl mx-auto">
-            At IT Service Pro, we’re your trusted tech partner, delivering reliable solutions that keep you connected, productive, and ahead of the curve. Whether you're an individual, a small business, or a large organization, we offer a wide range of services to meet your digital and hardware needs:
+            At Marshall Global Ventures, we are your trusted tech partner, delivering reliable solutions that keep you connected, productive, and ahead of the curve. Whether you're an individual, a small business, or a large organization, we offer a wide range of services to meet your digital and hardware needs:
           </p>
         </div>
 
