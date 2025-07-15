@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom'
 import accountprofile from '../images/accountprofile.svg'
 import CartIcon from './dashboard-components/CartIcon';
 import WishlistIcon from './dashboard-components/Wishlisticon';
+import marshalllogo from '../images/marshalllogo.png'
 
 function MainHeader() {
   const [menuOpen, setMenuOpen] = useState(false)
@@ -12,7 +13,7 @@ function MainHeader() {
       <div className="bg-gray-300 py-4 px-2 md:px-6 flex justify-between items-center sticky top-0 z-50">
         {/* Logo */}
         <Link to="/" className="flex items-center space-x-2">
-          <h1 className="text-[17px] md:text-xl font-bold text-[#0A1F44]">Marshall Global Ventures</h1>
+          <img src={marshalllogo} alt="logo"  className='w-[150px] h-[40px]'/>
         </Link>
 
         {/* Hamburger Icon (Mobile) */}

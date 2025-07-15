@@ -12,6 +12,7 @@ import TagIcon from '@rsuite/icons/Tag';
 import MessageIcon from '@rsuite/icons/Message';
 import GearIcon from '@rsuite/icons/Gear';
 import { Sidenav, Nav } from 'rsuite';
+import marshalllogo from '../../images/marshalllogo.png'
 
 function DashHeader() {
   const [menuOpen, setMenuOpen] = useState(false);
@@ -69,7 +70,7 @@ function DashHeader() {
     <div className="bg-white py-4 px-6 flex justify-between items-center shadow-md sticky top-0 z-50 border-b border-solid border-gray-500">
       {/* Logo */}
       <Link to="/" className="flex items-center space-x-2">
-        <h1 className="text-[20px] font-bold text-[#0A1F44]">Marshall Global Ventures</h1>
+        <img src={marshalllogo} alt="logo"  className='w-[150px] h-[40px]'/>
       </Link>
 
       {/* Hamburger Icon (Mobile) */}
