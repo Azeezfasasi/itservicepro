@@ -15,7 +15,7 @@ function Footer() {
           </p>
           <div className="flex items-center mb-2">
             <Phone className="w-4 h-4 mr-2 text-[#00B9F1]" />
-            <a href="tel:08117256648" className="text-gray-200 hover:text-[#00B9F1] transition">(+234) 08117256648</a>
+            <a href="tel:08117256648" className="text-gray-200 hover:text-[#00B9F1] transition">(+234) 08103069432</a>
           </div>
           <div className="flex items-center mb-2">
             <Mail className="w-4 h-4 mr-2 text-[#00B9F1]" />

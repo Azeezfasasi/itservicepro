@@ -13,7 +13,7 @@ function TopHeader() {
         <div className="flex flex-col md:flex-row items-center space-y-1 md:space-y-0 md:space-x-6 justify-center md:justify-end">
             <div className="flex items-center space-x-1">
             <Phone className="w-4 h-4" />
-            <span>Fast Service: <a href="tel:08117256648" className="text-blue-300 ">(+234) 08117256648</a></span>
+            <span>Fast Service: <a href="tel:08117256648" className="text-blue-300 ">(+234) 08103069432</a></span>
             </div>
             <div className="flex items-center space-x-1">
             <Mail className="w-4 h-4" />
