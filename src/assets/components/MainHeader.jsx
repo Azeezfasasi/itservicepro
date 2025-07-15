@@ -39,6 +39,7 @@ function MainHeader() {
           <Link to="/">Home</Link>
           <Link to="/aboutus">About Us</Link>
           <Link to="/ourservices">Our Service</Link>
+          <Link to="/recentproject">Recent Projects</Link>
           <Link to="/app/shop">Shop</Link>
           <Link to="/app/trackorder">Track Orders</Link>
           <Link to="/app/blog">Blog</Link>
@@ -65,6 +66,7 @@ function MainHeader() {
             <Link to="/" className="py-2 w-full text-center text-[#0A1F44] font-medium hover:bg-gray-200" onClick={() => setMenuOpen(false)}>Home</Link>
             <Link to="/aboutus" className="py-2 w-full text-center text-[#0A1F44] font-medium hover:bg-gray-200" onClick={() => setMenuOpen(false)}>About Us</Link>
             <Link to="/ourservices" className="py-2 w-full text-center text-[#0A1F44] font-medium hover:bg-gray-200" onClick={() => setMenuOpen(false)}>Our Service</Link>
+            <Link to="/recentproject" className="py-2 w-full text-center text-[#0A1F44] font-medium hover:bg-gray-200" onClick={() => setMenuOpen(false)}>Recent Projects</Link>
             <Link to="/app/shop" className="py-2 w-full text-center text-[#0A1F44] font-medium hover:bg-gray-200" onClick={() => setMenuOpen(false)}>Shop</Link>
             <Link to="/app/trackorder" className="py-2 w-full text-center text-[#0A1F44] font-medium hover:bg-gray-200" onClick={() => setMenuOpen(false)}>Track Orders</Link>
             <Link to="/app/blog" className="py-2 w-full text-center text-[#0A1F44] font-medium hover:bg-gray-200" onClick={() => setMenuOpen(false)}>Blog</Link>

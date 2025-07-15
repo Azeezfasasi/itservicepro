@@ -52,6 +52,7 @@ import NewsletterSubscribers from './app/NewsletterSubscribers';
 import MyQuotes from './app/MyQuotes';
 import CustomerQuotesList from './app/CustomerQuotesList';
 import ProjectDetailsGallery from './app/ProjectDetailsGallery';
+import RecentProject from './RecentProject';
 
 
 function App() {
@@ -80,6 +81,7 @@ function App() {
                   <Route path="/app/blogdetails/:id" element={<BlogDetails />} />
                   <Route path="/app/trackorder" element={<TrackOrder />} />
                   <Route path="/app/projectdetailsgallery/:id" element={<ProjectDetailsGallery />} />
+                  <Route path="/recentproject" element={<RecentProject />} />
 
                   {/* Private/protected routes */}
                   <Route element={<PrivateRoutes />}>
