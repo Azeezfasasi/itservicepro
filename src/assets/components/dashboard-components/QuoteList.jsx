@@ -912,7 +912,7 @@ const QuoteList = () => {
                     {/* Original Quote Message */}
                     <div
                       className={`p-4 rounded-lg shadow-sm max-w-[85%] ${
-                        'bg-green-100 border border-green-300 text-green-900 self-end ml-auto'
+                        'bg-green-100 border border-green-300 text-green-900 self-end mr-auto'
                       }`}
                     >
                       <p className="text-sm font-bold mb-1">
@@ -931,8 +931,8 @@ const QuoteList = () => {
                         key={index}
                         className={`p-4 rounded-lg shadow-sm max-w-[85%] ${
                           reply.senderType === 'admin'
-                            ? 'bg-blue-100 border border-blue-300 text-blue-900 self-start mr-auto'
-                            : 'bg-green-100 border border-green-300 text-green-900 self-end ml-auto'
+                            ? 'bg-blue-100 border border-blue-300 text-blue-900 self-start ml-auto'
+                            : 'bg-green-100 border border-green-300 text-green-900 self-end mr-auto'
                         }`}
                       >
                         <p className="text-sm font-bold mb-1">
