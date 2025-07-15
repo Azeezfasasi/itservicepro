@@ -14,7 +14,7 @@ function ContactInfo() {
           </div>
           <div className="mb-4 flex items-start">
             <Phone className="w-5 h-5 text-[#00B9F1] mt-1 mr-3" />
-            <a href="tel:08117256648" className="text-gray-700 hover:text-[#00B9F1] transition">(+234) 08103069432</a>
+            <a href="tel:08103069432" className="text-gray-700 hover:text-[#00B9F1] transition">(+234) 08103069432</a>
           </div>
           <div className="mb-4 flex items-start">
             <Mail className="w-5 h-5 text-[#00B9F1] mt-1 mr-3" />
