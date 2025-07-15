@@ -69,7 +69,7 @@ function DashHeader() {
     <div className="bg-white py-4 px-6 flex justify-between items-center shadow-md sticky top-0 z-50 border-b border-solid border-gray-500">
       {/* Logo */}
       <Link to="/" className="flex items-center space-x-2">
-        <h1 className="text-[20px] font-bold text-[#0A1F44]">IT Service Pro</h1>
+        <h1 className="text-[20px] font-bold text-[#0A1F44]">Marshall Global Ventures</h1>
       </Link>
 
       {/* Hamburger Icon (Mobile) */}
