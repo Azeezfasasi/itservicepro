@@ -8,8 +8,10 @@ import AssignQuoteModal from './AssignQuoteModal';
 
 const statusOptions = [
   { value: 'Waiting for Support', color: 'bg-purple-100 text-purple-800' },
+  { value: 'Waiting for Customer', color: 'bg-pink-100 text-pink-800' },
   { value: 'Pending', color: 'bg-yellow-100 text-yellow-800' },
   { value: 'In Review', color: 'bg-blue-100 text-blue-800' },
+  { value: 'In Progress', color: 'bg-blue-100 text-blue-800' },
   { value: 'Done', color: 'bg-orange-100 text-orange-800' },
   { value: 'Completed', color: 'bg-green-100 text-green-800' },
   { value: 'Rejected', color: 'bg-red-100 text-red-800' }
