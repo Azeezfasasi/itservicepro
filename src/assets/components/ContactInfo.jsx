@@ -18,7 +18,7 @@ function ContactInfo() {
           </div>
           <div className="mb-4 flex items-start">
             <Mail className="w-5 h-5 text-[#00B9F1] mt-1 mr-3" />
-            <a href="mailto:info@itservicepro.com" className="text-gray-700 hover:text-[#00B9F1] transition">info@itservicepro.com</a>
+            <a href="mailto:info@itservicepro.com" className="text-gray-700 hover:text-[#00B9F1] transition">info@mgv-tech.com</a>
           </div>
           <div className="mt-6">
             <h3 className="font-semibold text-[#0A1F44] mb-1">Business Hours</h3>

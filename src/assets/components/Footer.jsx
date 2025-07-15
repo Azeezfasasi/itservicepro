@@ -19,7 +19,7 @@ function Footer() {
           </div>
           <div className="flex items-center mb-2">
             <Mail className="w-4 h-4 mr-2 text-[#00B9F1]" />
-            <a href="mailto:info@itservicepro.com" className="text-gray-200 hover:text-[#00B9F1] transition">info@itservicepro.com</a>
+            <a href="mailto:info@itservicepro.com" className="text-gray-200 hover:text-[#00B9F1] transition">info@mgv-tech.com</a>
           </div>
           <div className="flex items-center">
             <MapPin className="w-4 h-4 mr-2 text-[#00B9F1]" />
