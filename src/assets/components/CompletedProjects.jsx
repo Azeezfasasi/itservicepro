@@ -1,6 +1,7 @@
 import React from 'react';
 import { Monitor, Smartphone, Cloud, ShieldCheck, Lightbulb, BarChart2 } from 'lucide-react';
-import sense1 from '../images/portfolio/sense1.png'; // Assuming this path is correct
+import sense1 from '../images/portfolio/sense1.png';
+import chifex1 from '../images/portfolio/chifex1.png';
 import { Link } from 'react-router-dom';
 
 // Mock data for recently completed projects
@@ -13,26 +14,22 @@ const projects = [
     imageUrl: sense1,
     images: [
       sense1,
-      'https://placehold.co/1200x800/A0C8D0/000000?text=LMS+Login', 
-      'https://placehold.co/1200x800/90B8C0/000000?text=LMS+Dashboard',
     ],
     link: '#',
     icon: Monitor,
   },
-//   {
-//     id: '2', // <--- CHANGED: ID is now a string
-//     title: 'Fitness Tracker Mobile App',
-//     category: 'Mobile App Development',
-//     description: 'Built an intuitive cross-platform mobile application for tracking fitness activities, integrated with wearable devices and social sharing features.',
-//     imageUrl: 'https://placehold.co/600x400/F0F9FF/000000?text=Mobile+App',
-//     images: [ // <--- Ensure all projects have an images array
-//       'https://placehold.co/1200x800/F0F9FF/000000?text=Mobile+App+Home',
-//       'https://placehold.co/1200x800/E0F0F7/000000?text=Activity+Log',
-//       'https://placehold.co/1200x800/D0E0F0/000000?text=Profile+Screen',
-//     ],
-//     link: '#',
-//     icon: Smartphone,
-//   },
+  {
+    id: '2',
+    title: 'Chifex Engineering Services Limited',
+    category: 'Website Development',
+    description: 'Chifex Engineering Services Limited is a multi-disciplinary consortium incorporated in the year 2024 with the Corporate Affairs Commission and is manage by a team of highly experienced professionals, consultants with utmost solution to basic infrastructural needs of the society such as Estate Development, Road Construction and Environmental Management to avoid adverse effect to environment.',
+    imageUrl: chifex1,
+    images: [
+      chifex1,
+    ],
+    link: '#',
+    icon: Smartphone,
+  },
 //   {
 //     id: '3', // <--- CHANGED: ID is now a string
 //     title: 'Cloud Infrastructure Migration',

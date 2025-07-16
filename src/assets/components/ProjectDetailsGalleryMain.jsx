@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { useParams, Link } from 'react-router-dom';
-import { ChevronLeft, XCircle, Image as ImageIcon } from 'lucide-react'; // Removed ChevronRight as lightbox handles navigation
+import { ChevronLeft, XCircle, Image as ImageIcon } from 'lucide-react';
 
 // Lightbox imports
 import Lightbox from "yet-another-react-lightbox";
@@ -14,6 +14,12 @@ import sense4 from '../images/portfolio/sense4.png';
 import sense5 from '../images/portfolio/sense5.png';
 import sense6 from '../images/portfolio/sense6.png';
 import sense7 from '../images/portfolio/sense7.png';
+import chifex1 from '../images/portfolio/chifex1.png';
+import chifex2 from '../images/portfolio/chifex2.png';
+import chifex3 from '../images/portfolio/chifex3.png';
+import chifex4 from '../images/portfolio/chifex4.png';
+import chifex5 from '../images/portfolio/chifex5.png';
+import chifex6 from '../images/portfolio/chifex6.png';
 
 const mockProjectsData = [
   {
@@ -21,6 +27,8 @@ const mockProjectsData = [
     title: 'Sense Academy LMS',
     category: 'Website Development',
     description: 'Developed a modern, responsive LMS platform with enhanced user experience and with custom dashboard. This project involved extensive UI/UX research, custom backend development, and integration with various learning tools.',
+    technologyUsed: 'React, Node.js, Express.js, MongoDB, Tailwind CSS, Nodemailer',
+    clientIndustry: 'Education',
     images: [
       sense1,
       sense2,
@@ -31,18 +39,22 @@ const mockProjectsData = [
       sense7,
     ],
   },
-  // You would add other projects here if they exist, ensuring their IDs are strings
-  // Example for another project:
-  // {
-  //   id: '2',
-  //   title: 'Fitness Tracker Mobile App',
-  //   category: 'Mobile App Development',
-  //   description: 'Built an intuitive cross-platform mobile application for tracking fitness activities...',
-  //   images: [
-  //     'https://placehold.co/1200x800/F0F9FF/000000?text=Mobile+App+Home',
-  //     'https://placehold.co/1200x800/E0F0F7/000000?text=Activity+Log',
-  //   ],
-  // },
+  {
+    id: '2',
+    title: 'Chifex Engineering Services Limited',
+    category: 'Website Development',
+    description: 'Chifex Engineering Services Limited is a multi-disciplinary consortium incorporated in the year 2024 with the Corporate Affairs Commission and is manage by a team of highly experienced professionals, consultants with utmost solution to basic infrastructural needs of the society such as Estate Development, Road Construction and Environmental Management to avoid adverse effect to environment.',
+    technologyUsed: 'WordPress, Boostrap, Elementor Builder, SMTP, AISEO',
+    clientIndustry: 'Engineering & Construction',
+    images: [
+      chifex1,
+      chifex2,
+      chifex3,
+      chifex4,
+      chifex5,
+      chifex6,
+    ],
+  },
 ];
 
 const ProjectDetailsGalleryMain = () => {
@@ -51,9 +63,8 @@ const ProjectDetailsGalleryMain = () => {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
 
-  // State for controlling the lightbox
   const [lightboxOpen, setLightboxOpen] = useState(false);
-  const [lightboxIndex, setLightboxIndex] = useState(0); // Index of the image to show when lightbox opens
+  const [lightboxIndex, setLightboxIndex] = useState(0);
 
   useEffect(() => {
     console.log('ProjectDetailsGalleryMain useEffect triggered.');
@@ -68,7 +79,6 @@ const ProjectDetailsGalleryMain = () => {
       console.log('Project found:', foundProject.title);
       setProject(foundProject);
       setLoading(false);
-      // No need to set currentImageIndex here, as lightbox will handle its own index
     } else {
       console.log('Project NOT found for id:', id);
       setError('Project not found.');
@@ -76,11 +86,8 @@ const ProjectDetailsGalleryMain = () => {
     }
   }, [id]);
 
-  // Transform images into the format expected by yet-another-react-lightbox
-  // It expects an array of objects with a 'src' property.
   const slides = project?.images ? project.images.map(imgSrc => ({ src: imgSrc })) : [];
 
-  // Function to open the lightbox at a specific image index
   const openLightbox = (index) => {
     setLightboxIndex(index);
     setLightboxOpen(true);
@@ -121,7 +128,8 @@ const ProjectDetailsGalleryMain = () => {
     <section className="py-12 sm:py-16 bg-gray-50 font-inter antialiased">
       <div className="container mx-auto px-4 sm:px-6 lg:px-8">
         <div className="bg-white rounded-xl shadow-2xl p-6 md:p-8 lg:p-10 border border-gray-100">
-          <Link to="/recentproject" className="inline-flex items-center text-blue-600 hover:text-blue-800 font-semibold transition-colors duration-200 mb-6">
+          {/* Corrected Link to go back to /app/projects */}
+          <Link to="/app/projects" className="inline-flex items-center text-blue-600 hover:text-blue-800 font-semibold transition-colors duration-200 mb-6">
             <ChevronLeft className="w-5 h-5 mr-2" /> Back to All Projects
           </Link>
 
@@ -132,20 +140,19 @@ const ProjectDetailsGalleryMain = () => {
             {project.description}
           </p>
 
-          {/* Main Image Area - Click to open Lightbox */}
           {project.images && project.images.length > 0 ? (
             <div
               className="relative w-full aspect-video bg-gray-200 rounded-lg overflow-hidden shadow-lg mb-6 cursor-pointer group"
-              onClick={() => openLightbox(0)} // Open lightbox from the first image
+              onClick={() => openLightbox(0)}
             >
               <img
-                src={project.images[0]} // Display the first image by default
+                src={project.images[0]}
                 alt={`${project.title} - Main Image`}
                 className="w-full h-full object-contain transition-transform duration-300 ease-in-out group-hover:scale-105"
                 onError={(e) => { e.target.onerror = null; e.target.src = "https://placehold.co/1200x800/cccccc/000000?text=Image+Load+Error"; }}
               />
-              <div className="absolute inset-0 flex items-center justify-center duration-300">
-                <span className="text-blue-800 text-[24px] font-bold opacity-0 group-hover:opacity-100 transition-opacity duration-300">Click to view gallery</span>
+              <div className="absolute inset-0 flex items-center justify-center bg-black bg-opacity-0 group-hover:bg-opacity-20 transition-opacity duration-300">
+                <span className="text-white text-lg font-bold opacity-0 group-hover:opacity-100 transition-opacity duration-300">Click to view gallery</span>
               </div>
             </div>
           ) : (
@@ -154,7 +161,6 @@ const ProjectDetailsGalleryMain = () => {
             </div>
           )}
 
-          {/* Thumbnails - Click to open Lightbox at specific index */}
           {project.images && project.images.length > 0 && (
             <div className="flex flex-wrap justify-center gap-3 mb-8">
               {project.images.map((image, index) => (
@@ -163,7 +169,7 @@ const ProjectDetailsGalleryMain = () => {
                   className={`w-20 h-16 sm:w-24 sm:h-20 rounded-md overflow-hidden cursor-pointer border-2 transition-all duration-200 ease-in-out ${
                     index === lightboxIndex && lightboxOpen ? 'border-blue-600 shadow-md transform scale-105' : 'border-gray-300 hover:border-blue-400'
                   }`}
-                  onClick={() => openLightbox(index)} // Open lightbox at this thumbnail's index
+                  onClick={() => openLightbox(index)}
                 >
                   <img
                     src={image}
@@ -181,21 +187,20 @@ const ProjectDetailsGalleryMain = () => {
             <h3 className="text-2xl font-bold text-gray-800 mb-4">More About This Project</h3>
             <ul className="list-disc list-inside text-gray-700 space-y-2">
               <li><strong>Category:</strong> {project.category}</li>
-              <li><strong>Technologies Used:</strong> React, Node.js, MongoDB, Tailwind CSS, Nodemailer</li>
-              <li><strong>Client Industry:</strong> Education</li>
-              <li><strong>Outcome:</strong> Improved user engagement, reduced operational costs, scalable solution.</li>
+              {/* FIXED: Changed project.technology to project.technologyUsed */}
+              <li><strong>Technologies Used:</strong> {project.technologyUsed}</li>
+              {/* FIXED: Changed project.clientIndustry to project.clientIndustry */}
+              <li><strong>Client Industry:</strong> {project.clientIndustry}</li>
             </ul>
           </div>
         </div>
       </div>
 
-      {/* Yet Another React Lightbox Component */}
       <Lightbox
         slides={slides}
         open={lightboxOpen}
         index={lightboxIndex}
         close={() => setLightboxOpen(false)}
-        // Optional: Keep internal index in sync if user navigates within the lightbox
         on={{ view: update => setLightboxIndex(update.index) }}
       />
     </section>
