@@ -20,6 +20,12 @@ import chifex3 from '../images/portfolio/chifex3.png';
 import chifex4 from '../images/portfolio/chifex4.png';
 import chifex5 from '../images/portfolio/chifex5.png';
 import chifex6 from '../images/portfolio/chifex6.png';
+import resin1 from '../images/portfolio/resin1.png';
+import resin2 from '../images/portfolio/resin2.png';
+import resin3 from '../images/portfolio/resin3.png';
+import resin4 from '../images/portfolio/resin4.png';
+import resin5 from '../images/portfolio/resin5.png';
+import resin6 from '../images/portfolio/resin6.png';
 
 const mockProjectsData = [
   {
@@ -53,6 +59,22 @@ const mockProjectsData = [
       chifex4,
       chifex5,
       chifex6,
+    ],
+  },
+  {
+    id: '3',
+    title: 'Resin By Saidat',
+    category: 'Website Development',
+    description: 'Resin By Saidat is a trusted provider of premium resin materials, offering an extensive selection of resins for different industries. From durable and versatile construction-grade resins to artistic resins used in creative projects.',
+    technologyUsed: 'React, Node.js, Express.js, MongoDB, Tailwind CSS, Nodemailer, Slugify',
+    clientIndustry: 'Ecommerce',
+    images: [
+      resin1,
+      resin2,
+      resin3,
+      resin4,
+      resin5,
+      resin6,
     ],
   },
 ];
@@ -151,8 +173,8 @@ const ProjectDetailsGalleryMain = () => {
                 className="w-full h-full object-contain transition-transform duration-300 ease-in-out group-hover:scale-105"
                 onError={(e) => { e.target.onerror = null; e.target.src = "https://placehold.co/1200x800/cccccc/000000?text=Image+Load+Error"; }}
               />
-              <div className="absolute inset-0 flex items-center justify-center bg-black bg-opacity-0 group-hover:bg-opacity-20 transition-opacity duration-300">
-                <span className="text-white text-lg font-bold opacity-0 group-hover:opacity-100 transition-opacity duration-300">Click to view gallery</span>
+              <div className="absolute inset-0 flex items-center justify-center group-hover:bg-opacity-20 transition-opacity duration-300">
+                <span className="text-[38px] text-blue-900 font-bold opacity-0 bg-blue-200 group-hover:opacity-100 transition-opacity duration-300 px-3 py-2 rounded-md">Click to view gallery</span>
               </div>
             </div>
           ) : (

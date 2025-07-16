@@ -2,6 +2,7 @@ import React from 'react';
 import { Monitor, Smartphone, Cloud, ShieldCheck, Lightbulb, BarChart2 } from 'lucide-react';
 import sense1 from '../images/portfolio/sense1.png';
 import chifex1 from '../images/portfolio/chifex1.png';
+import resin1 from '../images/portfolio/resin1.png';
 import { Link } from 'react-router-dom';
 
 // Mock data for recently completed projects
@@ -30,19 +31,18 @@ const projects = [
     link: '#',
     icon: Smartphone,
   },
-//   {
-//     id: '3', // <--- CHANGED: ID is now a string
-//     title: 'Cloud Infrastructure Migration',
-//     category: 'Cloud Solutions',
-//     description: 'Successfully migrated legacy on-premise infrastructure to a scalable and secure cloud environment (AWS/Azure), resulting in 30% cost savings and improved performance.',
-//     imageUrl: 'https://placehold.co/600x400/E5F7E0/000000?text=Cloud+Migration',
-//     images: [ // <--- Ensure all projects have an images array
-//       'https://placehold.co/1200x800/E5F7E0/000000?text=Cloud+Architecture',
-//       'https://placehold.co/1200x800/D5F0D0/000000?text=Migration+Process',
-//     ],
-//     link: '#',
-//     icon: Cloud,
-//   },
+  {
+    id: '3',
+    title: 'Resin By Saidat',
+    category: 'Website Development',
+    description: 'Resin By Saidat is a trusted provider of premium resin materials, offering an extensive selection of resins for different industries. From durable and versatile construction-grade resins to artistic resins used in creative projects.',
+    imageUrl: resin1,
+    images: [
+      resin1,
+    ],
+    link: '#',
+    icon: Cloud,
+  },
 ];
 
 const CompletedProjects = () => {
@@ -77,7 +77,7 @@ const CompletedProjects = () => {
                     {project.icon && React.createElement(project.icon, { className: "w-4 h-4 mr-2" })}
                     {project.category}
                   </div>
-                  <h3 className="text-xl font-bold leading-tight">{project.title}</h3>
+                  <Link to={`/app/projectdetailsgallery/${project.id}`} className="text-xl font-bold leading-tight">{project.title}</Link>
                 </div>
               </div>
 
