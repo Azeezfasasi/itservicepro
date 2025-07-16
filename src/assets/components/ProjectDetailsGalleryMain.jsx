@@ -129,7 +129,7 @@ const ProjectDetailsGalleryMain = () => {
       <div className="container mx-auto px-4 sm:px-6 lg:px-8">
         <div className="bg-white rounded-xl shadow-2xl p-6 md:p-8 lg:p-10 border border-gray-100">
           {/* Corrected Link to go back to /app/projects */}
-          <Link to="/app/projects" className="inline-flex items-center text-blue-600 hover:text-blue-800 font-semibold transition-colors duration-200 mb-6">
+          <Link to="/recentproject" className="inline-flex items-center text-blue-600 hover:text-blue-800 font-semibold transition-colors duration-200 mb-6">
             <ChevronLeft className="w-5 h-5 mr-2" /> Back to All Projects
           </Link>
 
