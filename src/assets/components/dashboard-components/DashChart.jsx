@@ -9,7 +9,10 @@ const STATUS_COLORS = {
   'In Review': '#3b82f6',  // Blue
   'Done': '#8b5cf6',       // Purple
   'Completed': '#10b981',  // Green
-  'Rejected': '#ef4444'    // Red
+  'Rejected': '#ef4444',    // Red
+  'Waiting for Support': '#0abfe4',   
+  'Waiting for Customer': '#c2b827',
+  'In Progress': '#ee01ca', 
 };
 
 export default function DashChart() {
