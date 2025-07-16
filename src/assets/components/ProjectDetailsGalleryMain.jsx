@@ -50,7 +50,7 @@ const mockProjectsData = [
     title: 'Chifex Engineering Services Limited',
     category: 'Website Development',
     description: 'Chifex Engineering Services Limited is a multi-disciplinary consortium incorporated in the year 2024 with the Corporate Affairs Commission and is manage by a team of highly experienced professionals, consultants with utmost solution to basic infrastructural needs of the society such as Estate Development, Road Construction and Environmental Management to avoid adverse effect to environment.',
-    technologyUsed: 'WordPress, Boostrap, Elementor Builder, SMTP, AISEO',
+    technologyUsed: 'WordPress, Boostrap, Elementor Builder, SMTP, AIOSEO',
     clientIndustry: 'Engineering & Construction',
     images: [
       chifex1,
