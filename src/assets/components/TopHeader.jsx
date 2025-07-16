@@ -17,7 +17,7 @@ function TopHeader() {
             </div>
             <div className="flex items-center space-x-1">
             <Mail className="w-4 h-4" />
-            <a href="mailto:infohomepro@mail.com" className="text-white">info@mgv-tech.com</a>
+            <a href="mailto:info@mgv-tech.com" className="text-white">info@mgv-tech.com</a>
             </div>
         </div>
     </div>
