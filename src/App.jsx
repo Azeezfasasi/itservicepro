@@ -53,6 +53,7 @@ import MyQuotes from './app/MyQuotes';
 import CustomerQuotesList from './app/CustomerQuotesList';
 import ProjectDetailsGallery from './app/ProjectDetailsGallery';
 import RecentProject from './RecentProject';
+import MyAssignedQuoteRequest from './app/MyAssignedQuoteRequest';
 
 
 function App() {
@@ -89,6 +90,7 @@ function App() {
                     <Route path="/app/quote" element={<Quote />} />
                     <Route path="/app/myquotes" element={<MyQuotes />} />
                     <Route path="/app/quoteslist/:id" element={<CustomerQuotesList />} />
+                    <Route path="/app/myassignedquoterequest" element={<MyAssignedQuoteRequest />} />
                     <Route path="/app/addnewpost" element={<AddNewPost />} />
                     <Route path="/app/blogposts" element={<BlogPosts />} />
                     <Route path="/app/editblogpost/:id" element={<EditBlogPost />} />

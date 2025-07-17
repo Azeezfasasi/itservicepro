@@ -1,194 +1,175 @@
-import React, { useState, useCallback, useEffect } from 'react';
-import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
-import axios from 'axios';
-import { API_BASE_URL } from '../../../config/api';
-import { useUser } from '../../context-api/user-context/UseUser';
-import { FaSpinner, FaTimes, FaCheckCircle, FaTimesCircle, FaUserPlus, FaUsers } from 'react-icons/fa';
+// import React, { useState } from 'react';
+// import { FaSpinner, FaTimesCircle, FaUserPlus } from 'react-icons/fa';
 
-const AssignQuoteModal = ({ quote, onClose, onAssignSuccess }) => {
-  const queryClient = useQueryClient();
-  const { token } = useUser();
-  // Pre-select if already assigned, otherwise default to empty string
-  const [selectedAdminId, setSelectedAdminId] = useState(quote.assignedTo?._id || '');
-  const [searchTerm, setSearchTerm] = useState('');
+// // This modal is responsible for selecting an admin and triggering the assignment
+// const AssignQuoteModal = ({ quote, admins = [], onClose, onAssignSuccess, onAssignError, isAssigning }) => {
+//   const [selectedAdminId, setSelectedAdminId] = useState(quote.assignedTo?._id || ''); // Pre-select current assignee
+//   const [localError, setLocalError] = useState('');
+
+//   const handleAssign = () => {
+//     if (!selectedAdminId) {
+//       setLocalError('Please select an admin to assign the quote.');
+//       return;
+//     }
+//     setLocalError('');
+//     // Call the parent's onAssignSuccess, which will trigger the mutation
+//     const assignedToUser = admins.find(admin => admin._id === selectedAdminId);
+//     if (assignedToUser) {
+//       onAssignSuccess(assignedToUser);
+//     } else {
+//       onAssignError('Selected admin not found in the list.');
+//     }
+//   };
+
+//   return (
+//     <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 p-4">
+//       <div className="bg-white rounded-lg shadow-xl max-w-md w-full p-6 relative">
+//         <button
+//           onClick={onClose}
+//           className="absolute top-3 right-3 text-gray-500 hover:text-gray-700 transition-colors duration-200"
+//         >
+//           <FaTimesCircle size={24} />
+//         </button>
+//         <h3 className="text-2xl font-bold text-blue-600 mb-4 border-b pb-2">Re-assign Quote: {quote.name}</h3>
+
+//         {localError && (
+//           <div className="mb-4 p-3 bg-red-50 text-red-700 border border-red-200 rounded-md text-sm">
+//             {localError}
+//           </div>
+//         )}
+
+//         <div className="mb-4">
+//           <label htmlFor="assignee" className="block text-sm font-medium text-gray-700 mb-1">
+//             Assign to:
+//           </label>
+//           <select
+//             id="assignee"
+//             value={selectedAdminId}
+//             onChange={(e) => setSelectedAdminId(e.target.value)}
+//             className="w-full p-2 border border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500"
+//             disabled={isAssigning}
+//           >
+//             <option value="">Select an Admin</option>
+//             {/* This map will now always run on an array (empty or populated) */}
+//             {admins.map((admin) => (
+//               <option key={admin._id} value={admin._id}>
+//                 {admin.name} ({admin.email})
+//               </option>
+//             ))}
+//           </select>
+//         </div>
+
+//         <div className="mt-6 flex justify-end space-x-3">
+//           <button
+//             onClick={handleAssign}
+//             className="inline-flex items-center px-4 py-2 border border-transparent text-sm font-medium rounded-md shadow-sm text-white bg-blue-600 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500"
+//             disabled={isAssigning}
+//           >
+//             {isAssigning ? <FaSpinner className="animate-spin mr-2" /> : <FaUserPlus className="mr-2" />}
+//             {isAssigning ? 'Re-assigning...' : 'Re-assign'}
+//           </button>
+//           <button
+//             onClick={onClose}
+//             className="inline-flex items-center px-4 py-2 border border-gray-300 text-sm font-medium rounded-md text-gray-700 bg-white hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
+//             disabled={isAssigning}
+//           >
+//             Cancel
+//           </button>
+//         </div>
+//       </div>
+//     </div>
+//   );
+// };
+
+// export default AssignQuoteModal;
+
+import React, { useState } from 'react';
+import { FaSpinner, FaTimesCircle, FaUserPlus } from 'react-icons/fa';
+
+// This modal is responsible for selecting an admin and triggering the assignment
+const AssignQuoteModal = ({ quote, admins = [], onClose, onAssignSuccess, onAssignError, isAssigning }) => {
+  const [selectedAdminId, setSelectedAdminId] = useState(quote.assignedTo?._id || ''); // Pre-select current assignee
   const [localError, setLocalError] = useState('');
-  const [localSuccess, setLocalSuccess] = useState('');
 
-  // Memoized function to get authentication headers
-  const getAuthHeaders = useCallback(() => {
-    return token ? { headers: { Authorization: `Bearer ${token}` } } : {};
-  }, [token]);
-
-  // React Query to fetch all admin/super admin users
-  const fetchAdmins = async () => {
-    if (!token) return []; // Don't attempt to fetch if no token
-    try {
-      const res = await axios.get(`${API_BASE_URL}/users`, getAuthHeaders());
-      // Filter for users with 'admin' or 'super admin' roles
-      return res.data.filter(user => user.role === 'admin' || user.role === 'super admin');
-    } catch (error) {
-      console.error("Error fetching admins:", error.response?.data?.error || error.message);
-      throw error; // Re-throw to be caught by useQuery's onError
-    }
-  };
-
-  const {
-    data: admins = [], // Default to an empty array
-    isLoading: isLoadingAdmins,
-    isError: isErrorAdmins,
-    error: adminsError,
-    refetch: refetchAdmins // Function to manually refetch admins
-  } = useQuery({
-    queryKey: ['adminsForAssignment'], // Unique key for this query
-    queryFn: fetchAdmins,
-    enabled: !!token, // Only enable query if token is available
-    staleTime: 5 * 60 * 1000, // Data considered fresh for 5 minutes
-    cacheTime: 10 * 60 * 1000, // Data stays in cache for 10 minutes
-    onError: (err) => {
-      setLocalError(err.response?.data?.error || 'Failed to load admin list.');
-    },
-  });
-
-  // React Query Mutation for assigning the quote
-  const assignQuoteMutation = useMutation({
-    mutationFn: async ({ quoteId, assignedToUserId }) => {
-      const res = await axios.put(`${API_BASE_URL}/quotes/${quoteId}/assign`, { assignedToUserId }, getAuthHeaders());
-      return res.data.updatedQuote; // Backend should return the updated quote
-    },
-    onSuccess: (updatedQuote) => {
-      setLocalSuccess('Quote assigned successfully!');
-      // Invalidate the main quotes list to reflect the assignment change
-      queryClient.invalidateQueries({ queryKey: ['quotes'] });
-      // Optionally update the specific quote in cache if it's open elsewhere
-      queryClient.setQueryData(['quotes', updatedQuote._id], updatedQuote);
-      onAssignSuccess(updatedQuote); // Callback to parent component
-      // Close modal after a short delay to show success message
-      setTimeout(() => onClose(), 1000);
-    },
-    onError: (err) => {
-      setLocalError(err.response?.data?.error || 'Failed to assign quote.');
-    },
-  });
-
-  // Filter admins based on search term for the dropdown display
-  const filteredAdmins = admins.filter(admin =>
-    admin.name?.toLowerCase().includes(searchTerm.toLowerCase()) ||
-    admin.email?.toLowerCase().includes(searchTerm.toLowerCase())
-  );
-
-  // Handler for the Assign button click
   const handleAssign = () => {
     if (!selectedAdminId) {
       setLocalError('Please select an admin to assign the quote.');
       return;
     }
-    // Trigger the mutation
-    assignQuoteMutation.mutate({ quoteId: quote._id, assignedToUserId: selectedAdminId });
+    setLocalError('');
+    // Call the parent's onAssignSuccess, which will trigger the mutation
+    const assignedToUser = admins.find(admin => admin._id === selectedAdminId);
+    if (assignedToUser) {
+      onAssignSuccess(assignedToUser);
+    } else {
+      onAssignError('Selected admin not found in the list.');
+    }
   };
 
-  // Effect to clear local success/error messages after a delay
-  useEffect(() => {
-    if (localSuccess) {
-      const timer = setTimeout(() => setLocalSuccess(''), 3000);
-      return () => clearTimeout(timer);
-    }
-    if (localError) {
-      const timer = setTimeout(() => setLocalError(''), 5000);
-      return () => clearTimeout(timer);
-    }
-  }, [localSuccess, localError]);
+  const currentAssigneeName = quote.assignedTo?.name || quote.assignedTo?.email;
 
   return (
-    <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-30 p-4">
-      <div className="bg-white rounded-lg shadow-xl max-w-md w-full p-6 max-h-[90vh] overflow-y-auto">
-        <div className="flex justify-between items-center mb-4">
-          <h3 className="text-xl font-bold text-gray-800">Assign Quote to Admin</h3>
-          <button onClick={onClose} className="text-gray-500 hover:text-gray-700">
-            <FaTimes size={20} />
-          </button>
-        </div>
+    <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 p-4">
+      <div className="bg-white rounded-lg shadow-xl max-w-md w-full p-6 relative">
+        <button
+          onClick={onClose}
+          className="absolute top-3 right-3 text-gray-500 hover:text-gray-700 transition-colors duration-200"
+        >
+          <FaTimesCircle size={24} />
+        </button>
+        <h3 className="text-2xl font-bold text-blue-600 mb-4 border-b pb-2">Re-assign Quote: {quote.name}</h3>
 
-        {/* Local Success & Error Messages */}
-        {(localError || localSuccess) && (
-          <div className={`mb-4 p-3 rounded-md border flex items-center justify-between ${
-            localError ? 'bg-red-50 text-red-700 border-red-200' : 'bg-green-50 text-green-700 border-green-200'
-          }`}>
-            <div className="flex items-center">
-              {localError ? <FaTimesCircle className="mr-2" /> : <FaCheckCircle className="mr-2" />}
-              <span className="text-sm font-medium">{localError || localSuccess}</span>
-            </div>
-            <button
-              onClick={() => { setLocalError(''); setLocalSuccess(''); }}
-              className="text-gray-500 hover:text-gray-700"
-            >
-              <FaTimesCircle />
-            </button>
+        {localError && (
+          <div className="mb-4 p-3 bg-red-50 text-red-700 border border-red-200 rounded-md text-sm">
+            {localError}
           </div>
         )}
 
-        <div className="mb-4">
-          <p className="text-gray-700 mb-2">
-            Assign quote for service: <span className="font-semibold">{quote.service}</span> (from {quote.name})
-          </p>
+        {/* NEW: Display Currently Assigned Admin */}
+        <div className="mb-4 p-3 bg-blue-50 border border-blue-200 rounded-md text-sm text-blue-800">
+          <p className="font-semibold mb-1">Currently Assigned To:</p>
           {quote.assignedTo ? (
-            <p className="text-sm text-gray-600">
-              Currently assigned to: <span className="font-semibold">{quote.assignedTo.name || quote.assignedTo.email}</span>
+            <p className="font-medium">
+              {currentAssigneeName} ({quote.assignedTo.email})
             </p>
           ) : (
-            <p className="text-sm text-gray-600">Currently unassigned.</p>
+            <p className="text-gray-600 italic">Not yet assigned</p>
           )}
         </div>
 
         <div className="mb-4">
-          <label htmlFor="admin-select" className="block text-sm font-medium text-gray-700 mb-1">
-            Select Admin:
+          <label htmlFor="assignee" className="block text-sm font-medium text-gray-700 mb-1">
+            Assign to:
           </label>
-          <input
-            id="admin-search"
-            type="text"
-            placeholder="Search by name or email..."
-            value={searchTerm}
-            onChange={(e) => setSearchTerm(e.target.value)}
-            className="w-full p-2 border border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500 mb-2"
-          />
-          {isLoadingAdmins ? (
-            <div className="flex items-center justify-center py-4 text-gray-600">
-              <FaSpinner className="animate-spin text-blue-500 mr-2" /> Loading admins...
-            </div>
-          ) : isErrorAdmins ? (
-            <div className="text-red-600 text-sm text-center py-4">
-              Error: {adminsError?.message || 'Could not load admins.'}
-            </div>
-          ) : (
-            <select
-              id="admin-select"
-              value={selectedAdminId}
-              onChange={(e) => setSelectedAdminId(e.target.value)}
-              className="w-full p-2 border border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500"
-            >
-              <option value="">-- Select an Admin --</option>
-              {filteredAdmins.map(admin => (
-                <option key={admin._id} value={admin._id}>
-                  {admin.name} ({admin.email})
-                </option>
-              ))}
-            </select>
-          )}
+          <select
+            id="assignee"
+            value={selectedAdminId}
+            onChange={(e) => setSelectedAdminId(e.target.value)}
+            className="w-full p-2 border border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500"
+            disabled={isAssigning}
+          >
+            <option value="">Select an Admin</option>
+            {admins.map((admin) => (
+              <option key={admin._id} value={admin._id}>
+                {admin.name} ({admin.email})
+              </option>
+            ))}
+          </select>
         </div>
 
-        <div className="flex justify-end space-x-3 mt-6">
+        <div className="mt-6 flex justify-end space-x-3">
           <button
             onClick={handleAssign}
-            className="px-5 py-2 bg-blue-600 text-white rounded-md hover:bg-blue-700 flex items-center justify-center transition ease-in-out duration-150"
-            disabled={assignQuoteMutation.isPending || isLoadingAdmins}
+            className="inline-flex items-center px-4 py-2 border border-transparent text-sm font-medium rounded-md shadow-sm text-white bg-blue-600 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500"
+            disabled={isAssigning}
           >
-            {assignQuoteMutation.isPending ? <FaSpinner className="animate-spin mr-2" /> : <FaUserPlus className="mr-2" />}
-            {assignQuoteMutation.isPending ? 'Assigning...' : 'Assign Quote'}
+            {isAssigning ? <FaSpinner className="animate-spin mr-2" /> : <FaUserPlus className="mr-2" />}
+            {isAssigning ? 'Re-assigning...' : 'Re-assign'}
           </button>
           <button
             onClick={onClose}
-            className="px-5 py-2 bg-gray-200 text-gray-800 rounded-md hover:bg-gray-300 transition ease-in-out duration-150"
-            disabled={assignQuoteMutation.isPending}
+            className="inline-flex items-center px-4 py-2 border border-gray-300 text-sm font-medium rounded-md text-gray-700 bg-white hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
+            disabled={isAssigning}
           >
             Cancel
           </button>

@@ -5,6 +5,7 @@ import { API_BASE_URL } from '../../../config/api';
 import { useUser } from '../../context-api/user-context/UseUser';
 import { FaEdit, FaTrash, FaCheck, FaTimes, FaEye, FaFilter, FaSearch, FaSave, FaTimesCircle, FaSortAmountDown, FaSortAmountUp, FaReply, FaSpinner, FaUserPlus, FaUser, FaEnvelope, FaPhone, FaTools, FaInfoCircle, FaUserTie, FaCalendarAlt  } from 'react-icons/fa';
 import AssignQuoteModal from './AssignQuoteModal';
+import AdminReplyQuoteModal from './AdminReplyQuoteModal';
 
 const statusOptions = [
   { value: 'Waiting for Support', color: 'bg-purple-100 text-purple-800' },
@@ -21,7 +22,7 @@ const PAGE_SIZE = 10;
 
 const QuoteList = () => {
   const queryClient = useQueryClient();
-  const { token } = useUser();
+  const { user, token } = useUser();
 
   const [editId, setEditId] = useState(null);
   const [editData, setEditData] = useState({});
@@ -74,6 +75,28 @@ const QuoteList = () => {
     },
   });
 
+   // Fetch all admin users for assignment dropdown
+  const { data: admins = [], isLoading: isLoadingAdmins } = useQuery({
+    queryKey: ['admins'],
+    queryFn: async () => {
+      console.log('Attempting to fetch admin users for QuoteList...');
+      if (!token || (!user?.role === 'admin' && !user?.role === 'super admin')) {
+        console.warn('Cannot fetch admins: Token or User role is insufficient.');
+        return [];
+      }
+      try {
+        const res = await axios.get(`${API_BASE_URL}/users/admins`, getAuthHeaders());
+        console.log('Admins API response for QuoteList:', res.data);
+        return res.data;
+      } catch (err) {
+        console.error('Error fetching admins from API in QuoteList:', err.response?.data || err.message);
+        throw err;
+      }
+    },
+    enabled: !!token && (user?.role === 'admin' || user?.role === 'super admin'),
+    staleTime: 5 * 60 * 1000,
+  });
+
   const updateQuoteMutation = useMutation({
     mutationFn: async ({ id, updates }) => {
       const res = await axios.put(`${API_BASE_URL}/quotes/${id}`, updates, getAuthHeaders());
@@ -102,6 +125,28 @@ const QuoteList = () => {
     },
     onError: (err) => {
       setLocalErrorMessage(err.response?.data?.error || 'Failed to delete quote.');
+    },
+  });
+
+  // Mutation for assigning a quote (used by AssignQuoteModal)
+  const assignQuoteMutation = useMutation({
+    mutationFn: async ({ quoteId, assignedToUserId }) => {
+      const res = await axios.put(
+        `${API_BASE_URL}/quotes/${quoteId}/assign`,
+        { assignedToUserId },
+        getAuthHeaders()
+      );
+      return res.data;
+    },
+    onSuccess: (data) => {
+      setLocalSuccessMessage(`Quote assigned successfully to ${data.updatedQuote.assignedTo.name || data.updatedQuote.assignedTo.email}!`);
+      setShowAssignModal(false); // Close the modal
+      setQuoteToAssign(null); // Clear the quote to assign
+      queryClient.invalidateQueries({ queryKey: ['quotes'] }); // Invalidate all quotes list
+      queryClient.invalidateQueries({ queryKey: ['assignedQuotes', user?._id] }); // Invalidate assigned quotes list
+    },
+    onError: (err) => {
+      setLocalErrorMessage(err.response?.data?.error || 'Failed to assign quote.');
     },
   });
 
@@ -885,112 +930,34 @@ const QuoteList = () => {
         </div>
       )}
 
-      {/* Reply Quote Modal */}
+      {/* Admin Reply Quote Modal */}
       {showReplyModal && quoteToReply && (
-        <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-10 p-4 mt-13">
-          <div className="bg-white rounded-lg shadow-xl max-w-2xl w-full p-6 max-h-[90vh] overflow-y-auto">
-            <div className="flex justify-between items-center mb-4">
-              <h3 className="text-xl font-bold text-gray-800">Reply to Quote Request from {quoteToReply.name}</h3>
-              <button
-                onClick={() => setShowReplyModal(false)}
-                className="text-gray-500 hover:text-gray-700"
-              >
-                <FaTimes size={20} />
-              </button>
-            </div>
-            <div className="space-y-4">
-              <div>
-                <p className="text-sm text-gray-500">Recipient Email</p>
-                <p className="font-medium">{quoteToReply.email}</p>
-              </div>
-
-              {/* Display Existing Replies in Reply Modal - STYLED CHAT HISTORY */}
-              {quoteToReply.replies && quoteToReply.replies.length > 0 && (
-                <div className="mt-4 pt-4 border-t border-gray-200">
-                  <p className="text-lg font-semibold text-gray-800 mb-4 border-b pb-2">Conversation History</p>
-                  <div className="max-h-48 overflow-y-scroll border border-gray-200 rounded-md p-3 space-y-3 flex flex-col bg-gray-50 shadow-inner">
-                    {/* Original Quote Message */}
-                    <div
-                      className={`p-4 rounded-lg shadow-sm max-w-[85%] ${
-                        'bg-green-100 border border-green-300 text-green-900 self-start mr-auto'
-                      }`}
-                    >
-                      <p className="text-sm font-bold mb-1">
-                        {quoteToReply.name} (Original Request)
-                      </p>
-                      <p className="text-base text-gray-800 leading-relaxed whitespace-pre-line">
-                        {quoteToReply.message}
-                      </p>
-                      <p className="text-xs text-gray-600 text-right mt-1">
-                        {new Date(quoteToReply.createdAt).toLocaleString()}
-                      </p>
-                    </div>
-                    {/* Existing Replies */}
-                    {quoteToReply.replies.map((reply, index) => (
-                      <div
-                        key={index}
-                        className={`p-4 rounded-lg shadow-sm max-w-[85%] ${
-                          reply.senderType === 'admin'
-                            ? 'bg-blue-100 border border-blue-300 text-blue-900 self-endx ml-auto'
-                            : 'bg-green-100 border border-green-300 text-green-900 self-start mr-auto'
-                        }`}
-                      >
-                        <p className="text-sm font-bold mb-1">
-                          {getSenderName(reply, quoteToReply)}
-                        </p>
-                        <p className="text-base text-gray-800 leading-relaxed whitespace-pre-line">
-                          {reply.message}
-                        </p>
-                        <p className="text-xs text-gray-600 text-right mt-1">
-                          {new Date(reply.repliedAt).toLocaleString()}
-                        </p>
-                      </div>
-                    ))}
-                  </div>
-                </div>
-              )}
-
-              <div>
-                <label htmlFor="replyMessage" className="block text-sm font-medium text-gray-700 mb-1">
-                  Your New Reply
-                </label>
-                <textarea
-                  id="replyMessage"
-                  name="replyMessage"
-                  value={replyMessage}
-                  onChange={(e) => setReplyMessage(e.target.value)}
-                  className="w-full p-3 border border-gray-300 rounded-md focus:ring-blue-500 focus:border-blue-500 resize-y min-h-[80px]"
-                  rows="3"
-                  placeholder="Type your reply here..."
-                ></textarea>
-              </div>
-            </div>
-            <div className="pt-4 flex justify-end space-x-3 border-t mt-4">
-              <button
-                onClick={() => adminReplyToQuoteMutation.mutate({ id: quoteToReply._id, replyData: { replyMessage } })}
-                className="px-4 py-2 flex items-center bg-blue-600 text-white rounded-md hover:bg-blue-700"
-                disabled={adminReplyToQuoteMutation.isPending}
-              >
-                {adminReplyToQuoteMutation.isPending ? <FaSpinner className="animate-spin mr-2" /> : <FaReply className="mr-2" />}
-                Send Reply
-              </button>
-              <button
-                onClick={() => setShowReplyModal(false)}
-                className="px-4 py-2 bg-gray-200 text-gray-800 rounded-md hover:bg-gray-300"
-              >
-                Cancel
-              </button>
-            </div>
-          </div>
-        </div>
+        <AdminReplyQuoteModal
+          quote={quoteToReply}
+          onClose={() => setShowReplyModal(false)}
+          onReplySuccess={() => {
+            setLocalSuccessMessage('Reply sent successfully!');
+            queryClient.invalidateQueries({ queryKey: ['quotes'] });
+            queryClient.invalidateQueries({ queryKey: ['assignedQuotes', user?._id] });
+          }}
+          onReplyError={(msg) => setLocalErrorMessage(msg)}
+        />
       )}
-
+      
       {/* Assign Quote Modal */}
       {showAssignModal && quoteToAssign && (
         <AssignQuoteModal
           quote={quoteToAssign}
+          admins={admins}
           onClose={() => setShowAssignModal(false)}
-          onAssignSuccess={handleAssignSuccess}
+          onAssignSuccess={(assignedToUser) => {
+            assignQuoteMutation.mutate({
+              quoteId: quoteToAssign._id,
+              assignedToUserId: assignedToUser._id,
+            });
+          }}
+          onAssignError={(msg) => setLocalErrorMessage(msg)}
+          isAssigning={assignQuoteMutation.isPending}
         />
       )}
     </div>

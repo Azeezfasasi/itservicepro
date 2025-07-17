@@ -27,7 +27,8 @@ function DashHeader() {
   const menuKeyByPath = {
     '/app/dashboard': '1',
     '/app/quote': '2-1',
-    '/app/myquotes': '2-2',
+    '/app/myassignedquoterequest': '2-2',
+    '/app/myquotes': '2-3',
     '/app/products': '3-1',
     '/app/addproduct': '3-2',
     '/app/productcategories': '3-3',
@@ -172,8 +173,13 @@ function DashHeader() {
                         Quote Requests
                     </Nav.Item>
                     )}
+                    {(isSuperAdmin || isAdmin) && (
+                    <Nav.Item eventKey="2-2" icon={<DetailIcon />} as={Link} to={`/app/myassignedquoterequest`}>
+                        My Assigned Quote
+                    </Nav.Item>
+                    )}
                     {(isCustomer || isUser) && (
-                    <Nav.Item eventKey="2-2" icon={<DetailIcon />} as={Link} to={`/app/myquotes`}>
+                    <Nav.Item eventKey="2-3" icon={<DetailIcon />} as={Link} to={`/app/myquotes`}>
                         My Quote Requests
                     </Nav.Item>
                     )}
