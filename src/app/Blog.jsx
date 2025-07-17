@@ -6,6 +6,7 @@ import { Link } from 'react-router-dom';
 import { FaSpinner } from 'react-icons/fa';
 import Footer from '../assets/components/Footer';
 import { Helmet } from 'react-helmet';
+import TawkToChat from '../assets/components/TawkToChat';
 
 
 function Blog() {
@@ -29,6 +30,7 @@ function Blog() {
   
   return (
     <>
+      <TawkToChat />
       <Helmet>
         <title>Blog | Marshall Global Ventures</title>
       </Helmet>

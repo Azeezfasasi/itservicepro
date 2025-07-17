@@ -5,10 +5,12 @@ import OurVission from './assets/components/OurVission'
 import MeetExpert from './assets/components/MeetExpert'
 import Footer from './assets/components/Footer'
 import {Helmet} from 'react-helmet'
+import TawkToChat from './assets/components/TawkToChat'
 
 function AboutUs() {
   return (
     <>
+    <TawkToChat />
     <Helmet>
       <title>About Us - Marshall Global Ventures</title>
     </Helmet>

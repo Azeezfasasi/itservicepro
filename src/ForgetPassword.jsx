@@ -4,6 +4,7 @@ import MainHeader from './assets/components/MainHeader';
 import { useUser } from './assets/context-api/user-context/UseUser';
 import { Helmet } from 'react-helmet'
 import { API_BASE_URL } from './config/api';
+import TawkToChat from './assets/components/TawkToChat';
 
 function ForgetPassword() {
   const [email, setEmail] = useState('');
@@ -40,6 +41,7 @@ function ForgetPassword() {
 
   return (
     <>
+    <TawkToChat />
     <Helmet>
       <title>Forget Password - Marshall Global Ventures</title>
     </Helmet>

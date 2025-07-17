@@ -5,6 +5,7 @@ import MainHeader from '../assets/components/MainHeader';
 import { useBlog } from '../assets/context-api/blog-context/UseBlog';
 import Footer from '../assets/components/Footer';
 import { Helmet } from 'react-helmet';
+import TawkToChat from '../assets/components/TawkToChat';
 
 function BlogDetail() {
   const { id } = useParams();
@@ -43,6 +44,7 @@ useEffect(() => {
 
   return (
     <>
+      <TawkToChat />
       <Helmet>
         <title>Blog Details | Marshall Global Ventures</title>
       </Helmet>

@@ -4,6 +4,7 @@ import { useNavigate } from 'react-router-dom';
 import TopHeader from './assets/components/TopHeader';
 import MainHeader from './assets/components/MainHeader';
 import { useUser } from './assets/context-api/user-context/UseUser';
+import TawkToChat from './assets/components/TawkToChat';
 
 function Register() {
   const [form, setForm] = useState({
@@ -32,6 +33,7 @@ function Register() {
 
   return (
     <>
+      <TawkToChat />
       <Helmet>
         <title>Register - Marshall Global Ventures</title>
       </Helmet>

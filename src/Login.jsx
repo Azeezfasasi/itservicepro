@@ -5,6 +5,7 @@ import MainHeader from './assets/components/MainHeader';
 import { useUser } from './assets/context-api/user-context/UseUser';
 import { Helmet } from 'react-helmet';
 import Footer from './assets/components/Footer';
+import TawkToChat from './assets/components/TawkToChat';
 
 function Login() {
   const [form, setForm] = useState({ email: '', password: '' });
@@ -28,6 +29,7 @@ function Login() {
 
   return (
     <>
+    <TawkToChat />
     <Helmet>
       <title>Login - Marshall Global Ventures</title>
     </Helmet>
