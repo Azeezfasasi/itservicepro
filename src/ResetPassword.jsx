@@ -6,16 +6,17 @@ import { API_BASE_URL } from './config/api'
 import { Helmet } from 'react-helmet';
 import TopHeader from './assets/components/TopHeader';
 import MainHeader from './assets/components/MainHeader';
+import { useUser } from './assets/context-api/user-context/UseUser';
 
 const ResetPassword = () => {
-  const { token } = useParams(); // Get the reset token from the URL
+  const { token } = useParams();
+  const {loading} = useUser;
   const navigate = useNavigate();
 
   const [password, setPassword] = useState('');
   const [confirmPassword, setConfirmPassword] = useState('');
   const [message, setMessage] = useState(''); // For success messages
   const [error, setError] = useState('');     // For error messages
-  const [loading, setLoading] = useState(false);
   const [tokenValid, setTokenValid] = useState(true); // State to check if token is initially present/valid looking
 
   useEffect(() => {
