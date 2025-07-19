@@ -55,6 +55,7 @@ import ProjectDetailsGallery from './app/ProjectDetailsGallery';
 import RecentProject from './RecentProject';
 import MyAssignedQuoteRequest from './app/MyAssignedQuoteRequest';
 import ResetPassword from './ResetPassword';
+import UnsubscribeNewsletter from './app/UnsubscribeNewsletter';
 
 
 function App() {
@@ -85,6 +86,7 @@ function App() {
                   <Route path="/app/projectdetailsgallery/:id" element={<ProjectDetailsGallery />} />
                   <Route path="/recentproject" element={<RecentProject />} />
                   <Route path="/resetpassword/:token" element={<ResetPassword />} />
+                  <Route path="/unsubscribenewsletter/:token" element={<UnsubscribeNewsletter />} />
 
                   {/* Private/protected routes */}
                   <Route element={<PrivateRoutes />}>
