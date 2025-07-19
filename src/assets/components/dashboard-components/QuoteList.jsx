@@ -68,7 +68,6 @@ const QuoteList = () => {
     queryKey: ['quotes'],
     queryFn: fetchAllQuotes,
     enabled: !!token,
-    // staleTime: 0,
     cacheTime: 5 * 60 * 1000,
     onError: (err) => {
       setLocalErrorMessage(err.response?.data?.error || 'Failed to fetch quotes.');

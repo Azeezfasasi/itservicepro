@@ -85,7 +85,8 @@ const MyAssignedQuoteRequestMain = () => {
     queryKey: ['assignedQuotes', user?._id], // FIXED: Use user?._id in queryKey
     queryFn: fetchAssignedQuotes,
     enabled: !!token && !!user?._id, // FIXED: Use user?._id in enabled condition
-    staleTime: 0,
+    // staleTime: 0,
+    staleTime: 5 * 60 * 1000,
     cacheTime: 5 * 60 * 1000,
     onError: (err) => {
       setLocalErrorMessage(err.response?.data?.error || 'Failed to fetch assigned quotes.');
