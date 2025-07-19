@@ -54,6 +54,7 @@ import CustomerQuotesList from './app/CustomerQuotesList';
 import ProjectDetailsGallery from './app/ProjectDetailsGallery';
 import RecentProject from './RecentProject';
 import MyAssignedQuoteRequest from './app/MyAssignedQuoteRequest';
+import ResetPassword from './ResetPassword';
 
 
 function App() {
@@ -83,6 +84,7 @@ function App() {
                   <Route path="/app/trackorder" element={<TrackOrder />} />
                   <Route path="/app/projectdetailsgallery/:id" element={<ProjectDetailsGallery />} />
                   <Route path="/recentproject" element={<RecentProject />} />
+                  <Route path="/resetpassword" element={<ResetPassword />} />
 
                   {/* Private/protected routes */}
                   <Route element={<PrivateRoutes />}>
