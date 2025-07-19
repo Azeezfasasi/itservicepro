@@ -22,7 +22,7 @@ const PAGE_SIZE = 10;
 
 const QuoteList = () => {
   const queryClient = useQueryClient();
-  const { user, token } = useUser();
+  const { user, token } = useUser(); 
 
   const [editId, setEditId] = useState(null);
   const [editData, setEditData] = useState({});
