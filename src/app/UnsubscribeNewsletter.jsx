@@ -6,6 +6,7 @@ import { Helmet } from 'react-helmet';
 import TopHeader from '../assets/components/TopHeader'; 
 import MainHeader from '../assets/components/MainHeader';
 import { API_BASE_URL } from '../config/api';
+import Footer from '../assets/components/Footer';
 
 const UnsubscribeNewsletter = () => {
   const { token } = useParams(); // Get the unsubscribe token from the URL
@@ -98,6 +99,7 @@ const UnsubscribeNewsletter = () => {
           {renderContent()}
         </div>
       </div>
+      <Footer />
     </>
   );
 };
