@@ -156,7 +156,7 @@ export const UserProvider = ({ children }) => {
 
   return (
     <UserContext.Provider value={{
-      user, token, loading, error, success,
+      user, token, loading, setLoading, error, success,
       register, login, logout, fetchProfile, updateProfile,
       getAllUsers, editUser, deleteUser, disableUser,
       isSuperAdmin, isAdmin, isUser, isCustomer, userListLoading
