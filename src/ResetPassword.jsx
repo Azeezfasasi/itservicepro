@@ -9,14 +9,15 @@ import MainHeader from './assets/components/MainHeader';
 import { useUser } from './assets/context-api/user-context/UseUser';
 
 const ResetPassword = () => {
-  const { token } = useParams();
-  const {loading} = useUser;
+  const { token } = useParams(); // Get the reset token from the URL
   const navigate = useNavigate();
 
   const [password, setPassword] = useState('');
   const [confirmPassword, setConfirmPassword] = useState('');
   const [message, setMessage] = useState(''); // For success messages
   const [error, setError] = useState('');     // For error messages
+  // const [loading, setLoading] = useState(false);
+  const {loading, setLoading} = useUser;
   const [tokenValid, setTokenValid] = useState(true); // State to check if token is initially present/valid looking
 
   useEffect(() => {
