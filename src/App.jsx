@@ -86,7 +86,7 @@ function App() {
                   <Route path="/app/projectdetailsgallery/:id" element={<ProjectDetailsGallery />} />
                   <Route path="/recentproject" element={<RecentProject />} />
                   <Route path="/resetpassword/:token" element={<ResetPassword />} />
-                  <Route path="/unsubscribenewsletter/:token" element={<UnsubscribeNewsletter />} />
+                  <Route path="/app/unsubscribenewsletter/:token" element={<UnsubscribeNewsletter />} />
 
                   {/* Private/protected routes */}
                   <Route element={<PrivateRoutes />}>
