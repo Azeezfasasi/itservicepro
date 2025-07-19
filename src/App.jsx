@@ -84,7 +84,7 @@ function App() {
                   <Route path="/app/trackorder" element={<TrackOrder />} />
                   <Route path="/app/projectdetailsgallery/:id" element={<ProjectDetailsGallery />} />
                   <Route path="/recentproject" element={<RecentProject />} />
-                  <Route path="/resetpassword" element={<ResetPassword />} />
+                  <Route path="/resetpassword/:token" element={<ResetPassword />} />
 
                   {/* Private/protected routes */}
                   <Route element={<PrivateRoutes />}>
