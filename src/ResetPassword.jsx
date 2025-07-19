@@ -17,8 +17,8 @@ const ResetPassword = () => {
   const [message, setMessage] = useState(''); // For success messages
   const [error, setError] = useState('');     // For error messages
   // const [loading, setLoading] = useState(false);
-  const {loading, setLoading} = useUser;
-  const [tokenValid, setTokenValid] = useState(true); // State to check if token is initially present/valid looking
+  const {loading, setLoading} = useUser();
+  const [tokenValid, setTokenValid] = useState(true); 
 
   useEffect(() => {
     // Basic check if token is present in URL.
