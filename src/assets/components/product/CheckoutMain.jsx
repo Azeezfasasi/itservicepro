@@ -399,7 +399,7 @@ const CheckoutMain = () => {
                   />
                   Bank Transfer
                 </label>
-                <label className="flex items-center">
+                {/* <label className="flex items-center">
                   <input
                     type="radio"
                     name="paymentMethod"
@@ -409,7 +409,7 @@ const CheckoutMain = () => {
                     className="mr-2"
                   />
                   Pay with Credit/Debit Card
-                </label>
+                </label> */}
                 <label className="flex items-center">
                   <input
                     type="radio"
@@ -428,9 +428,9 @@ const CheckoutMain = () => {
                 <div className="mt-4">
                   <p className="text-sm text-gray-700 mb-2">
                     Please transfer the total amount to:<br />
-                    <b>Bank Name:</b> Example Bank<br />
+                    <b>Bank Name:</b> Stanbic IBTC<br />
                     <b>Account Number:</b> 1234567890<br />
-                    <b>Account Name:</b> IT ServicePro Ltd
+                    <b>Account Name:</b> Marshall Global Ventures
                   </p>
                   <label className="block text-sm font-medium text-gray-700 mb-1">
                     Bank Transfer Reference / Proof (optional)
@@ -446,7 +446,7 @@ const CheckoutMain = () => {
               )}
 
               {/* Credit/Debit Card Fields */}
-              {paymentMethod === 'Credit/Debit Card' && (
+              {/* {paymentMethod === 'Credit/Debit Card' && (
                 <div className="mt-4">
                   <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                     <div className="md:col-span-2">
@@ -459,7 +459,6 @@ const CheckoutMain = () => {
                         maxLength="19"
                         required
                       />
-                      {/* {validationErrors.cardNumber && <p className="text-red-500 text-xs mt-1">{validationErrors.cardNumber}</p>} */}
                     </div>
                     <div>
                       <label htmlFor="expiryDate" className="block text-sm font-medium text-gray-700 mb-1">Expiry Date (MM/YY)*</label>
@@ -471,7 +470,6 @@ const CheckoutMain = () => {
                         maxLength="5"
                         required
                       />
-                      {/* {validationErrors.expiryDate && <p className="text-red-500 text-xs mt-1">{validationErrors.expiryDate}</p>} */}
                     </div>
                     <div>
                       <label htmlFor="cvv" className="block text-sm font-medium text-gray-700 mb-1">CVV*</label>
@@ -483,7 +481,6 @@ const CheckoutMain = () => {
                         maxLength="4"
                         required
                       />
-                      {/* {validationErrors.cvv && <p className="text-red-500 text-xs mt-1">{validationErrors.cvv}</p>} */}
                     </div>
                     <div className="md:col-span-2">
                       <label htmlFor="cardName" className="block text-sm font-medium text-gray-700 mb-1">Name on Card*</label>
@@ -493,11 +490,10 @@ const CheckoutMain = () => {
                         className={`w-full border ${validationErrors.cardName ? 'border-red-500' : 'border-gray-300'} rounded-md shadow-sm px-3 py-2 focus:ring-blue-500 focus:border-blue-500`}
                         required
                       />
-                      {/* {validationErrors.cardName && <p className="text-red-500 text-xs mt-1">{validationErrors.cardName}</p>} */}
                     </div>
                   </div>
                 </div>
-              )}
+              )} */}
 
               {/* WhatsApp Fields */}
               {paymentMethod === 'WhatsApp' && (
