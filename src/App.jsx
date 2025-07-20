@@ -56,6 +56,9 @@ import RecentProject from './RecentProject';
 import MyAssignedQuoteRequest from './app/MyAssignedQuoteRequest';
 import ResetPassword from './ResetPassword';
 import UnsubscribeNewsletter from './app/UnsubscribeNewsletter';
+import CreateProject from './app/CreateProject';
+import UpdateProject from './assets/components/dashboard-components/UpdateProject';
+import AllProject from './app/AllProject';
 
 
 function App() {
@@ -118,7 +121,10 @@ function App() {
                     <Route path="/app/viewuserorderdetails/:id" element={<ViewUserOrderDetails />} />
                     <Route path="/app/sendnewsletter" element={<SendNewsletter />} />
                     <Route path="/app/allnewsletter" element={<AllNewsletter />} />
-                    <Route path="/app/Newslettersubscribers" element={<NewsletterSubscribers />} />
+                    <Route path="/app/newslettersubscribers" element={<NewsletterSubscribers />} />
+                    <Route path="/app/createproject" element={<CreateProject />} />
+                    <Route path="/app/updateproject/:id" element={<UpdateProject />} />
+                    <Route path="/app/allproject" element={<AllProject />} />
                   </Route>
                 </Routes>
               </CartProvider>

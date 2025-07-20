@@ -13,6 +13,7 @@ import MessageIcon from '@rsuite/icons/Message';
 import GearIcon from '@rsuite/icons/Gear';
 import { Sidenav, Nav } from 'rsuite';
 import marshalllogo from '../../images/marshalllogo.png'
+import ProjectIcon from '@rsuite/icons/Project';
 
 function DashHeader() {
   const [menuOpen, setMenuOpen] = useState(false);
@@ -40,14 +41,16 @@ function DashHeader() {
     '/app/sendnewsletter': '7-1',
     '/app/allnewsletter': '7-2',
     '/app/Newslettersubscribers': '7-3',
-    '/app/allusers': '8-1',
-    '/app/addnewuser': '8-2',
-    '/app/changeuserpassword': '8-3',
-    '/app/shop': '9',
-    '/quoterequest': '10',
-    '/app/blog': '11',
-    '/app/profile': '12',
-    '/app/mysettings': '13',
+    '/app/allproject': '8-1',
+    '/app/createproject': '8-2',
+    '/app/allusers': '9-1',
+    '/app/addnewuser': '9-2',
+    '/app/changeuserpassword': '9-3',
+    '/app/shop': '10',
+    '/quoterequest': '11',
+    '/app/blog': '12',
+    '/app/profile': '13',
+    '/app/mysettings': '14',
   };
   const activeKey = menuKeyByPath[location.pathname];
 
@@ -215,34 +218,40 @@ function DashHeader() {
                     </Nav.Menu>
                     )}
                     {(isSuperAdmin || isAdmin) && (
-                    <Nav.Menu eventKey="8" title="Users" icon={<PeoplesIcon />}>
-                        <Nav.Item eventKey="8-1" as={Link} to="/app/allusers">All Users</Nav.Item>
-                        <Nav.Item eventKey="8-2" as={Link} to="/app/addnewuser">Add New User</Nav.Item>
-                        <Nav.Item eventKey="8-3" as={Link} to="/app/changeuserpassword">Change User Password</Nav.Item>
+                    <Nav.Menu eventKey="8" title="Completed Projects" icon={<ProjectIcon />}>
+                        <Nav.Item eventKey="8-1" as={Link} to="/app/allproject">All Projects</Nav.Item>
+                        <Nav.Item eventKey="8-2" as={Link} to="/app/createproject">Add New Project</Nav.Item>
+                    </Nav.Menu>
+                    )}
+                    {(isSuperAdmin || isAdmin) && (
+                    <Nav.Menu eventKey="9" title="Users" icon={<PeoplesIcon />}>
+                        <Nav.Item eventKey="9-1" as={Link} to="/app/allusers">All Users</Nav.Item>
+                        <Nav.Item eventKey="9-2" as={Link} to="/app/addnewuser">Add New User</Nav.Item>
+                        <Nav.Item eventKey="9-3" as={Link} to="/app/changeuserpassword">Change User Password</Nav.Item>
                     </Nav.Menu>
                     )}
                     {(isUser || isCustomer) && (
-                    <Nav.Item eventKey="9" icon={<UserInfoIcon />} as={Link} to="/app/shop">
+                    <Nav.Item eventKey="10" icon={<UserInfoIcon />} as={Link} to="/app/shop">
                         Shop Products
                     </Nav.Item>
                     )}
                     {(isUser || isCustomer) && (
-                    <Nav.Item eventKey="10" icon={<UserInfoIcon />} as={Link} to="/quoterequest">
+                    <Nav.Item eventKey="11" icon={<UserInfoIcon />} as={Link} to="/quoterequest">
                         Request a New Quote
                     </Nav.Item>
                     )}
                     {(isUser || isCustomer) && (
-                    <Nav.Item eventKey="11" icon={<UserInfoIcon />} as={Link} to="/app/blog">
+                    <Nav.Item eventKey="12" icon={<UserInfoIcon />} as={Link} to="/app/blog">
                         Blog Posts
                     </Nav.Item>
                     )}
                     {(isSuperAdmin || isAdmin || isUser || isCustomer) && (
-                    <Nav.Item eventKey="12" icon={<UserInfoIcon />} as={Link} to="/app/profile">
+                    <Nav.Item eventKey="13" icon={<UserInfoIcon />} as={Link} to="/app/profile">
                         Profile
                     </Nav.Item>
                     )}
                     {(isSuperAdmin || isAdmin || isUser || isCustomer) && (
-                    <Nav.Item eventKey="13" icon={<GearIcon />} as={Link} to="/app/mysettings">
+                    <Nav.Item eventKey="14" icon={<GearIcon />} as={Link} to="/app/mysettings">
                         Settings
                     </Nav.Item>
                     )}
