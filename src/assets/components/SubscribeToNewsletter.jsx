@@ -9,6 +9,7 @@ function SubscribeToNewsletter() {
   const [name, setName] = useState('');
   const [success, setSuccess] = useState('');
   const [error, setError] = useState('');
+  const [loading, setLoading] = useState('');
 
   const mutation = useMutation({
     mutationFn: async (email) => {
@@ -37,6 +38,10 @@ function SubscribeToNewsletter() {
     mutation.mutate(email);
   };
 
+  if (loading) {
+    return <FaSpinner />;
+  }
+
   return (
     <>
     <div className="flex-1">
@@ -63,9 +68,9 @@ function SubscribeToNewsletter() {
           <button
               type="submit"
               className="bg-[#00B9F1] hover:bg-[#00A1D1] text-white px-4 py-2 rounded transition cursor-pointer flex items-center justify-center" // Added flex classes
-              disabled={mutation.isLoading} // Disable button while loading
+              disabled={loading} // Disable button while loading
           >
-              {mutation.isLoading ? (
+              {loading ? (
                 <>
                   <FaSpinner className="animate-spin mr-2" /> {/* Spinner icon */}
                   Subscribing...

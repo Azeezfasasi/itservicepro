@@ -17,7 +17,7 @@ function AdminOrderList() {
       <div className='hidden lg:block w-[20%]'>
         <DashMenu />
       </div>
-      <div className='w-full lg:w-[80%]'>
+      <div className='w-full lg:w-[80%] overflow-x-hidden'>
         <AdminAllOrderMain />
       </div>
     </div>
