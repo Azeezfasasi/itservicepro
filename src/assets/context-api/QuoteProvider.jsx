@@ -35,9 +35,9 @@ export const QuoteProvider = ({ children }) => {
     setLoading(true);
     setError('');
     try {
-      console.log('Fetching ALL quotes (Admin view)...');
+      // console.log('Fetching ALL quotes (Admin view)...');
       const res = await axios.get(`${API_BASE_URL}/quotes`, getAuthHeaders());
-      console.log('Quotes response (Admin view):', res);
+      // console.log('Quotes response (Admin view):', res);
       setQuotes(res.data);
       return res.data;
     } catch (err) {

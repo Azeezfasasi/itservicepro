@@ -23,7 +23,7 @@ function Footer() {
           </div>
           <div className="flex items-center">
             <MapPin className="w-4 h-4 mr-2 text-[#00B9F1]" />
-            <span className="text-gray-200">123 Ikorodu Road, Lagos, Nigeria</span>
+            <span className="text-gray-200">Lagos, Nigeria</span>
           </div>
         </div>
 

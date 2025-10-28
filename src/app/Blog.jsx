@@ -36,7 +36,7 @@ function Blog() {
       </Helmet>
       <TopHeader />
       <MainHeader />
-      <div className="max-w-5xl mx-auto mt-8 px-4">
+      <div className="max-w-5xl mx-auto mt-8 px-4 mb-12">
         <h2 className="text-3xl font-bold mb-6 text-center">Our Blog</h2>
         <div className="mb-6 flex flex-wrap gap-3 justify-center">
           <button

@@ -34,14 +34,14 @@ export const ProductProvider = ({ children }) => {
   const fetchProducts = useCallback(async (params = {}) => {
     setLoading(true);
     setError('');
-    console.log('[ProductProvider] fetchProducts: Initiating fetch for all products with params:', params);
+    // console.log('[ProductProvider] fetchProducts: Initiating fetch for all products with params:', params);
     try {
       const response = await axios.get(`${API_BASE_URL}/products`, { params });
       setProducts(response.data.data);
       setTotalProducts(response.data.totalProducts);
       setTotalPages(response.data.totalPages);
       setCurrentPage(response.data.currentPage);
-      console.log('[ProductProvider] fetchProducts: Products fetched successfully. Total:', response.data.totalProducts);
+      // console.log('[ProductProvider] fetchProducts: Products fetched successfully. Total:', response.data.totalProducts);
       return response.data;
     } catch (err) {
       console.error('[ProductProvider] fetchProducts: Error fetching products:', err.response?.data || err.message);
@@ -49,7 +49,7 @@ export const ProductProvider = ({ children }) => {
       return null;
     } finally {
       setLoading(false);
-      console.log('[ProductProvider] fetchProducts: Loading set to false.');
+      // console.log('[ProductProvider] fetchProducts: Loading set to false.');
     }
   }, []); // Dependencies are stable (setters, API_BASE_URL which is a constant)
 
@@ -62,7 +62,7 @@ export const ProductProvider = ({ children }) => {
     try {
       const response = await axios.get(`${API_BASE_URL}/products/${id}`);
       setProduct(response.data);
-      console.log(`[ProductProvider] fetchProductById: Product fetched successfully:`, response.data.name);
+      // console.log(`[ProductProvider] fetchProductById: Product fetched successfully:`, response.data.name);
       return response.data;
     } catch (err) {
       console.error('[ProductProvider] fetchProductById: Error fetching product by ID:', err.response?.data || err.message);
@@ -79,11 +79,11 @@ export const ProductProvider = ({ children }) => {
     setLoading(true);
     setError('');
     setProduct(null); // IMPORTANT: Reset product to null before new fetch
-    console.log(`[ProductProvider] fetchProductBySlug: Initiating fetch for slug: ${slug}`);
+    // console.log(`[ProductProvider] fetchProductBySlug: Initiating fetch for slug: ${slug}`);
     try {
       const response = await axios.get(`${API_BASE_URL}/products/slug/${slug}`);
       setProduct(response.data);
-      console.log(`[ProductProvider] fetchProductBySlug: Product fetched successfully:`, response.data); // Log full data
+      // console.log(`[ProductProvider] fetchProductBySlug: Product fetched successfully:`, response.data); 
       return response.data;
     } catch (err) {
       console.error('[ProductProvider] fetchProductBySlug: Error fetching product by slug:', err.response?.data || err.message);
@@ -91,7 +91,7 @@ export const ProductProvider = ({ children }) => {
       return null;
     } finally {
       setLoading(false);
-      console.log('[ProductProvider] fetchProductBySlug: Loading set to false.');
+      // console.log('[ProductProvider] fetchProductBySlug: Loading set to false.');
     }
   }, []); // Dependencies are stable (setters, API_BASE_URL)
 

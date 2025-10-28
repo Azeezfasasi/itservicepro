@@ -10,7 +10,7 @@ function ContactInfo() {
           <h2 className="text-2xl font-bold text-[#0A1F44] mb-4">Contact Information</h2>
           <div className="mb-4 flex items-start">
             <MapPin className="w-5 h-5 text-[#00B9F1] mt-1 mr-3" />
-            <span className="text-gray-700">123 Ikorodu Road, Lagos, Nigeria</span>
+            <span className="text-gray-700">Lagos, Nigeria</span>
           </div>
           <div className="mb-4 flex items-start">
             <Phone className="w-5 h-5 text-[#00B9F1] mt-1 mr-3" />

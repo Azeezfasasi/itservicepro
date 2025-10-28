@@ -2,7 +2,7 @@
 import React, { useState } from 'react';
 import { useQuery } from '@tanstack/react-query';
 import { useCart } from '../assets/context-api/cart/UseCart';
-import { FaSearch, FaSpinner, FaBoxOpen, FaCheckCircle, FaTimesCircle, FaInfoCircle } from 'react-icons/fa';
+import { FaSearch, FaExclamationCircle, FaSpinner, FaBoxOpen, FaCheckCircle, FaTimesCircle, FaInfoCircle } from 'react-icons/fa';
 import { API_BASE_URL } from '../config/api';
 import { Helmet } from 'react-helmet';
 import TopHeader from '../assets/components/TopHeader';
@@ -65,7 +65,7 @@ const TrackOrder = () => {
       <h1 className="text-4xl font-extrabold text-gray-900 mb-8 text-center">Track Your Order</h1>
 
       <div className="bg-white shadow-lg rounded-lg p-6">
-        <form onSubmit={handleSubmit} className="w-full flex flex-col sm:flex-row items-center gap-4 mb-6">
+        <form onSubmit={handleSubmit} className="w-full flex flex-col sm:flex-col items-center gap-4 mb-6">
           <div className="relative flex-grow w-full">
             <input
               type="text"
@@ -79,7 +79,7 @@ const TrackOrder = () => {
           </div>
           <button
             type="submit"
-            className="w-full sm:w-auto px-6 py-2 bg-blue-600 hover:bg-blue-700 text-white font-semibold rounded-md transition duration-300 disabled:opacity-50 disabled:cursor-not-allowed"
+            className="w-full sm:w-auto px-6 py-2 bg-blue-600 hover:bg-blue-700 text-white font-semibold rounded-md transition duration-300 disabled:opacity-50 disabled:cursor-not-allowed cursor-pointer"
             disabled={!orderNumberInput.trim() || isLoading}
           >
             {isLoading ? <FaSpinner className="animate-spin" /> : 'Track Order'}
@@ -88,7 +88,7 @@ const TrackOrder = () => {
             <button
               type="button"
               onClick={handleClear}
-              className="w-full sm:w-auto px-4 py-2 bg-gray-200 hover:bg-gray-300 text-gray-700 font-semibold rounded-md transition duration-300"
+              className="w-full sm:w-auto px-4 py-2 bg-gray-200 hover:bg-gray-300 text-gray-700 font-semibold rounded-md transition duration-300 cursor-pointer"
             >
               <FaTimesCircle className="inline-block mr-2" /> Clear
             </button>

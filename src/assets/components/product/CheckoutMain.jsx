@@ -388,7 +388,7 @@ const CheckoutMain = () => {
                   />
                   Payment on Delivery
                 </label>
-                <label className="flex items-center">
+                {/* <label className="flex items-center">
                   <input
                     type="radio"
                     name="paymentMethod"
@@ -398,7 +398,7 @@ const CheckoutMain = () => {
                     className="mr-2"
                   />
                   Bank Transfer
-                </label>
+                </label> */}
                 {/* <label className="flex items-center">
                   <input
                     type="radio"
