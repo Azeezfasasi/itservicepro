@@ -7,6 +7,7 @@ import { useCart } from '../../context-api/cart/UseCart';
 import { FaStar, FaStarHalfAlt, FaRegStar, FaShoppingCart, FaHeart, FaShare, FaTags, FaSpinner, FaExpand } from 'react-icons/fa';
 import Lightbox from 'yet-another-react-lightbox';
 import 'yet-another-react-lightbox/styles.css';
+import Footer from '../Footer';
 
 const ProductDetailsMain = () => {
   const { slug } = useParams();
@@ -211,6 +212,7 @@ const ProductDetailsMain = () => {
   const isInWishlist = wishlist?.products?.some(item => item.productId === product._id) || false;
 
   return (
+  <>
     <div className="bg-white">
       <div className="max-w-7xl mx-auto px-4 py-8 sm:px-6 lg:px-8">
         {/* Notification Popup */}
@@ -375,21 +377,21 @@ const ProductDetailsMain = () => {
                   </>
                 )}
 
-                {product.weight !== undefined && product.weight !== null && (
+                {/* {product.weight !== undefined && product.weight !== null && (
                   <>
                     <dt className="text-sm font-medium text-gray-500">Weight</dt>
                     <dd className="text-sm text-gray-900">{product.weight} kg</dd>
                   </>
-                )}
+                )} */}
 
-                {(product.dimensions && (product.dimensions.length !== undefined || product.dimensions.width !== undefined || product.dimensions.height !== undefined)) && (
+                {/* {(product.dimensions && (product.dimensions.length !== undefined || product.dimensions.width !== undefined || product.dimensions.height !== undefined)) && (
                   <>
                     <dt className="text-sm font-medium text-gray-500">Dimensions</dt>
                     <dd className="text-sm text-gray-900">
                       {(product.dimensions.length || 0)} × {(product.dimensions.width || 0)} × {(product.dimensions.height || 0)} cm
                     </dd>
                   </>
-                )}
+                )} */}
               </dl>
             </div>
 
@@ -486,12 +488,12 @@ const ProductDetailsMain = () => {
                     <FaHeart />
                   </button>
 
-                  <button
+                  {/* <button
                     type="button"
                     className="p-3 border border-gray-300 rounded-md text-gray-700 hover:bg-gray-50"
                   >
                     <FaShare />
-                  </button>
+                  </button> */}
                 </div>
               </div>
             )}
@@ -641,6 +643,9 @@ const ProductDetailsMain = () => {
         </div>
       </div>
     </div>
+    <br />
+    <Footer />
+  </>
   );
 };
 export default ProductDetailsMain;
