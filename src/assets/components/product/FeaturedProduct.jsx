@@ -105,7 +105,7 @@ const FeaturedProduct = () => {
                     <img
                       src={product.thumbnail || (product.images && product.images[0]?.url) || '/placehold.co/400x400/CCCCCC/000000?text=No+Image'}
                       alt={product.name}
-                      className="object-contain max-h-40 max-w-full"
+                      className="object-fill"
                     />
                   </div>
                   <div className="w-full text-center">
