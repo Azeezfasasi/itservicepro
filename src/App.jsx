@@ -42,7 +42,6 @@ import OrderSuccess from './app/OrderSuccess';
 import UserOrderDetails from './app/UserOrderDetails';
 import AdminOrderList from './app/AdminOrderList';
 import TrackOrder from './app/TrackOrder';
-// import UpdateProductDetails from './app/UpdateProductDetails';
 import ViewOrderDetails from './app/ViewOrderDetails';
 import ViewUserOrderDetails from './app/ViewUserOrderDetails';
 import EditProductCategories from './app/EditProductCategories';
@@ -59,7 +58,6 @@ import UnsubscribeNewsletter from './app/UnsubscribeNewsletter';
 import CreateProject from './app/CreateProject';
 import UpdateProject from './assets/components/dashboard-components/UpdateProject';
 import AllProject from './app/AllProject';
-
 
 function App() {
   return (

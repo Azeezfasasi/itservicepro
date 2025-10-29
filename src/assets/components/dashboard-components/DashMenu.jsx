@@ -42,7 +42,6 @@ function DashMenu() {
     '/quoterequest': '11',
     '/app/blog': '12',
     '/app/profile': '13',
-    '/app/mysettings': '14',
   };
   const activeKey = menuKeyByPath[location.pathname];
 
@@ -136,11 +135,11 @@ function DashMenu() {
                         Profile
                     </Nav.Item>
                     )}
-                    {(isSuperAdmin || isAdmin || isUser || isCustomer) && (
+                    {/* {(isSuperAdmin || isAdmin || isUser || isCustomer) && (
                     <Nav.Item eventKey="14" icon={<GearIcon />} as={Link} to="/app/mysettings">
                         Settings
                     </Nav.Item>
-                    )}
+                    )} */}
                 </Nav>
             </Sidenav.Body>
         </Sidenav>
