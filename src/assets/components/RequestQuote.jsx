@@ -116,6 +116,7 @@ function RequestQuote() {
                   <option value="Laptop Purchase">Laptop Purchase</option>
                   <option value="Office Computer & Server Setup">Office Computer & Server Setup</option>
                   <option value="IT Solutions">IT Solutions</option>                  
+                  <option value="Training">Training</option>                  
                   <option value="Networking">Networking</option>
                   <option value="Data Recovery">Data Recovery</option>
                   <option value="Software Installation">Software Installation</option>
